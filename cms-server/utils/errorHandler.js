@@ -11,7 +11,7 @@ const handleErrors = ({
   password2,
   dob,
 }) => {
-  if (!firstName || !lastName || !email || !password || !password2 || !dob) {
+  if (!firstName || !lastName || !email || !password || !password2) {
     return {
       status: false,
       statusCode: 400,

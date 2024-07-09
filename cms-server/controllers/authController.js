@@ -4,6 +4,7 @@ const User = require("../models/userModel.js");
 const TokenBlackList = require("../models/tokenBlacklistModel.js");
 const { handleErrors, handleCatchErrors } = require("../utils/errorHandler.js");
 const path = require("path");
+const { CLIENT_URL } = require("../constants/constants.js");
 require("dotenv").config();
 
 const ACCESS_TOKEN_SECRET_KEY = process.env.JWT_ACCESS_TOKEN_SECRET_KEY;
@@ -119,6 +120,10 @@ module.exports.login = async (req, res) => {
       secure: process.env.NODE_ENV === "production",
       maxAge: 24 * 60 * 60 * 1000, // 1 day
     });
+    req.session.message = {
+      type: "success",
+      message: "Google Authentication successfull",
+    };
     res.status(200).json(userInfo);
   } catch (err) {
     console.log("Error while logging in: ", err);
@@ -136,14 +141,20 @@ module.exports.regenerateToken = (req, res) => {
   const { refreshToken } = req.body;
 
   if (!refreshToken)
-    return res.status(401).json({ message: "You are not authenticated" });
+    return res
+      .status(401)
+      .json({ errors: { message: "You are not authenticated" } });
 
   if (!refreshTokens.includes(refreshToken))
-    return res.status(403).json({ message: "Refresh token is not valid" });
+    return res
+      .status(403)
+      .json({ errors: { message: "Refresh token is not valid" } });
 
   jwt.verify(refreshToken, REFRESH_TOKEN_SECRET_KEY, (err, decodedToken) => {
     if (err)
-      return res.status(403).json({ error: "Refresh token is not valid" });
+      return res
+        .status(403)
+        .json({ errors: { message: "Refresh token is not valid" } });
 
     // remove the earlier refresh token placed in the array
     refreshTokens = refreshTokens.filter((token) => token !== refreshToken);
@@ -157,6 +168,41 @@ module.exports.regenerateToken = (req, res) => {
       "refresh-token": newRefreshToken,
     });
   });
+};
+
+// controller for handling successfull login using passport
+module.exports.loginSuccessController = (req, res) => {
+  try {
+    const { accessToken, refreshToken } = createToken(req.user);
+    res.cookie("accessToken", accessToken, {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      maxAge: 24 * 60 * 60 * 1000, // 1 day
+    });
+    req.session.message = "Successfully logged user in";
+    console.log("Session message in success: ", req.session.message);
+    res.redirect(`${CLIENT_URL}/`);
+  } catch (error) {
+    console.log("Error in login success controller: ", error);
+    return res
+      .status(500)
+      .json({ errors: { message: "Something went wrong" } });
+  }
+};
+
+// controller for accessing the session message
+module.exports.fetchSessionMessage = (req, res) => {
+  try {
+    const message = req.session.message || null;
+    req.session.message = null;
+    console.log("Message after: ", message);
+    return res.status(200).json({ message });
+  } catch (error) {
+    console.log("Error while fetching session: ", error);
+    return res
+      .status(500)
+      .json({ errors: { message: "Something went wrong" } });
+  }
 };
 
 // controller for logging users out and update the tokenBlackList in the database

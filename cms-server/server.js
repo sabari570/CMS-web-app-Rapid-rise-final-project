@@ -2,10 +2,15 @@ const express = require("express");
 const cors = require("cors");
 const bodyParser = require("body-parser");
 const cookieParser = require("cookie-parser");
+const session = require("express-session");
+const rateLimit = require("express-rate-limit");
+const helmet = require("helmet");
 const mongoose = require("mongoose");
 const path = require("path");
 const authRoutes = require("./routes/authRoutes.js");
 const { notFound } = require("./utils/errorHandler.js");
+const passport = require("passport");
+const passportMiddleware = require("./middlewares/passportMiddleware.js");
 require("dotenv").config();
 
 // Initialising the express app
@@ -13,11 +18,26 @@ const app = express();
 
 const PORT = process.env.PORT || 3000;
 
+// For securing the headers
+app.use(helmet());
+// For managing sessions
+app.use(
+  session({
+    secret: process.env.SESSION_SECRET,
+    resave: false,
+    saveUninitialized: true,
+    cookie: { secure: process.env.NODE_ENV === "production" },
+  })
+);
 // For accessing json requests
 app.use(express.json());
 app.use(bodyParser.json());
 // middleware for using cookies
 app.use(cookieParser());
+
+// Initialising passport
+app.use(passport.initialize());
+app.use(passport.session());
 app.use(
   cors({
     credentials: true,
@@ -38,6 +58,12 @@ app.use(
   "/uploaded-files",
   express.static(path.join(__dirname, "uploaded_files"))
 );
+
+// Limits the request hit for authenticated APIs
+const limiter = rateLimit({
+  windowMs: 15 * 60 * 1000, // 15 minutes
+  max: 100, // limit each IP to 100 requests per windowMs
+});
 
 // Connecting to MongoDB and starting the server
 const dbURI = process.env.MONGODB_URL;

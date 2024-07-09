@@ -11,7 +11,7 @@ const userSchema = new mongoose.Schema(
     },
     lastName: {
       type: String,
-      required: [true, "Please enter the last name"],
+      // required: [true, "Please enter the last name"],
       trim: true,
     },
     email: {
@@ -23,12 +23,11 @@ const userSchema = new mongoose.Schema(
     },
     password: {
       type: String,
-      required: [true, "Please enter the password"],
+      // required: [true, "Please enter the password"],
       minlength: [6, "Password length must be atleast 6 characters"],
     },
     dob: {
       type: String,
-      required: [true, "Date of birth is required"],
     },
     gender: {
       type: String,
@@ -49,8 +48,10 @@ const userSchema = new mongoose.Schema(
 
 // Middleware to fire a functions before saving the doc to the database
 userSchema.pre("save", async function (next) {
-  const salt = await bcrypt.genSalt();
-  this.password = await bcrypt.hash(this.password, salt);
+  if (this.password) {
+    const salt = await bcrypt.genSalt();
+    this.password = await bcrypt.hash(this.password, salt);
+  }
   next();
 });
 
@@ -59,6 +60,8 @@ userSchema.statics.login = async function (email, password) {
   const user = await this.findOne({ email });
   console.log({ user });
   if (!user) throw new Error("incorrect email");
+
+  if (!user.password) throw new Error("incorrect email");
 
   const auth = await bcrypt.compare(password, user.password);
   if (!auth) throw new Error("incorrect password");
