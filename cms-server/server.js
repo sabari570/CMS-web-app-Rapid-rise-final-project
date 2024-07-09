@@ -8,9 +8,9 @@ const helmet = require("helmet");
 const mongoose = require("mongoose");
 const path = require("path");
 const authRoutes = require("./routes/authRoutes.js");
+const contactRoutes = require("./routes/contactRoutes.js");
 const { notFound } = require("./utils/errorHandler.js");
 const passport = require("passport");
-const passportMiddleware = require("./middlewares/passportMiddleware.js");
 require("dotenv").config();
 
 // Initialising the express app
@@ -75,6 +75,10 @@ mongoose
   })
   .catch((err) => console.log("Mongoose connection errro: ", err));
 
+// authentication routes
 app.use("/api/auth", authRoutes);
+
+// routes for managing contacts
+app.use("/api/contacts", contactRoutes);
 
 app.use(notFound);
