@@ -12,14 +12,19 @@ const authMiddleware = async (req, res, next) => {
   if (!accessToken || accessToken === "undefined")
     return res
       .status(401)
-      .json({ errors: { messgae: "You are not authenticated" } });
+      .json({ errors: { message: "You are not authenticated" } });
 
   const isBlackListed = await TokenBlackList.exists({ token: accessToken });
   if (isBlackListed)
-    return res.status(401).json({ error: "You are not authenticated" });
+    return res
+      .status(401)
+      .json({ errors: { message: "You are not authenticated" } });
 
   jwt.verify(accessToken, JWT_ACCESS_TOKEN_SECRET_KEY, (err, decodedToken) => {
-    if (err) return res.status(403).json({ error: "Token is not valid" });
+    if (err)
+      return res
+        .status(403)
+        .json({ errors: { message: "Token is not valid" } });
     req.userId = decodedToken.id;
     next();
   });

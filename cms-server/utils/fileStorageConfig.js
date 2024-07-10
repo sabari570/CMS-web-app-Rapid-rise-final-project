@@ -58,4 +58,11 @@ const multerErrorHandler = (err, req, res, next) => {
   }
 };
 
-module.exports = { upload, multerErrorHandler };
+const handleFileUpload = (req, res, next) => {
+  upload(req, res, (err) => {
+    if (err) next(err);
+    else next();
+  });
+};
+
+module.exports = { upload, multerErrorHandler, handleFileUpload };

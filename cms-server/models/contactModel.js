@@ -1,7 +1,7 @@
 const mongoose = require("mongoose");
 
 const validatePhoneNumber = (phoneNumber) => {
-  const phoneNumberRegex = /^\+\d{1,3}\s\d{7,15}$/;
+  const phoneNumberRegex = /^\+\d{1,3}\s\d{10}$/;
   return phoneNumberRegex.test(phoneNumber);
 };
 
@@ -39,6 +39,10 @@ const contactSchema = new mongoose.Schema(
         validator: validatePhoneNumber,
         message: "Please enter a valid phone number",
       },
+    },
+    adminId: {
+      type: mongoose.Types.ObjectId,
+      ref: "User",
     },
     profilepic: {
       type: String,

@@ -62,9 +62,11 @@ module.exports.register = async (req, res) => {
       email: user.email,
     };
     res.status(201).json({
-      ...formattedUserObject,
-      "access-token": accessToken,
-      "refresh-token": refreshToken,
+      user: {
+        ...formattedUserObject,
+        "access-token": accessToken,
+        "refresh-token": refreshToken,
+      },
     });
   } catch (err) {
     console.log("Error while registering: ", err);
@@ -78,6 +80,7 @@ module.exports.register = async (req, res) => {
       fs.unlink(filePath, (err) => {
         if (err) {
           console.log("Error detecting file: ", err);
+          throw { statusCode: 500, message: "Error while uploading" };
         } else {
           console.log("File deleted successfully", req.file.filename);
         }
@@ -86,7 +89,7 @@ module.exports.register = async (req, res) => {
     if (!err.statusCode) err = handleCatchErrors(err);
     return res
       .status(err.statusCode || 500)
-      .json({ errors: { message: err.message } || "Something went wrong" });
+      .json({ errors: { message: err.message || "Something went wrong" } });
   }
 };
 
@@ -124,7 +127,7 @@ module.exports.login = async (req, res) => {
       type: "success",
       message: "Google Authentication successfull",
     };
-    res.status(200).json(userInfo);
+    res.status(200).json({ user: userInfo });
   } catch (err) {
     console.log("Error while logging in: ", err);
     if (!err.statusCode) {
@@ -132,7 +135,7 @@ module.exports.login = async (req, res) => {
     }
     return res
       .status(err.statusCode || 500)
-      .json({ errors: { message: err.message } });
+      .json({ errors: { message: err.message || "Something went wrong" } });
   }
 };
 
@@ -210,7 +213,9 @@ module.exports.logout = async (req, res) => {
   const { accessToken } = req.cookies;
 
   if (!accessToken)
-    return res.status(401).json({ message: "You are not authenticated" });
+    return res
+      .status(401)
+      .json({ errors: { message: "You are not authenticated" } });
 
   try {
     await TokenBlackList.create({ token: accessToken });
@@ -219,8 +224,12 @@ module.exports.logout = async (req, res) => {
   } catch (err) {
     console.log("Error while logging out: ", err.message, err.code);
     if (err.code == 11000) {
-      return res.status(400).json({ error: "Access Token already exists" });
+      return res
+        .status(400)
+        .json({ errors: { message: "Access Token already exists" } });
     }
-    return res.status(500).json({ message: "Something went wrong" });
+    return res
+      .status(500)
+      .json({ errors: { message: "Something went wrong" } });
   }
 };

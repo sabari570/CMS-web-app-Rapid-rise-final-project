@@ -50,7 +50,11 @@ const paginate = (query, { page, limit }) => {
   return query.skip(offset).limit(limit);
 };
 
-module.exports.getContacts = async (req, res) => {
+// controller for getting all contact details
+// ==================== FETCH CONTACTS
+// GET: api/contacts/fetch-contacts/
+// PROTECTED
+module.exports.fetchContacts = async (req, res) => {
   try {
     const {
       page = 1,
@@ -60,12 +64,25 @@ module.exports.getContacts = async (req, res) => {
       status = "",
       companies = "",
     } = req.query;
-    console.log("URL: ", req.query);
+    console.log("URL: ", req.query, req.userId);
 
-    const currentPage = parseInt(page, 10);
+    let currentPage = parseInt(page, 10);
     const limitPerPage = parseInt(limit, 10);
 
-    let query = Contact.find();
+    const totalFilteredResults = await Contact.countDocuments(
+      filter(Contact.find(), search, status, companies)
+    );
+    const totalPages = Math.ceil(totalFilteredResults / limitPerPage);
+
+    if (currentPage < 1 || currentPage > totalPages) {
+      currentPage = 1;
+    }
+
+    let query = Contact.find().select({
+      __v: 0,
+      createdAt: 0,
+      updatedAt: 0,
+    });
 
     // Applying search filters
     if (search || status || companies)
@@ -79,10 +96,6 @@ module.exports.getContacts = async (req, res) => {
 
     const contacts = await query.exec();
     const totalCount = await Contact.countDocuments();
-    const totalFilteredResults = await Contact.countDocuments(
-      filter(Contact.find(), search, status, companies)
-    );
-    const totalPages = Math.ceil(totalFilteredResults / limitPerPage);
 
     // Pagination result
     const pagination = {};
@@ -102,6 +115,7 @@ module.exports.getContacts = async (req, res) => {
     }
     return res.status(200).json({
       count: contacts.length,
+      page: currentPage,
       totalCount,
       totalPages,
       pagination,
@@ -112,5 +126,101 @@ module.exports.getContacts = async (req, res) => {
     return res
       .status(error.statusCode || 500)
       .json({ errors: { message: error.message || "Something went wrong" } });
+  }
+};
+
+// controller for fetching a single contact details
+// ==================== FETCH CONTACT DETAILS BY ID
+// GET: api/contacts/fetch-contact/
+// PROTECTED
+module.exports.fetchContactById = async (req, res) => {
+  try {
+    const { id: contactId } = req.params;
+    const contact = await Contact.findById({ _id: contactId }).select({
+      __v: 0,
+      createdAt: 0,
+      updatedAt: 0,
+    });
+    if (!contact)
+      throw {
+        statusCode: 404,
+        message: `Contact with id: ${contactId} not found`,
+      };
+
+    return res.status(200).json({ contact });
+  } catch (error) {
+    console.log("Error while fetching a contact by id: ", error);
+    return res
+      .status(error.statusCode || 500)
+      .json({ errors: { message: error.message || "Something went wrong" } });
+  }
+};
+
+// controller for creating a new contact
+// ==================== CREATE A NEW CONTACT
+// POST: api/contacts/create-contact/
+// PROTECTED
+module.exports.createContact = async (req, res) => {
+  try {
+  } catch (error) {
+    console.log();
+  }
+};
+
+// controller for updating a contact by id
+// ==================== UPDATE CONTACT DETAILS BY ID
+// PATCH: api/contacts/update-contact/:id
+// PROTECTED
+module.exports.updateContactById = async (req, res) => {
+  try {
+    const { id: contactId } = req.params;
+    const updatedFields = req.body;
+    const updatedData = { ...updatedFields };
+
+    const contact = await Contact.findById(contactId);
+    if (!contact)
+      throw {
+        statusCode: 404,
+        message: `Contact with id: ${contactId} not found`,
+      };
+
+    if (req.userId != contact.adminId) {
+      throw {
+        statusCode: 403,
+        message: "User not allowed to edit this contact",
+      };
+    }
+
+    const updatedContact = await Contact.findOneAndUpdate(
+      { _id: contactId },
+      {
+        $set: updatedData,
+      },
+      { new: true, runValidators: true }
+    ).select({
+      __v: 0,
+      createdAt: 0,
+      updatedAt: 0,
+    });
+    return res.status(200).json({
+      message: "Contact updated successfully",
+      contact: updatedContact,
+    });
+  } catch (error) {
+    console.log("Error while updating a contact by id: ", error);
+    return res
+      .status(error.statusCode || 500)
+      .json({ errors: { message: error.message || "Something went wrong" } });
+  }
+};
+
+// controller for updating the profile pic of contact
+// ==================== UPDATING PROFILE PIC OF CONTACT
+// PATCH: api/contacts/change-contact-avatar/:id
+// PROTECTED
+module.exports.changeContactAvatarById = async (req, res) => {
+  try {
+  } catch (error) {
+    console.log();
   }
 };

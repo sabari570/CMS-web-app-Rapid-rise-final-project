@@ -7,16 +7,13 @@ const {
   loginSuccessController,
   fetchSessionMessage,
 } = require("../controllers/authController.js");
-const { upload, multerErrorHandler } = require("../utils/fileStorageConfig.js");
+const {
+  handleFileUpload,
+  multerErrorHandler,
+} = require("../utils/fileStorageConfig.js");
 const passport = require("passport");
 const { CLIENT_URL } = require("../constants/constants.js");
-
-const handleFileUpload = (req, res, next) => {
-  upload(req, res, (err) => {
-    if (err) next(err);
-    else next();
-  });
-};
+const authMiddleware = require("../middlewares/authMiddleware.js");
 
 const router = Router();
 
@@ -61,6 +58,6 @@ router.post("/regenerate-token", regenerateToken);
 router.get("/fetch-session", fetchSessionMessage);
 
 // route for logging users out
-router.get("/logout", logout);
+router.get("/logout", authMiddleware, logout);
 
 module.exports = router;
