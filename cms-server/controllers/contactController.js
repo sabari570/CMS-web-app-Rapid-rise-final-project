@@ -1,4 +1,11 @@
+const { default: mongoose } = require("mongoose");
 const Contact = require("../models/contactModel");
+const {
+  handleContactErrors,
+  handleContactCatchErrors,
+} = require("../utils/errorHandler");
+const path = require("path");
+const fs = require("fs");
 
 // Helper function for search filtering
 const filter = (query, search, status, companies) => {
@@ -20,6 +27,7 @@ const filter = (query, search, status, companies) => {
       $or: [
         { firstName: { $regex: regex } },
         { lastName: { $regex: regex } },
+        { email: { $regex: regex } },
         { address: { $regex: regex } },
         { companyName: { $regex: regex } },
         { phone: { $regex: regex } },
@@ -70,7 +78,7 @@ module.exports.fetchContacts = async (req, res) => {
     const limitPerPage = parseInt(limit, 10);
 
     const totalFilteredResults = await Contact.countDocuments(
-      filter(Contact.find(), search, status, companies)
+      filter(Contact.find({ adminId: req.userId }), search, status, companies)
     );
     const totalPages = Math.ceil(totalFilteredResults / limitPerPage);
 
@@ -78,7 +86,7 @@ module.exports.fetchContacts = async (req, res) => {
       currentPage = 1;
     }
 
-    let query = Contact.find().select({
+    let query = Contact.find({ adminId: req.userId }).select({
       __v: 0,
       createdAt: 0,
       updatedAt: 0,
@@ -95,7 +103,7 @@ module.exports.fetchContacts = async (req, res) => {
     query = paginate(query, { page: currentPage, limit: limitPerPage });
 
     const contacts = await query.exec();
-    const totalCount = await Contact.countDocuments();
+    const totalCount = await Contact.countDocuments({ adminId: req.userId });
 
     // Pagination result
     const pagination = {};
@@ -136,7 +144,10 @@ module.exports.fetchContacts = async (req, res) => {
 module.exports.fetchContactById = async (req, res) => {
   try {
     const { id: contactId } = req.params;
-    const contact = await Contact.findById({ _id: contactId }).select({
+    const contact = await Contact.find({
+      _id: contactId,
+      adminId: req.userId,
+    }).select({
       __v: 0,
       createdAt: 0,
       updatedAt: 0,
@@ -162,8 +173,55 @@ module.exports.fetchContactById = async (req, res) => {
 // PROTECTED
 module.exports.createContact = async (req, res) => {
   try {
+    const { firstName, lastName, address, companyName, status, phone } =
+      req.body;
+    console.log(req.body);
+    const errors = handleContactErrors(req.body);
+
+    if (!errors.status) {
+      throw errors;
+    }
+
+    let contactBody = {
+      firstName,
+      lastName,
+      address,
+      companyName,
+      status,
+      phone,
+      adminId: req.userId,
+    };
+
+    if (req.file) {
+      console.log("Contact filename: ", req.file.filename);
+      contactBody.profilePic = req.file.filename;
+    }
+
+    const contact = await Contact.create(contactBody);
+
+    return res.status(201).json({ contact });
   } catch (error) {
-    console.log();
+    console.log("Error while creating a contact: ", error);
+    if (req.file) {
+      const filePath = path.join(
+        __dirname,
+        "../uploaded_files",
+        req.file.filename
+      );
+      fs.unlink(filePath, (err) => {
+        if (err) {
+          console.log("Error detecting file: ", err);
+          throw { statusCode: 500, message: "Error while uploading" };
+        } else {
+          console.log("File deleted successfully", req.file.filename);
+        }
+      });
+    }
+
+    if (!error.statusCode) error = handleContactCatchErrors(error);
+    return res
+      .status(error.statusCode || 500)
+      .json({ errors: { message: error.message || "Something went wrong" } });
   }
 };
 
@@ -220,7 +278,114 @@ module.exports.updateContactById = async (req, res) => {
 // PROTECTED
 module.exports.changeContactAvatarById = async (req, res) => {
   try {
+    const { id: contactId } = req.params;
+
+    if (!req.file) {
+      throw { statusCode: 400, message: "File is missing" };
+    }
+    const contact = await Contact.findById(contactId);
+    if (!contact)
+      throw {
+        statusCode: 404,
+        message: `Contact with id: ${contactId} not found`,
+      };
+
+    if (req.userId != contact.adminId) {
+      throw {
+        statusCode: 403,
+        message: "User not allowed to edit this contact",
+      };
+    }
+
+    const oldFileName = contact.profilePic;
+    const newFileName = req.file.filename;
+    console.log("Old filename: ", oldFileName);
+    console.log("New filename: ", newFileName);
+
+    if (!oldFileName.startsWith("default")) {
+      // Remove the old file from uploads folder
+      const filePath = path.join(__dirname, "../uploaded_files", oldFileName);
+      fs.unlink(filePath, (err) => {
+        if (err) {
+          console.log("Error detecting file: ", err);
+          throw { statusCode: 500, message: "Error while uploading" };
+        } else {
+          console.log("File deleted successfully", req.file.filename);
+        }
+      });
+    }
+
+    // Now update the profilePic name in the database
+    const updatedContact = await Contact.findByIdAndUpdate(
+      { _id: contactId },
+      {
+        $set: {
+          profilePic: newFileName,
+        },
+      },
+      { new: true }
+    ).select({
+      __v: 0,
+      createdAt: 0,
+      updatedAt: 0,
+    });
+
+    return res.status(200).json({
+      messgae: "Contact avatar changed successfully",
+      contact: updatedContact,
+    });
   } catch (error) {
-    console.log();
+    console.log("Error while changing the profile pic of contact: ", error);
+    if (req.file) {
+      const filePath = path.join(
+        __dirname,
+        "../uploaded_files",
+        req.file.filename
+      );
+      fs.unlink(filePath, (err) => {
+        if (err) {
+          console.log("Error detecting file: ", err);
+          throw { statusCode: 500, message: "Error while uploading" };
+        } else {
+          console.log("File deleted successfully", req.file.filename);
+        }
+      });
+    }
+    return res
+      .status(error.statusCode || 500)
+      .json({ errors: { message: error.message || "Something went wrong" } });
+  }
+};
+
+// controller for deleting a contact
+// ==================== DELETING A CONTACT BY ID
+// DELETE: api/contacts/delete-contact/:id
+// PROTECTED
+module.exports.deleteContactById = async (req, res) => {
+  try {
+    const { id: contactId } = req.params;
+
+    const contact = await Contact.findById(contactId);
+    if (!contact)
+      throw {
+        statusCode: 404,
+        message: `Contact with id: ${contactId} not found`,
+      };
+
+    if (req.userId != contact.adminId) {
+      throw {
+        statusCode: 403,
+        message: "User not allowed to delete this contact",
+      };
+    }
+
+    const deletedContact = await Contact.findByIdAndDelete(contactId);
+    console.log({ deletedContact });
+    return res.status(200).json({ message: "Contact deleted successfully" });
+  } catch (error) {
+    console.log("Error while deleting a contact: ", error);
+    return res
+      .status(error.statusCode || 500)
+      .json({ errors: { message: error.message || "Something went wrong" } });
   }
 };

@@ -68,4 +68,54 @@ const handleCatchErrors = (errorObject) => {
   };
 };
 
-module.exports = { handleErrors, handleCatchErrors, notFound };
+const handleContactErrors = ({
+  firstName,
+  lastName,
+  address,
+  companyName,
+  phone,
+}) => {
+  if (!firstName || !lastName || !address || !companyName || !phone) {
+    return {
+      status: false,
+      statusCode: 400,
+      message: "All required fields are mandatory",
+    };
+  }
+
+  return {
+    status: true,
+    statusCode: 200,
+    message: "No errors",
+  };
+};
+
+const handleContactCatchErrors = (errorObject) => {
+  let errors = {};
+
+  // handling validation errors
+  if (errorObject.errors) {
+    Object.values(errorObject.errors).forEach(({ properties }) => {
+      errors[properties.path] = properties.message;
+    });
+  }
+
+  // handling duplication errors
+  if (errorObject.code == 11000) {
+    errors.phone = "This phone number is already registered";
+  }
+
+  return {
+    status: false,
+    statusCode: 400,
+    message: errors,
+  };
+};
+
+module.exports = {
+  handleErrors,
+  handleCatchErrors,
+  handleContactErrors,
+  handleContactCatchErrors,
+  notFound,
+};

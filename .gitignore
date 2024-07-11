@@ -1,4 +1,5 @@
 cms-client/node_modules/
 cms-server/node_modules/
+cms-server/uploaded_files/
 cms-server/.env
 cms-client/.env

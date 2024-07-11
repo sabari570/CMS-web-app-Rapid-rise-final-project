@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const { default: isEmail } = require("validator/lib/isEmail");
 
 const validatePhoneNumber = (phoneNumber) => {
   const phoneNumberRegex = /^\+\d{1,3}\s\d{10}$/;
@@ -30,11 +31,13 @@ const contactSchema = new mongoose.Schema(
     status: {
       type: String,
       default: "Offline",
+      enum: ["Online", "Offline"],
     },
     phone: {
       type: String,
       required: [true, "Phone number is required"],
       trim: true,
+      unique: true,
       validate: {
         validator: validatePhoneNumber,
         message: "Please enter a valid phone number",
@@ -44,7 +47,7 @@ const contactSchema = new mongoose.Schema(
       type: mongoose.Types.ObjectId,
       ref: "User",
     },
-    profilepic: {
+    profilePic: {
       type: String,
       default: "default-profile-pic.png",
     },

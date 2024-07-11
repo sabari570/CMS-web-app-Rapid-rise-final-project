@@ -6,6 +6,7 @@ const {
   updateContactById,
   createContact,
   changeContactAvatarById,
+  deleteContactById,
 } = require("../controllers/contactController");
 const {
   handleFileUpload,
@@ -21,7 +22,13 @@ router.get("/fetch-contacts", authMiddleware, fetchContacts);
 router.get("/fetch-contact/:id", authMiddleware, fetchContactById);
 
 // route for creating a contact
-router.post("/create-contact", authMiddleware, createContact);
+router.post(
+  "/create-contact",
+  authMiddleware,
+  handleFileUpload,
+  multerErrorHandler,
+  createContact
+);
 
 // route for updating contact by id
 router.patch("/update-contact/:id", authMiddleware, updateContactById);
@@ -34,5 +41,8 @@ router.patch(
   multerErrorHandler,
   changeContactAvatarById
 );
+
+// route for deleting a contact by id
+router.delete("/delete-contact/:id", authMiddleware, deleteContactById);
 
 module.exports = router;
