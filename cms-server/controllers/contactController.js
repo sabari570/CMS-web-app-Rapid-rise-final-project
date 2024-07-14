@@ -389,3 +389,21 @@ module.exports.deleteContactById = async (req, res) => {
       .json({ errors: { message: error.message || "Something went wrong" } });
   }
 };
+
+// controller for returning unique companies list
+// ==================== FETCHING UNIQUE COMPANIES LIST
+// GET: api/contacts/fetch-companies
+// PROTECTED
+module.exports.fetchCompanies = async (req, res) => {
+  try {
+    const companiesList = await Contact.distinct("companyName", {
+      adminId: req.userId,
+    });
+    return res.status(200).json({ companiesList });
+  } catch (error) {
+    console.log("Error while fetching companies: ", error);
+    return res
+      .status(error.statusCode || 500)
+      .json({ errors: { message: error.message || "Something went wrong" } });
+  }
+};

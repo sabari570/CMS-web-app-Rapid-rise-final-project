@@ -7,6 +7,7 @@ const {
   createContact,
   changeContactAvatarById,
   deleteContactById,
+  fetchCompanies,
 } = require("../controllers/contactController");
 const {
   handleFileUpload,
@@ -44,5 +45,8 @@ router.patch(
 
 // route for deleting a contact by id
 router.delete("/delete-contact/:id", authMiddleware, deleteContactById);
+
+// route for fetching companies list
+router.get("/fetch-companies", authMiddleware, fetchCompanies);
 
 module.exports = router;

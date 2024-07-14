@@ -9,6 +9,7 @@ const mongoose = require("mongoose");
 const path = require("path");
 const authRoutes = require("./routes/authRoutes.js");
 const contactRoutes = require("./routes/contactRoutes.js");
+const userRoutes = require("./routes/userRoutes.js");
 const { notFound } = require("./utils/errorHandler.js");
 const passport = require("passport");
 require("dotenv").config();
@@ -80,5 +81,8 @@ app.use("/api/auth", authRoutes);
 
 // routes for managing contacts
 app.use("/api/contacts", contactRoutes);
+
+// routes for user profile
+app.use("/api/users", userRoutes);
 
 app.use(notFound);
