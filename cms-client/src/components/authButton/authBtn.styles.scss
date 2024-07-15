@@ -1,0 +1,20 @@
+.auth-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 0.8rem;
+  border-radius: 8px;
+  border: none;
+  background: var(--auth-btn-color);
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 1.5rem;
+
+  &:disabled{
+    cursor: not-allowed;
+    background: var(--auth-btn-disabled-color);
+    color: #fff;
+  }
+}

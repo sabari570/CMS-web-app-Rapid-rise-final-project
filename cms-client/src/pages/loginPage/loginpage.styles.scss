@@ -1,0 +1,26 @@
+@import "../../styles/main.scss";
+
+.loginpage {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .login-wrapper {
+    height: 550px;
+    width: 75%;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: var(--fixed-shadow);
+
+    @include laptop-screen {
+        width: 50%;
+    }
+
+    @include mobile-screen{
+        width: 90%;
+        height: 33rem;
+    }
+  }
+}

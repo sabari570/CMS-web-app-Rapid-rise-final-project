@@ -1,0 +1,86 @@
+@import "../../styles/main.scss";
+
+.input-field {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-bottom: 1.4rem;
+  position: relative;
+  max-width: 25rem;
+  width: 100%;
+  height: 3rem;
+  border-radius: 10px;
+  display: flex;
+  padding: 0 0.6rem;
+  border: 1.5px solid var(--auth-btn-disabled-color);
+
+
+  @include mobile-screen{
+    height: 2.8rem;
+    margin-bottom: 1.8rem;
+  }
+
+  &.highlighted {
+    border: 1.5px solid var(--auth-btn-color);
+  }
+
+  .input-label {
+    position: absolute;
+    color: var(--auth-btn-disabled-color);
+    font-size: 0.8rem;
+    font-weight: 500;
+    background: #fff;
+    pointer-events: none;
+    top: 50%;
+    transform: translateY(-50%);
+    @include transition-ease;
+
+    &.highlighted {
+      top: 0px;
+      left: 5px;
+      font-size: 0.6rem;
+      padding: 0 0.5rem;
+      color: var(--auth-btn-color);
+
+      &.label-error-message {
+        color: red;
+      }
+    }
+  }
+
+  .form-icon {
+    position: absolute;
+    right: 10px;
+    color: var(--auth-btn-disabled-color);
+    cursor: pointer;
+  }
+
+  input {
+    flex: 5;
+    background: none;
+    width: 90%;
+    outline: none;
+    border: none;
+    font-weight: 600;
+    color: #484747;
+
+    &::placeholder {
+      color: #aaa;
+    }
+  }
+
+  &.input-field-error {
+    border: 1px solid red;
+
+    .form-icon {
+      color: red;
+    }
+  }
+
+  &-error-message {
+    top: 48px;
+    font-size: 0.7rem;
+    position: absolute;
+    color: red;
+  }
+}

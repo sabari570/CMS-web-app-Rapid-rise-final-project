@@ -1,0 +1,47 @@
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
+
+:root {
+  --fixed-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  --elevate-shadow: rgba(0, 0, 0, 0.25) 0px 25px 50px -12px;
+  --auth-btn-color: #1ca1ff;
+  --auth-btn-disabled-color: #a7a7a7;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Poppins", sans-serif;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-snap-type: mandatory;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+// MIXINS FOR THE APP
+@mixin transition-ease {
+  transition: all 0.3s ease-in-out;
+}
+
+// MAKING IT RESPONSIVE FOR LAPTOP SCREENS
+@mixin laptop-screen {
+  @media screen and (max-width: 970px) {
+    @content;
+  }
+}
+
+// MAKING IT RESPONSIVE FOR MOBILE SCREENS
+@mixin mobile-screen {
+  @media screen and (max-width: 570px) {
+    @content;
+  }
+}
