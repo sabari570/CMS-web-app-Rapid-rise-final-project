@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import "./loginBody.styles.scss";
 import LoginRightBg from "../../assets/login-right-bg.jpg";
 import Logo from "../../assets/cms-logo.png";
@@ -29,10 +29,10 @@ const LoginBody = () => {
   const {
     register,
     handleSubmit,
-    setError,
     trigger,
     formState: { errors, isSubmitting },
     reset,
+    clearErrors,
   } = useForm({
     resolver: zodResolver(loginSchema),
   });
@@ -43,12 +43,20 @@ const LoginBody = () => {
   const onSubmit = async (data) => {
     console.log("Login data: ", data);
     await new Promise((resolve) => setTimeout(resolve, 3000));
-    dispatch(setIsLoading(true));
-    reset();
+    dispatch(setIsLoading((prev) => !prev));
+    reset({
+      email: "",
+      password: "",
+    });
+    clearErrors();
   };
 
   const handlePasswordVisibility = () => {
     setIsPasswordVisible((prev) => !prev);
+  };
+
+  const handleFormSubmit = (e) => {
+    handleSubmit(onSubmit)();
   };
   return (
     <div className="auth-body">
@@ -58,7 +66,7 @@ const LoginBody = () => {
           <span className="web-app-name">CMS</span>
         </div>
 
-        <form className="auth-form" onSubmit={handleSubmit(onSubmit)}>
+        <form className="auth-form">
           <div className="auth-page-heading">
             <h3>Sign in</h3>
             <p className="sub-heading">
@@ -97,7 +105,11 @@ const LoginBody = () => {
             trigger={trigger}
           />
 
-          <AuthBtn buttonText="Sign in" isSubmitting={isSubmitting} />
+          <AuthBtn
+            onClick={handleFormSubmit}
+            buttonText="Sign in"
+            isSubmitting={isSubmitting}
+          />
 
           <div className="auth-footer-section">
             <div className="auth-footer-section-heading">
@@ -117,7 +129,7 @@ const LoginBody = () => {
       </div>
       <div className="auth-body-right">
         <div className="image-container">
-          <img src={LoginRightBg} alt="login-right-image" />
+          <img loading="lazy" src={LoginRightBg} alt="login-right-image" />
         </div>
       </div>
     </div>

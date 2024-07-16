@@ -15,16 +15,22 @@ const AuthInputField = ({
 }) => {
   const [isHighlighted, setIsHighlighted] = useState(false);
   const isLoading = useSelector(selectIsLoading);
+  const [showError, setShowError] = useState(true);
 
   const handleFocus = () => {
     setIsHighlighted(true);
   };
 
-  const handleBlur = (e) => {
+  const handleBlur = async (e) => {
     if (!e.target.value) {
       setIsHighlighted(false);
     }
-    trigger(type);
+    const result = await trigger(type);
+    if (!result) {
+      setShowError(true);
+    } else {
+      setShowError(false);
+    }
   };
 
   const handleChange = (e) => {
@@ -36,15 +42,17 @@ const AuthInputField = ({
   useEffect(() => {
     setIsHighlighted(false);
   }, [isLoading]);
+
   return (
     <div
       className={`input-field ${isHighlighted && "highlighted"} ${
-        errors && "input-field-error"
+        showError && errors && "input-field-error"
       }`}
     >
       <label
         className={`input-label ${
-          isHighlighted && `highlighted ${errors && "label-error-message"}`
+          isHighlighted &&
+          `highlighted ${showError && errors && "label-error-message"}`
         }`}
       >
         {labelName}
@@ -58,9 +66,10 @@ const AuthInputField = ({
         type={passwordType ? passwordType : type}
         placeholder={isHighlighted ? placeholder : ""}
         onFocus={handleFocus}
-        onBlur={handleBlur}
       />
-      {errors && <p className="input-field-error-message">{errors.message}</p>}
+      {showError && errors && (
+        <p className="input-field-error-message">{errors.message}</p>
+      )}
     </div>
   );
 };
