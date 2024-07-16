@@ -1,0 +1,21 @@
+@import "../../styles/main.scss";
+
+.registerpage {
+  padding: 3rem 0;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .register-wrapper {
+    min-height: 550px;
+    width: 35rem;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: var(--fixed-shadow);
+
+    @include mobile-screen {
+      width: 90%;
+    }
+  }
+}

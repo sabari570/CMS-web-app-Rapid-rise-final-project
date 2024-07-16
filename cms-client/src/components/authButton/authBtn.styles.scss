@@ -1,3 +1,5 @@
+@import "../../styles/main.scss";
+
 .auth-btn {
   display: flex;
   align-items: center;
@@ -11,10 +13,15 @@
   font-weight: 600;
   cursor: pointer;
   margin-top: 1.5rem;
+  @include transition-ease;
 
-  &:disabled{
+  &:disabled {
     cursor: not-allowed;
     background: var(--auth-btn-disabled-color);
     color: #fff;
+  }
+
+  &:hover {
+    background: var(--auth-btn-hover-color);
   }
 }

@@ -59,6 +59,14 @@
         }
       }
 
+      .register-name-field{
+        display: flex;
+        gap: 1rem;
+        width: 100%;
+        align-items: center;
+        justify-content: space-between;
+      }
+
       .auth-footer-section {
         position: relative;
         margin-top: 1rem;

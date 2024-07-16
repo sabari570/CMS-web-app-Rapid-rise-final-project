@@ -1,0 +1,34 @@
+.auth-radio-input-field {
+  margin-bottom: 1rem;
+
+  .radio-field-label{
+    color: var(--auth-btn-disabled-color);
+    margin-bottom: 0.8rem;
+  }
+
+  .gender-radio-group {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+
+    &-box {
+      padding: 0.5rem 0.8rem;
+      border: 1px solid var(--auth-btn-disabled-color);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      cursor: pointer;
+
+      &.radio-box-error{
+        border-color: red;
+      }
+
+    }
+  }
+
+  .gender-error-message {
+    font-size: 0.7rem;
+    color: red;
+  }
+}

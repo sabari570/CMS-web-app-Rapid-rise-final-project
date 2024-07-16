@@ -13,8 +13,7 @@
   padding: 0 0.6rem;
   border: 1.5px solid var(--auth-btn-disabled-color);
 
-
-  @include mobile-screen{
+  @include mobile-screen {
     height: 2.8rem;
     margin-bottom: 1.8rem;
   }
@@ -45,6 +44,14 @@
         color: red;
       }
     }
+
+    &.address-field-label {
+      top: 20%;
+
+      &.highlighted {
+        top: 0px;
+      }
+    }
   }
 
   .form-icon {
@@ -66,6 +73,14 @@
     &::placeholder {
       color: #aaa;
     }
+
+    &[type="date"] {
+      width: inherit;
+
+      &::-webkit-calendar-picker-indicator {
+        filter: invert(80%);
+      }
+    }
   }
 
   &.input-field-error {
@@ -81,5 +96,26 @@
     font-size: 0.7rem;
     position: absolute;
     color: red;
+
+    &.address-field-error-message {
+      top: 115px;
+    }
+  }
+
+  &.address-field {
+    height: 7rem;
+  }
+
+  textarea {
+    outline: none;
+    border: none;
+    background: none;
+    font-weight: 600;
+    color: #484747;
+    padding: 0.8rem 0;
+
+    &::placeholder {
+      color: #aaa;
+    }
   }
 }

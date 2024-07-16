@@ -30,7 +30,7 @@ const LoginBody = () => {
     register,
     handleSubmit,
     trigger,
-    formState: { errors, isSubmitting },
+    formState: { isValid, errors },
     reset,
     clearErrors,
   } = useForm({
@@ -42,7 +42,6 @@ const LoginBody = () => {
 
   const onSubmit = async (data) => {
     console.log("Login data: ", data);
-    await new Promise((resolve) => setTimeout(resolve, 3000));
     dispatch(setIsLoading((prev) => !prev));
     reset({
       email: "",
@@ -75,16 +74,18 @@ const LoginBody = () => {
           </div>
           <AuthInputField
             type="email"
+            fieldType="email"
             labelName="E-mail"
             placeholder="example@gmail.com"
             icon={<IoMailOutline className="form-icon" />}
             register={register}
             errors={errors.email}
             trigger={trigger}
+            isValid={isValid}
           />
           <AuthInputField
-            type="password"
-            passwordType={isPasswordVisible ? "text" : "password"}
+            fieldType="password"
+            type={isPasswordVisible ? "text" : "password"}
             labelName="Password"
             placeholder="Enter your password"
             icon={
@@ -103,12 +104,12 @@ const LoginBody = () => {
             register={register}
             errors={errors.password}
             trigger={trigger}
+            isValid={isValid}
           />
 
           <AuthBtn
             onClick={handleFormSubmit}
             buttonText="Sign in"
-            isSubmitting={isSubmitting}
           />
 
           <div className="auth-footer-section">

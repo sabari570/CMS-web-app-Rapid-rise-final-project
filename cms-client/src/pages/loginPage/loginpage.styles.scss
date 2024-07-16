@@ -15,12 +15,12 @@
     box-shadow: var(--fixed-shadow);
 
     @include laptop-screen {
-        width: 50%;
+      width: 50%;
     }
 
-    @include mobile-screen{
-        width: 90%;
-        height: 33rem;
+    @include mobile-screen {
+      width: 90%;
+      height: 33rem;
     }
   }
 }

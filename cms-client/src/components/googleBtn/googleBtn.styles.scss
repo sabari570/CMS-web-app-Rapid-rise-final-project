@@ -1,3 +1,5 @@
+@import "../../styles/main.scss";
+
 .auth-google-btn {
   height: 3rem;
   width: 100%;
@@ -10,6 +12,7 @@
   border-radius: 8px;
   cursor: pointer;
   background: white;
+  @include transition-ease;
 
   img {
     height: 70%;
@@ -19,5 +22,9 @@
   .btn-text {
     font-size: 0.8rem;
     font-weight: 550;
+  }
+
+  &:hover {
+    box-shadow: var(--fixed-shadow);
   }
 }
