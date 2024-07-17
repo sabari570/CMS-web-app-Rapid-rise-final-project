@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./authProfileContainer.styles.scss";
 import DefaultProfilePic from "../../assets/default-profile-pic.png";
-import { FaEdit } from "react-icons/fa";
+import { TbEditCircle } from "react-icons/tb";
 
 const AuthProfileContainer = ({ type, userAvatar, setUserAvatar }) => {
   const [userAvatarImage, setUserAvatarImage] = useState();
@@ -28,7 +28,7 @@ const AuthProfileContainer = ({ type, userAvatar, setUserAvatar }) => {
         onChange={handleUserAvatarChange}
       />
       <label htmlFor="avatar">
-        <FaEdit />
+        <TbEditCircle />
       </label>
     </div>
   );

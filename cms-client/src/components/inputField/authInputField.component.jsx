@@ -18,7 +18,7 @@ const AuthInputField = ({
   const isLoading = useSelector(selectIsLoading);
   const [showError, setShowError] = useState(true);
 
-  const handleFocus = () => {
+  const handleFocus = (e) => {
     setIsHighlighted(true);
     setShowError(true);
   };
@@ -37,6 +37,11 @@ const AuthInputField = ({
 
   const handleChange = (e) => {
     setShowError(false);
+    if (e.target.value) {
+      setIsHighlighted(true);
+    } else {
+      setIsHighlighted(false);
+    }
   };
 
   useEffect(() => {

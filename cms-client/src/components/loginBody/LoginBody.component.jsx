@@ -1,29 +1,19 @@
 import React, { useState } from "react";
 import "./loginBody.styles.scss";
 import LoginRightBg from "../../assets/login-right-bg.jpg";
-import Logo from "../../assets/cms-logo.png";
-import { Link } from "react-router-dom";
-import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { IoMailOutline } from "react-icons/io5";
 import { FaRegEye } from "react-icons/fa";
 import { FaRegEyeSlash } from "react-icons/fa";
-import AuthBtn from "../authButton/AuthBtn.component";
 import AuthInputField from "../inputField/authInputField.component";
+import { loginSchema } from "../../utils/formSchemas.js";
+import AuthBodyRightBg from "./AuthBodyRightBg.component.jsx";
+import AuthFooterBottomNavigation from "../authFooterBottomNavigation/AuthFooterBottomNavigation.component.jsx";
+import AuthForm from "../authForm/AuthForm.component.jsx";
+import AuthFormHeaderLogo from "../authFormHeaderLogo/AuthFormHeaderLogo.component.jsx";
 import { useDispatch } from "react-redux";
 import { setIsLoading } from "../../store/loading/loading.reducer.js";
-import GoogleBtn from "../googleBtn/GoogleBtn.component.jsx";
-
-const loginSchema = z.object({
-  email: z.string().min(1, { message: "Email is required" }).email({
-    message: "Please enter a valid email",
-  }),
-  password: z
-    .string()
-    .min(1, { message: "Password is required" })
-    .min(6, { message: "Password must be atleast 6 characters" }),
-});
 
 const LoginBody = () => {
   const {
@@ -36,9 +26,9 @@ const LoginBody = () => {
   } = useForm({
     resolver: zodResolver(loginSchema),
   });
+  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
   const dispatch = useDispatch();
-  const [isPasswordVisible, setIsPasswordVisible] = useState(false);
 
   const onSubmit = async (data) => {
     console.log("Login data: ", data);
@@ -53,25 +43,15 @@ const LoginBody = () => {
   const handlePasswordVisibility = () => {
     setIsPasswordVisible((prev) => !prev);
   };
-
-  const handleFormSubmit = (e) => {
-    handleSubmit(onSubmit)();
-  };
   return (
     <div className="auth-body">
       <div className="auth-body-left">
-        <div className="logo-section">
-          <img src={Logo} alt="CMS-logo" />
-          <span className="web-app-name">CMS</span>
-        </div>
-
-        <form className="auth-form">
-          <div className="auth-page-heading">
-            <h3>Sign in</h3>
-            <p className="sub-heading">
-              Access Your Contacts Anytime, Anywhere
-            </p>
-          </div>
+        <AuthFormHeaderLogo />
+        <AuthForm
+          formType="login"
+          handleSubmit={handleSubmit}
+          onSubmit={onSubmit}
+        >
           <AuthInputField
             type="email"
             fieldType="email"
@@ -106,33 +86,15 @@ const LoginBody = () => {
             trigger={trigger}
             isValid={isValid}
           />
+        </AuthForm>
 
-          <AuthBtn
-            onClick={handleFormSubmit}
-            buttonText="Sign in"
-          />
-
-          <div className="auth-footer-section">
-            <div className="auth-footer-section-heading">
-              <div className="line"></div>
-              <span>or sign up with</span>
-            </div>
-
-            <GoogleBtn />
-          </div>
-        </form>
-        <div className="auth-bottom-navigation-footer">
-          <p>Don't have an account?</p>
-          <Link className="navigation-btn" to="/register">
-            Sign up
-          </Link>
-        </div>
+        <AuthFooterBottomNavigation
+          textLabel="Don't have an account?"
+          btnText="Sign up"
+          navigationRoute="/register"
+        />
       </div>
-      <div className="auth-body-right">
-        <div className="image-container">
-          <img loading="lazy" src={LoginRightBg} alt="login-right-image" />
-        </div>
-      </div>
+      <AuthBodyRightBg LoginRightBg={LoginRightBg} />
     </div>
   );
 };

@@ -1,58 +1,20 @@
 import React, { useState } from "react";
-import RegisterRightBg from "../../assets/register-right-bg.jpg";
-import Logo from "../../assets/cms-logo.png";
-import { Link } from "react-router-dom";
-import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { IoMailOutline } from "react-icons/io5";
 import { FaRegEye } from "react-icons/fa";
 import { FaRegEyeSlash } from "react-icons/fa";
 import { FaRegUser } from "react-icons/fa";
-import AuthBtn from "../authButton/AuthBtn.component";
 import AuthInputField from "../inputField/authInputField.component";
 import { useDispatch } from "react-redux";
 import { setIsLoading } from "../../store/loading/loading.reducer.js";
-import GoogleBtn from "../googleBtn/GoogleBtn.component.jsx";
 import GenderRadioField from "../genderRadioField/GenderRadioField.component.jsx";
 import AuthProfileContainer from "../authProfileContainer/AuthProfileContainer.component.jsx";
+import AuthFormHeaderLogo from "../authFormHeaderLogo/AuthFormHeaderLogo.component.jsx";
+import AuthForm from "../authForm/AuthForm.component.jsx";
+import { registerSchema } from "../../utils/formSchemas.js";
+import AuthFooterBottomNavigation from "../authFooterBottomNavigation/AuthFooterBottomNavigation.component.jsx";
 
-const registerSchema = z
-  .object({
-    firstName: z
-      .string()
-      .min(1, { message: "Firstname is required" })
-      .regex(/^[a-zA-Z_]+$/, { message: "Invalid firstname" }),
-    lastName: z
-      .string()
-      .min(1, { message: "Lastname is required" })
-      .regex(/^[a-zA-Z_]+$/, { message: "Invalid lastname" }),
-    email: z.string().min(1, { message: "Email is required" }).email({
-      message: "Please enter a valid email",
-    }),
-    password: z
-      .string()
-      .min(1, { message: "Password is required" })
-      .min(6, { message: "Password must be atleast 6 characters" }),
-    password2: z
-      .string()
-      .min(1, { message: "Password is required" })
-      .min(6, { message: "Password must be atleast 6 characters" }),
-    dob: z.string().min(1, { message: "Date of birth is required" }),
-    gender: z.enum(["male", "female"], {
-      message: "Gender is required",
-    }),
-    address: z.string().min(1, { message: "Address is required" }),
-  })
-  .superRefine((data, ctx) => {
-    if (data.password !== data.password2) {
-      ctx.addIssue({
-        code: z.ZodIssueCode.custom,
-        message: "Passwords do not match",
-        path: ["password2"],
-      });
-    }
-  });
 const RegisterBody = () => {
   const {
     register,
@@ -98,27 +60,16 @@ const RegisterBody = () => {
     setIsConfirmPasswordVisible((prev) => !prev);
   };
 
-  const handleFormSubmit = (e) => {
-    handleSubmit(onSubmit)();
-  };
-
-  console.log("Submitted: ", isValid, errors);
-
   return (
     <div className="auth-body">
       <div className="auth-body-left">
-        <div className="logo-section">
-          <img src={Logo} alt="CMS-logo" />
-          <span className="web-app-name">CMS</span>
-        </div>
+        <AuthFormHeaderLogo />
 
-        <form className="auth-form">
-          <div className="auth-page-heading">
-            <h3>Create Your Account</h3>
-            <p className="sub-heading">
-              Sign Up for Smarter Contact Management
-            </p>
-          </div>
+        <AuthForm
+          formType="register"
+          handleSubmit={handleSubmit}
+          onSubmit={onSubmit}
+        >
           <AuthProfileContainer
             type="file"
             userAvatar={userAvatar}
@@ -233,24 +184,12 @@ const RegisterBody = () => {
             trigger={trigger}
             isValid={isValid}
           />
-
-          <AuthBtn onClick={handleFormSubmit} buttonText="Sign up" />
-
-          <div className="auth-footer-section">
-            <div className="auth-footer-section-heading">
-              <div className="line"></div>
-              <span>or sign up with</span>
-            </div>
-
-            <GoogleBtn />
-          </div>
-        </form>
-        <div className="auth-bottom-navigation-footer">
-          <p>Already have an account?</p>
-          <Link className="navigation-btn" to="/login">
-            Sign in
-          </Link>
-        </div>
+        </AuthForm>
+        <AuthFooterBottomNavigation
+          textLabel="Already have an account?"
+          navigationRoute="/login"
+          btnText="Sign in"
+        />
       </div>
     </div>
   );

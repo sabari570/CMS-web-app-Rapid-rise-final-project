@@ -37,16 +37,24 @@
     position: absolute;
     right: 1rem;
     bottom: 1.4rem;
-    background: var(--auth-btn-color);
+    background: var(--auth-edit-bg);
     color: #fff;
-    font-size: 1.1rem;
+    font-size: 1.2rem;
     width: 2.8rem;
     height: 2.8rem;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    display: grid;
+    place-items: center;
     border-radius: 50%;
     cursor: pointer;
+    @include transition-ease;
+
+    svg {
+      transform: translateX(2px);
+    }
+
+    &:hover {
+      background: var(--auth-btn-hover-color);
+    }
 
     @include mobile-screen {
       height: 2.1rem;
