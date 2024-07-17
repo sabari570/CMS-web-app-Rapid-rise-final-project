@@ -40,15 +40,15 @@ const multerErrorHandler = (err, req, res, next) => {
       if (err.code === "LIMIT_FILE_SIZE") {
         res
           .status(415)
-          .json({ error: { message: "File size exceeds the 3MB limit" } });
+          .json({ errors: { message: "File size exceeds the 3MB limit" } });
       } else {
         res.status(415).json({ error: { message: err.message } });
       }
     } else if (err.code === "INVALID_FILE_TYPE") {
-      res.status(415).json({ error: { message: err.message } });
+      res.status(415).json({ errors: { message: err.message } });
     } else {
       res.status(500).json({
-        error: {
+        errors: {
           message: "An unknown error occurred while uploading the file",
         },
       });

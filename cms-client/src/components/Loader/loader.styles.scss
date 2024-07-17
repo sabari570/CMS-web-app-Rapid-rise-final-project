@@ -1,0 +1,62 @@
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(
+    0,
+    0,
+    0,
+    0.7
+  ); // Slightly darker background for better contrast
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.modal-content {
+  background: #282c34; // Darker background for the modal content
+  padding: 2rem 4rem; // Adjusted padding for better spacing
+  border-radius: 12px; // Slightly increased border-radius
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); // More pronounced shadow for a floating effect
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.loader {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+  &-text {
+    font-size: 24px;
+    color: #61dafb; // React logo color for better contrast
+    margin-bottom: 20px;
+    align-self: center;
+  }
+
+  &-bar {
+    width: 30%;
+    height: 10px;
+    border-radius: 5px;
+    background-color: #61dafb; // React logo color for better contrast
+    animation: loader-bar-animation 2s ease-in-out infinite;
+  }
+}
+
+@keyframes loader-bar-animation {
+  0% {
+    transform: translateX(-100%);
+  }
+  50% {
+    transform: translateX(100%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}

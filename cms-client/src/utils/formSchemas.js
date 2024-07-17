@@ -35,7 +35,7 @@ export const registerSchema = z
     gender: z.enum(["male", "female"], {
       message: "Gender is required",
     }),
-    address: z.string().min(1, { message: "Address is required" }),
+    address: z.string().optional(),
   })
   .superRefine((data, ctx) => {
     if (data.password !== data.password2) {

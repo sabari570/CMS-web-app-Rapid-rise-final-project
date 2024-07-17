@@ -18,11 +18,13 @@ const AuthInputField = ({
   const isLoading = useSelector(selectIsLoading);
   const [showError, setShowError] = useState(true);
 
+  // inorder to highlight the field
   const handleFocus = (e) => {
     setIsHighlighted(true);
     setShowError(true);
   };
 
+  // showing error feature when input is focused away
   const handleBlur = async (e) => {
     if (!e.target.value) {
       setIsHighlighted(false);
@@ -35,6 +37,7 @@ const AuthInputField = ({
     }
   };
 
+  // to remove error while typing
   const handleChange = (e) => {
     setShowError(false);
     if (e.target.value) {
@@ -44,20 +47,24 @@ const AuthInputField = ({
     }
   };
 
+  // useEffect to remove the highlight after submission
   useEffect(() => {
     setIsHighlighted(false);
   }, [isLoading]);
 
+  // inorder to handle errors during submission
   useEffect(() => {
     setShowError(!isValid);
   }, [isValid]);
 
+  // Inorder to prevent copy in password fields
   const handleCopy = (e) => {
     if (fieldType === "password" || fieldType === "password2") {
       e.preventDefault();
     }
   };
 
+  // Inorder to prevent paste in password fields
   const handlePaste = (e) => {
     if (fieldType === "password" || fieldType === "password2") {
       e.preventDefault();

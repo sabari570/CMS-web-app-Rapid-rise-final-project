@@ -6,14 +6,13 @@ import { FaRegEye } from "react-icons/fa";
 import { FaRegEyeSlash } from "react-icons/fa";
 import { FaRegUser } from "react-icons/fa";
 import AuthInputField from "../inputField/authInputField.component";
-import { useDispatch } from "react-redux";
-import { setIsLoading } from "../../store/loading/loading.reducer.js";
 import GenderRadioField from "../genderRadioField/GenderRadioField.component.jsx";
 import AuthProfileContainer from "../authProfileContainer/AuthProfileContainer.component.jsx";
 import AuthFormHeaderLogo from "../authFormHeaderLogo/AuthFormHeaderLogo.component.jsx";
 import AuthForm from "../authForm/AuthForm.component.jsx";
 import { registerSchema } from "../../utils/formSchemas.js";
 import AuthFooterBottomNavigation from "../authFooterBottomNavigation/AuthFooterBottomNavigation.component.jsx";
+import useSignUp from "../../hooks/useSignUp.js";
 
 const RegisterBody = () => {
   const {
@@ -26,15 +25,22 @@ const RegisterBody = () => {
   } = useForm({
     resolver: zodResolver(registerSchema),
   });
-
-  const dispatch = useDispatch();
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
   const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] =
     useState(false);
   const [userAvatar, setUserAvatar] = useState(null);
+  const { signUp } = useSignUp();
+
+  const formatDateString = (dateString) => {
+    const [year, month, date] = dateString.split("-");
+    return `${date}/${month}/${year}`;
+  };
 
   const onSubmit = async (data) => {
-    console.log("Register data: ", data);
+    console.log("Register data before: ", data);
+    data.dob = formatDateString(data.dob);
+
+    console.log("Register data after: ", data);
 
     const formData = new FormData();
     Object.keys(data).forEach((key) => {
@@ -46,7 +52,7 @@ const RegisterBody = () => {
     for (let [key, value] of formData.entries()) {
       console.log(`${key}: ${value}`);
     }
-    dispatch(setIsLoading((prev) => !prev));
+    await signUp(formData);
     reset();
     setUserAvatar(null);
     clearErrors();

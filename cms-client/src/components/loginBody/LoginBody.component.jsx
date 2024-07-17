@@ -12,8 +12,7 @@ import AuthBodyRightBg from "./AuthBodyRightBg.component.jsx";
 import AuthFooterBottomNavigation from "../authFooterBottomNavigation/AuthFooterBottomNavigation.component.jsx";
 import AuthForm from "../authForm/AuthForm.component.jsx";
 import AuthFormHeaderLogo from "../authFormHeaderLogo/AuthFormHeaderLogo.component.jsx";
-import { useDispatch } from "react-redux";
-import { setIsLoading } from "../../store/loading/loading.reducer.js";
+import useLogin from "../../hooks/useLogin.js";
 
 const LoginBody = () => {
   const {
@@ -27,16 +26,12 @@ const LoginBody = () => {
     resolver: zodResolver(loginSchema),
   });
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
-
-  const dispatch = useDispatch();
+  const { login } = useLogin();
 
   const onSubmit = async (data) => {
     console.log("Login data: ", data);
-    dispatch(setIsLoading((prev) => !prev));
-    reset({
-      email: "",
-      password: "",
-    });
+    await login(data);
+    reset();
     clearErrors();
   };
 

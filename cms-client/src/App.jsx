@@ -5,12 +5,18 @@ import Loginpage from "./pages/loginPage/Loginpage.component";
 import Registerpage from "./pages/registerPage/Registerpage.component";
 import Homepage from "./pages/homePage/Homepage.component";
 import Errorpage from "./pages/errorPage/Errorpage.component.jsx";
+import { useSelector } from "react-redux";
+import { selectIsLoading } from "./store/loading/loading.selector.js";
+import Loader from "./components/Loader/Loader.component.jsx";
+import { Toaster } from "react-hot-toast";
 
 const App = () => {
   // const SERVER_URL = "http://localhost:8000/api";
   // const signInWithGoogleHandler = (e) => {
   //   window.open(`${SERVER_URL}/auth/google`, "_self");
   // };
+
+  const loading = useSelector(selectIsLoading);
 
   return (
     <>
@@ -22,6 +28,8 @@ const App = () => {
           <Route path="*" element={<Errorpage />} />
         </Route>
       </Routes>
+      {loading && <Loader />}
+      <Toaster />
     </>
   );
 };
