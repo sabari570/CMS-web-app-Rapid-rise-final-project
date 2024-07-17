@@ -1,0 +1,138 @@
+@import "../../styles/main.scss";
+
+.navbar {
+  width: 100%;
+  background: #fff;
+  position: fixed;
+  top: 0;
+  z-index: 4;
+  box-shadow: var(--fixed-shadow);
+  @include transition-ease;
+
+  &-wrapper {
+    padding: 0.8rem 2rem;
+    &-container {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+
+      .cms-logo {
+        a {
+          display: flex;
+          .app-name-first {
+            color: var(--dark-blue);
+            font-weight: bolder;
+            font-size: 1.5rem;
+          }
+          .app-name-second {
+            color: var(--medium-blue);
+            font-weight: bolder;
+            font-size: 1.5rem;
+          }
+        }
+      }
+
+      .nav-link {
+        display: flex;
+        gap: 3rem;
+        align-items: center;
+        justify-content: center;
+
+        &-item {
+          position: relative;
+          a {
+            font-size: 0.9rem;
+            font-weight: 500;
+            position: relative;
+            color: var(--navy-blue);
+
+            &:hover {
+              color: var(--dark-blue);
+            }
+
+            &::after {
+              content: "";
+              position: absolute;
+              bottom: -20%;
+              left: 1px;
+              height: 2px;
+              width: 0%;
+              background: var(--dark-blue);
+              @include transition-ease;
+            }
+
+            &:hover::after {
+              width: 100%;
+            }
+          }
+
+          &-profile-pic-container {
+            height: 3rem;
+            width: 3rem;
+            overflow: hidden;
+            border-radius: 50%;
+            cursor: pointer;
+            border: 5px solid var(--medium-blue);
+          }
+
+          img {
+            height: 100%;
+            object-fit: cover;
+          }
+        }
+
+        .dropdown-menu {
+          position: absolute;
+          top: 3.5rem;
+          right: 0%;
+          width: 12rem;
+          background: var(--blue-background);
+          border-radius: 10px;
+          padding: 0rem 0.8rem;
+          opacity: 0;
+          visibility: hidden;
+          @include transition-ease;
+
+          &.active {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(15px);
+          }
+
+          &::before {
+            content: "";
+            position: absolute;
+            top: -10%;
+            right: 1%;
+            border-left: 20px solid transparent;
+            border-right: 20px solid transparent;
+            border-bottom: 25px solid var(--blue-background);
+          }
+
+          &-item {
+            padding: 1rem;
+            display: flex;
+            align-items: center;
+            a {
+              display: flex;
+              align-items: center;
+              justify-content: space-between;
+              width: 100%;
+              gap: 0.5rem;
+
+              &:hover::after {
+                width: 0%;
+              }
+            }
+          }
+
+          .seperator {
+            height: 1px;
+            width: 100%;
+            background: #00000032;
+          }
+        }
+      }
+    }
+  }
+}

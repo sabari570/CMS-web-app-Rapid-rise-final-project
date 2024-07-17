@@ -7,6 +7,10 @@
   --auth-btn-hover-color: #0073b1;
   --auth-btn-disabled-color: #a7a7a7;
   --auth-edit-bg: #3771ff;
+  --blue-background: #caf0f8;
+  --dark-blue: #03045e;
+  --navy-blue: #304a58;
+  --medium-blue: #3273dc;
 }
 
 * {
@@ -27,6 +31,10 @@ html {
 a {
   text-decoration: none;
   color: inherit;
+}
+
+li {
+  list-style: none;
 }
 
 // MIXINS FOR THE APP

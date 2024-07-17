@@ -13,21 +13,7 @@ const Homepage = () => {
     else navigate("/login");
   }, [currentUser]);
 
-  const handleDate = (dateString) => {
-    const dateObj = new Date(dateString);
-    return dateObj.toLocaleDateString();
-  };
-  return (
-    <div>
-      Homepage
-      {currentUser && (
-        <div>
-          <p>Original date: {currentUser.dob}</p>
-          <p>Converted date: {handleDate(currentUser.dob)}</p>
-        </div>
-      )}
-    </div>
-  );
+  return <div className="homepage">Homepage</div>;
 };
 
 export default Homepage;

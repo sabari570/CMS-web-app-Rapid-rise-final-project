@@ -37,21 +37,14 @@ const RegisterBody = () => {
   };
 
   const onSubmit = async (data) => {
-    console.log("Register data before: ", data);
     data.dob = formatDateString(data.dob);
-
-    console.log("Register data after: ", data);
+    console.log("Register data: ", data);
 
     const formData = new FormData();
     Object.keys(data).forEach((key) => {
       formData.append(key, data[key]);
     });
     formData.append("profilePic", userAvatar);
-
-    console.log("FormData values:");
-    for (let [key, value] of formData.entries()) {
-      console.log(`${key}: ${value}`);
-    }
     await signUp(formData);
     reset();
     setUserAvatar(null);
