@@ -2,11 +2,13 @@
 
 .navbar {
   width: 100%;
-  background: #fff;
+  background: var(--white);
   position: fixed;
   top: 0;
   z-index: 4;
   box-shadow: var(--fixed-shadow);
+  background: var(--dark-blue);
+  border-bottom: 3px solid white;
   @include transition-ease;
 
   &-wrapper {
@@ -16,16 +18,48 @@
       align-items: center;
       justify-content: space-between;
 
+      .toogle-container {
+        display: none;
+
+        @include mobile-screen {
+          display: flex;
+          z-index: 6;
+
+          .toogle {
+            display: flex;
+            gap: 1rem;
+            flex-direction: row-reverse;
+            position: relative;
+
+            .nav-icon {
+              cursor: pointer;
+              color: var(--scrollbar-background);
+              font-size: 1.1rem;
+              @include transition-ease;
+
+              &.open {
+                color: var(--dark-blue);
+                animation: rotate-open 0.3s forwards;
+              }
+
+              &.close {
+                animation: rotate-close 0.3s forwards;
+              }
+            }
+          }
+        }
+      }
+
       .cms-logo {
         a {
           display: flex;
           .app-name-first {
-            color: var(--dark-blue);
+            color: var(--white);
             font-weight: bolder;
             font-size: 1.5rem;
           }
           .app-name-second {
-            color: var(--medium-blue);
+            color: var(--scrollbar-background);
             font-weight: bolder;
             font-size: 1.5rem;
           }
@@ -40,13 +74,38 @@
 
         &-item {
           position: relative;
+
+          @include mobile-screen {
+            @include nav-links-reveal-transtion;
+            transform: translateX(50vw);
+
+            &.open {
+              transform: translateX(0%);
+            }
+          }
+
+          &.mobile-screen-routes {
+            display: none;
+
+            @include mobile-screen {
+              display: block;
+              @include nav-links-reveal-transtion;
+              transform: translateX(50vw);
+
+              &.open {
+                transform: translateX(0%);
+              }
+            }
+          }
           a {
             font-size: 0.9rem;
             font-weight: 500;
             position: relative;
-            color: var(--navy-blue);
+            color: var(--white);
+            text-transform: uppercase;
+            @include transition-ease;
 
-            &:hover {
+            @include mobile-screen {
               color: var(--dark-blue);
             }
 
@@ -57,12 +116,16 @@
               left: 1px;
               height: 2px;
               width: 0%;
-              background: var(--dark-blue);
+              background: var(--scrollbar-background);
               @include transition-ease;
             }
 
             &:hover::after {
               width: 100%;
+            }
+
+            &:hover {
+              color: var(--scrollbar-background);
             }
           }
 
@@ -72,12 +135,16 @@
             overflow: hidden;
             border-radius: 50%;
             cursor: pointer;
-            border: 5px solid var(--medium-blue);
-          }
+            border: 5px solid var(--scrollbar-background);
 
-          img {
-            height: 100%;
-            object-fit: cover;
+            img {
+              height: 100%;
+              object-fit: cover;
+            }
+
+            @include mobile-screen {
+              display: none;
+            }
           }
         }
 
@@ -86,12 +153,16 @@
           top: 3.5rem;
           right: 0%;
           width: 12rem;
-          background: var(--blue-background);
+          background: var(--dark-blue);
           border-radius: 10px;
           padding: 0rem 0.8rem;
           opacity: 0;
           visibility: hidden;
           @include transition-ease;
+
+          @include mobile-screen {
+            display: none;
+          }
 
           &.active {
             opacity: 1;
@@ -106,7 +177,7 @@
             right: 1%;
             border-left: 20px solid transparent;
             border-right: 20px solid transparent;
-            border-bottom: 25px solid var(--blue-background);
+            border-bottom: 25px solid var(--dark-blue);
           }
 
           &-item {
@@ -119,9 +190,14 @@
               justify-content: space-between;
               width: 100%;
               gap: 0.5rem;
+              @include transition-ease;
 
               &:hover::after {
                 width: 0%;
+              }
+
+              &:hover {
+                transform: scale(1.05);
               }
             }
           }
@@ -132,7 +208,73 @@
             background: #00000032;
           }
         }
+
+        @include mobile-screen {
+          position: fixed;
+          height: 100vh;
+          width: 100%;
+          background: var(--white);
+          max-width: 14rem;
+          display: flex;
+          gap: 2rem;
+          flex-direction: column;
+          top: 0;
+          right: 0;
+          z-index: 5;
+          transform: translateX(100%);
+          box-shadow: var(--elevate-shadow);
+          @include transition-ease;
+
+          &.active-hidden {
+            transform: translateX(0%);
+          }
+        }
+      }
+
+      .overlay {
+        display: none;
+      }
+
+      @include mobile-screen {
+        .overlay {
+          display: block;
+          position: fixed;
+          top: 0;
+          left: 0;
+          width: 100%;
+          height: 100vh;
+          background-color: #00000043;
+          z-index: 1;
+          pointer-events: none;
+        }
       }
     }
+  }
+}
+
+// Implementing a delay for each nav-link-item while opening the drawer
+@for $i from 1 through 5 {
+  .nav-link.active-hidden .nav-link-item.open:nth-child(#{$i}) {
+    transition-delay: ($i * 0.1s) + 0.15s;
+  }
+}
+
+// Animation for open and close
+@keyframes rotate-open {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(180deg);
+  }
+}
+
+@keyframes rotate-close {
+  0% {
+    transform: rotate(180deg);
+  }
+  100% {
+    transform: rotate(0%);
   }
 }

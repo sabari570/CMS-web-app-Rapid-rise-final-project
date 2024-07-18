@@ -6,12 +6,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-top: -5rem;
 
   .login-wrapper {
     height: 550px;
     width: 75%;
     border-radius: 8px;
     overflow: hidden;
+    background: var(--white);
     box-shadow: var(--fixed-shadow);
 
     @include laptop-screen {

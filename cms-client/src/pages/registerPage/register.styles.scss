@@ -6,11 +6,13 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  margin-top: -5rem;
 
   .register-wrapper {
     min-height: 550px;
     width: 35rem;
     border-radius: 8px;
+    background: var(--white);
     overflow: hidden;
     box-shadow: var(--fixed-shadow);
 

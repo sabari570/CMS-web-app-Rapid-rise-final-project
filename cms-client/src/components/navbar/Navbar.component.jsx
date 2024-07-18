@@ -6,15 +6,22 @@ import { useSelector } from "react-redux";
 import { selectCurrentUser } from "../../store/user/user.selector";
 import { FaUserCog } from "react-icons/fa";
 import { TbLogout } from "react-icons/tb";
+import { MdClose } from "react-icons/md";
+import { GiHamburgerMenu } from "react-icons/gi";
 
 const Navbar = () => {
   const currentUser = useSelector(selectCurrentUser);
   const [isToggleDropdown, setToggleDropdown] = useState(false);
+  const [navState, setNavState] = useState(false);
   const profileContainerRef = useRef(null);
 
   const handleToggleDropdown = (e) => {
-    console.log("Clicked");
     setToggleDropdown((prev) => !prev);
+  };
+
+  const toggleNavbar = (e) => {
+    e.stopPropagation();
+    setNavState((prev) => !prev);
   };
 
   const handleImageUrl = (profilePicUrl) => {
@@ -32,6 +39,13 @@ const Navbar = () => {
         !profileContainerRef.current.contains(e.target)
       ) {
         setToggleDropdown(false);
+      }
+
+      const navLinks = document.querySelector(".nav-link");
+      const toggleBtn = document.querySelector(".toogle-container");
+
+      if (navLinks && toggleBtn && !navLinks.contains(event.target)) {
+        setNavState(false);
       }
     };
 
@@ -52,13 +66,41 @@ const Navbar = () => {
             </Link>
           </div>
 
-          <ul className="nav-link">
-            <li className="nav-link-item">
+          <div className="toogle-container">
+            <div className="toogle">
+              {navState ? (
+                <MdClose className={`nav-icon open`} onClick={toggleNavbar} />
+              ) : (
+                <GiHamburgerMenu
+                  className="nav-icon close"
+                  onClick={toggleNavbar}
+                />
+              )}
+            </div>
+          </div>
+
+          <ul className={`nav-link ${navState && "active-hidden"}`}>
+            <li className={`nav-link-item ${navState && "open"}`}>
               <Link to="/">Dashboard</Link>
             </li>
 
-            <li className="nav-link-item">
+            <li className={`nav-link-item ${navState && "open"}`}>
               <Link to="contacts">Contacts</Link>
+            </li>
+
+            <li
+              className={`nav-link-item mobile-screen-routes ${
+                navState && "open"
+              }`}
+            >
+              <Link to="profile">Profile</Link>
+            </li>
+            <li
+              className={`nav-link-item mobile-screen-routes ${
+                navState && "open"
+              }`}
+            >
+              <Link>Logout</Link>
             </li>
 
             <li className="nav-link-item" ref={profileContainerRef}>
@@ -90,6 +132,7 @@ const Navbar = () => {
               </ul>
             </li>
           </ul>
+          {navState && <div className="overlay"></div>}
         </div>
       </div>
     </nav>

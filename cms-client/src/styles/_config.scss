@@ -8,9 +8,14 @@
   --auth-btn-disabled-color: #a7a7a7;
   --auth-edit-bg: #3771ff;
   --blue-background: #caf0f8;
-  --dark-blue: #03045e;
-  --navy-blue: #304a58;
-  --medium-blue: #3273dc;
+  --dark-blue: #201658;
+  --medium-blue: #1d24ca;
+  --body-backgorund: linear-gradient(45deg, #e3f2fd, #bbdefb, #98abee4a);
+  --light-background: #f9e8c9;
+  --navbar-background: #e1f7f5;
+  --scrollbar-background: #48cae4;
+  --white: #fff;
+  --black: #000;
 }
 
 * {
@@ -21,6 +26,7 @@
 
 body {
   font-family: "Poppins", sans-serif;
+  background: var(--body-backgorund);
 }
 
 html {
@@ -37,9 +43,22 @@ li {
   list-style: none;
 }
 
+::-webkit-scrollbar {
+  background: var(--white);
+  width: 0.5rem;
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--scrollbar-background);
+}
+
 // MIXINS FOR THE APP
 @mixin transition-ease {
   transition: all 0.3s ease-in-out;
+}
+
+@mixin nav-links-reveal-transtion {
+  transition: all 0.3s ease-out;
 }
 
 // MAKING IT RESPONSIVE FOR LAPTOP SCREENS
@@ -51,7 +70,7 @@ li {
 
 // MAKING IT RESPONSIVE FOR MOBILE SCREENS
 @mixin mobile-screen {
-  @media screen and (max-width: 570px) {
+  @media screen and (max-width: 650px) {
     @content;
   }
 }
