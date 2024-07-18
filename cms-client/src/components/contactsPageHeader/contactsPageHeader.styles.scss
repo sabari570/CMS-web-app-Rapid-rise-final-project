@@ -1,0 +1,52 @@
+@import "../../styles/main.scss";
+
+.contacts-page-header-wrapper {
+  display: flex;
+  width: 100%;
+  gap: 1rem;
+  align-items: center;
+  justify-content: flex-end;
+  padding-top: 1rem;
+
+  .button-wrapper {
+    padding: 0.4rem 1rem;
+    border: none;
+    outline: 2px solid var(--dark-blue);
+    border-radius: 8px;
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    justify-content: center;
+    background: transparent;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 0.8rem;
+    color: var(--dark-blue);
+    @include transition-ease;
+
+    &:hover {
+      background: var(--dark-blue);
+      color: var(--white);
+    }
+
+    &-pre-icon,
+    &-post-icon {
+      display: flex;
+
+      &.create-btn {
+        font-size: 1rem;
+      }
+    }
+
+    &.create-btn {
+      background: var(--dark-blue);
+      color: var(--white);
+
+      &:hover {
+        color: var(--dark-blue);
+        background: var(--white);
+        outline: none;
+      }
+    }
+  }
+}

@@ -127,6 +127,14 @@
             &:hover {
               color: var(--scrollbar-background);
             }
+
+            &.active {
+              color: var(--scrollbar-background);
+
+              &::after {
+                width: 100%;
+              }
+            }
           }
 
           &-profile-pic-container {
@@ -198,6 +206,12 @@
 
               &:hover {
                 transform: scale(1.05);
+              }
+
+              &.active {
+                &::after {
+                  width: 0%;
+                }
               }
             }
           }

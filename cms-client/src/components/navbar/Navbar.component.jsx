@@ -1,13 +1,13 @@
 import React, { useEffect, useRef, useState } from "react";
 import "./navbar.styles.scss";
-import { Link } from "react-router-dom";
-import { CMS_IMAGE_BASEURL } from "../../constants/appConstants";
+import { Link, NavLink } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { selectCurrentUser } from "../../store/user/user.selector";
 import { FaUserCog } from "react-icons/fa";
 import { TbLogout } from "react-icons/tb";
 import { MdClose } from "react-icons/md";
 import { GiHamburgerMenu } from "react-icons/gi";
+import { handleImageUrl } from "../../utils/helperFunctions";
 
 const Navbar = () => {
   const currentUser = useSelector(selectCurrentUser);
@@ -22,14 +22,6 @@ const Navbar = () => {
   const toggleNavbar = (e) => {
     e.stopPropagation();
     setNavState((prev) => !prev);
-  };
-
-  const handleImageUrl = (profilePicUrl) => {
-    if (profilePicUrl.startsWith("http")) {
-      return profilePicUrl;
-    } else {
-      return `${CMS_IMAGE_BASEURL + profilePicUrl}`;
-    }
   };
 
   useEffect(() => {
@@ -60,10 +52,10 @@ const Navbar = () => {
       <div className="navbar-wrapper">
         <div className="navbar-wrapper-container">
           <div className="cms-logo">
-            <Link to="/">
+            <NavLink to="/">
               <h2 className="app-name-first">Connect</h2>
               <h2 className="app-name-second">EZ</h2>
-            </Link>
+            </NavLink>
           </div>
 
           <div className="toogle-container">
@@ -81,11 +73,11 @@ const Navbar = () => {
 
           <ul className={`nav-link ${navState && "active-hidden"}`}>
             <li className={`nav-link-item ${navState && "open"}`}>
-              <Link to="/">Dashboard</Link>
+              <NavLink to="/">Dashboard</NavLink>
             </li>
 
             <li className={`nav-link-item ${navState && "open"}`}>
-              <Link to="contacts">Contacts</Link>
+              <NavLink to="contacts">Contacts</NavLink>
             </li>
 
             <li
@@ -93,7 +85,7 @@ const Navbar = () => {
                 navState && "open"
               }`}
             >
-              <Link to="profile">Profile</Link>
+              <NavLink to="profile">Profile</NavLink>
             </li>
             <li
               className={`nav-link-item mobile-screen-routes ${
@@ -117,10 +109,10 @@ const Navbar = () => {
 
               <ul className={`dropdown-menu ${isToggleDropdown && "active"}`}>
                 <li className="dropdown-menu-item">
-                  <Link to="profile">
+                  <NavLink to="profile">
                     <span>Profile</span>
                     <FaUserCog className="nav-icon" />
-                  </Link>
+                  </NavLink>
                 </li>
                 <div className="seperator" />
                 <li className="dropdown-menu-item">

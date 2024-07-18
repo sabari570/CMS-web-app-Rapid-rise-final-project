@@ -1,0 +1,124 @@
+@import "../../styles/main.scss";
+.contacts-table {
+  margin-top: 1rem;
+
+  &-wrapper {
+    background: var(--white);
+    padding: 0.5rem 0.8rem;
+    border-radius: 8px;
+
+    &-search-box {
+      width: 17rem;
+      padding: 0.5rem;
+      border: none;
+      outline: 1.5px solid var(--dark-blue);
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+
+      input {
+        border: none;
+        outline: none;
+        background: none;
+        width: 100%;
+        font-size: 0.8rem;
+        font-weight: bold;
+        color: var(--dark-blue);
+
+        &::placeholder {
+          color: var(--light-grey);
+        }
+      }
+    }
+
+    &-container {
+      margin-top: 1rem;
+      max-height: 70vh;
+      overflow: auto;
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 0;
+        padding: 0;
+
+        th {
+          &.table-header {
+            position: sticky;
+            top: 0;
+            background: var(--dark-blue);
+            color: white;
+            padding: 10px;
+            text-align: left;
+            border: none;
+
+            &:first-child {
+              border-top-left-radius: 8px;
+            }
+            &:last-child {
+              border-top-right-radius: 8px;
+            }
+          }
+
+          .table-header-div {
+            display: inline-block;
+          }
+        }
+
+        tbody {
+          td {
+            padding: 10px;
+            text-align: left;
+            border-top: 1px solid #ddd;
+
+            .contact-profile {
+              display: flex;
+              align-items: center;
+              gap: 0.8rem;
+
+              img {
+                height: 32px;
+                width: 32px;
+                border-radius: 50%;
+                object-fit: cover;
+              }
+            }
+
+            .contact-working-status {
+              button {
+                padding: 0.5rem 0.8rem;
+                border-radius: 10px;
+                border: none;
+                cursor: pointer;
+
+                &.employee {
+                  background: #e5faf2;
+                  color: var(--employee-status);
+                }
+
+                &.trainee {
+                  background: #fff0f1;
+                  color: var(--trainee-status);
+                }
+              }
+            }
+          }
+
+          tr {
+            cursor: pointer;
+            @include transition-ease;
+
+            &:nth-child(even) {
+              background-color: #f2f2f2;
+            }
+
+            &:hover {
+              background: var(--light-background);
+            }
+          }
+        }
+      }
+    }
+  }
+}

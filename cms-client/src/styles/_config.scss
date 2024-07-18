@@ -16,6 +16,9 @@
   --scrollbar-background: #48cae4;
   --white: #fff;
   --black: #000;
+  --light-grey: #9f9e9e;
+  --employee-status: #3bb077;
+  --trainee-status: #d95087;
 }
 
 * {
@@ -41,6 +44,10 @@ a {
 
 li {
   list-style: none;
+}
+
+.px-2 {
+  padding: 0rem 1.5rem;
 }
 
 ::-webkit-scrollbar {
