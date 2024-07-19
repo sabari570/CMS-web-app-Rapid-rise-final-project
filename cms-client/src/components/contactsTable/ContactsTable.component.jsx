@@ -1,4 +1,4 @@
-import React, { useMemo, useState } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 import "./contactsTable.styles.scss";
 import ContactsSearchField from "../contactsSearchField/ContactsSearchField.component";
 import {
@@ -8,6 +8,7 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
+import ContactsTablePagination from "../contactsTablePagination/ContactsTablePagination.component";
 
 const ContactsTable = ({
   tableData,
@@ -15,11 +16,16 @@ const ContactsTable = ({
   pageIndex,
   setPageIndex,
   onDelete,
+  sortFieldsObj,
+  statusField,
+  companiesList,
 }) => {
   const data = useMemo(() => tableData, [tableData]);
   const columns = useMemo(() => columnDef, [columnDef]);
   const [contactsData, setContactsData] = useState([]);
-  const [sorting, setSorting] = useState();
+  const [sorting, setSorting] = useState([sortFieldsObj]);
+  const [statusSelected, setStatusSelected] = useState(statusField);
+  const [companiesSelected, setCompaniesSelected] = useState(companiesList);
   const [searchFilter, setSearchFilter] = useState("");
 
   const [pagination, setPagination] = useState({
@@ -40,11 +46,26 @@ const ContactsTable = ({
         pageSize: 10,
       },
     },
+    sortDescFirst: false,
+    onSortingChange: setSorting,
+    manualSorting: true,
   });
-  const totalPages = table.getPageCount();
 
-  console.log({ data, totalPages });
+  useEffect(() => {
+    setSorting(sortFieldsObj);
+  }, [sortFieldsObj]);
 
+  useEffect(() => {
+    setCompaniesSelected(companiesList);
+  }, [companiesList]);
+
+  useEffect(() => {
+    setStatusSelected(statusField);
+  }, [statusField]);
+
+  useEffect(() => {
+    console.log({ sorting, statusSelected, companiesSelected });
+  }, [sorting, statusSelected, companiesSelected]);
   return (
     <div className="contacts-table">
       <div className="contacts-table-wrapper">
@@ -96,6 +117,9 @@ const ContactsTable = ({
             </table>
           )}
         </div>
+
+        {/* TABLE PAGINATION */}
+        <ContactsTablePagination pageCount={table.getPageCount()} />
       </div>
     </div>
   );

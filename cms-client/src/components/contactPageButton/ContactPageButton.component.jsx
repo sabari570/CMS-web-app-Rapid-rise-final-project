@@ -6,12 +6,17 @@ const ContactPageButton = ({
   postIcon,
   onClick = () => {},
   btnClassName = "",
+  buttonWrapperParentClassName = "",
+  children,
 }) => {
   return (
-    <div className={btnClassName} onClick={onClick}>
-      {preIcon && <span>{preIcon}</span>}
-      <span className="btn-name">{btnText}</span>
-      {postIcon && <span>{postIcon}</span>}
+    <div className={buttonWrapperParentClassName}>
+      <div className={btnClassName} onClick={onClick}>
+        {preIcon && <span>{preIcon}</span>}
+        <span className="btn-name">{btnText}</span>
+        {postIcon && <span>{postIcon}</span>}
+      </div>
+      {children}
     </div>
   );
 };

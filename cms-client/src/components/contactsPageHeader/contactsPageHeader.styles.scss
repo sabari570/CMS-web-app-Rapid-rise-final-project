@@ -49,4 +49,194 @@
       }
     }
   }
+
+  .button-wrapper-post-icon {
+    transform: rotate(0deg);
+    transition: transform 0.3s ease-in-out;
+
+    &.dropdown-menu-open {
+      transform: rotate(180deg);
+    }
+  }
+
+  .sort-by-dropdown-parent {
+    position: relative;
+    .sort-dropdown-menu {
+      position: absolute;
+      background: var(--dropdown-menu-background);
+      color: var(--dark-blue);
+      border-radius: 8px;
+      top: 1.8rem;
+      left: -4.5rem;
+      width: 12rem;
+      padding: 0.8rem;
+      z-index: 4;
+      box-shadow: var(--elevate-shadow);
+      display: none;
+      opacity: 0;
+      visibility: hidden;
+      @include transition-ease;
+
+      &.dropdown-open {
+        display: block;
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(10px);
+      }
+
+      &-field-item,
+      &-order-item {
+        margin: 0.5rem 0;
+        cursor: pointer;
+      }
+
+      &-field-item {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        .sort-dropdown-tick-icon {
+          color: var(--employee-status);
+        }
+      }
+
+      &-order-item {
+        display: flex;
+        align-items: center;
+        gap: 0.2rem;
+
+        .sort-dropdown-tick-icon {
+          color: var(--employee-status);
+        }
+      }
+
+      &-seperator {
+        width: 100%;
+        border: 0.5px solid var(--light-grey);
+      }
+
+      .sort-dropdown-footer-btns {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        .sort-apply-btn {
+          margin-top: 1rem;
+          border: none;
+          outline: 2px solid var(--light-grey);
+          padding: 0.5rem 1rem;
+          border-radius: 5px;
+          text-transform: uppercase;
+          font-size: 0.6rem;
+          font-weight: bold;
+          color: var(--dark-blue);
+          background: transparent;
+          cursor: pointer;
+          @include transition-ease;
+
+          &:hover {
+            background: var(--dark-blue);
+            color: var(--white);
+            outline: 2px solid var(--dark-blue);
+          }
+        }
+      }
+    }
+  }
+
+  .filter-by-dropdown-parent {
+    position: relative;
+    .filter-dropdown-menu {
+      position: absolute;
+      background: var(--dropdown-menu-background);
+      color: var(--dark-blue);
+      border-radius: 8px;
+      top: 1.8rem;
+      left: -14.8rem;
+      width: 22rem;
+      padding: 0.8rem;
+      z-index: 4;
+      box-shadow: var(--elevate-shadow);
+      display: none;
+      opacity: 0;
+      visibility: hidden;
+      @include transition-ease;
+
+      &.dropdown-open {
+        display: block;
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(10px);
+      }
+
+      &-field {
+        .heading {
+          font-weight: bold;
+          font-size: 1.2rem;
+        }
+
+        .seperator {
+          width: 100%;
+          margin-top: 0.2rem;
+          border: 0.5px solid var(--light-grey);
+        }
+
+        &-list {
+          display: flex;
+          gap: 0.5rem;
+          margin-top: 0.8rem;
+          margin-bottom: 0.6rem;
+
+          &-item {
+            color: var(--dark-blue);
+            background: var(--white);
+            padding: 0.3rem 0.8rem;
+            border-radius: 1rem;
+            font-size: 0.7rem;
+            @include transition-ease;
+
+            &:hover {
+              background: var(--dark-blue);
+              color: var(--white);
+              cursor: pointer;
+            }
+
+            &.status-active {
+              background: var(--dark-blue);
+              color: var(--white);
+            }
+          }
+
+          .company-names-multi-select {
+            width: 100%;
+          }
+        }
+      }
+
+      .filter-dropdown-footer-btns {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: 1rem;
+        .filter-apply-btn {
+          margin-top: 1rem;
+          border: none;
+          outline: 2px solid var(--light-grey);
+          padding: 0.5rem 1rem;
+          border-radius: 5px;
+          text-transform: uppercase;
+          font-size: 0.6rem;
+          font-weight: bold;
+          color: var(--dark-blue);
+          background: transparent;
+          cursor: pointer;
+          @include transition-ease;
+
+          &:hover {
+            background: var(--dark-blue);
+            color: var(--white);
+            outline: 2px solid var(--dark-blue);
+          }
+        }
+      }
+    }
+  }
 }

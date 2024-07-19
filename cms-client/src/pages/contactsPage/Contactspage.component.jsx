@@ -13,6 +13,9 @@ const Contactspage = () => {
   const navigate = useNavigate();
   const [data, setData] = useState(contactsData);
   const [pageIndex, setPageIndex] = useState(0);
+  const [sortFieldsObj, setSortFieldsObj] = useState();
+  const [statusField, setStatusField] = useState();
+  const [companiesList, setCompaniesList] = useState([]);
 
   // Function to handle deleting a contact
   const handleDelete = (contactId) => {};
@@ -20,16 +23,35 @@ const Contactspage = () => {
   useEffect(() => {
     if (!currentUser) navigate("/login");
   }, [currentUser]);
+
+  const handleSortChange = (sortObj) => {
+    setSortFieldsObj(sortObj);
+  };
+
+  const handleStatusChange = (statusSelected) => {
+    setStatusField(statusSelected);
+  };
+
+  const handleCompaniesChange = (companiesSelected) => {
+    setCompaniesList(companiesSelected);
+  };
   return (
     <div className="contacts-page">
       <div className="contacts-page-wrapper px-2">
-        <ContactsPageHeader />
+        <ContactsPageHeader
+          onSortChange={handleSortChange}
+          onStatusChange={handleStatusChange}
+          onCompaniesChange={handleCompaniesChange}
+        />
         <ContactsTable
           tableData={data}
           columnDef={columns}
           pageIndex={pageIndex}
           setPageIndex={setPageIndex}
           onDelete={handleDelete}
+          sortFieldsObj={sortFieldsObj}
+          statusField={statusField}
+          companiesList={companiesList}
         />
       </div>
     </div>
