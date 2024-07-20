@@ -8,6 +8,19 @@
     padding: 0.8rem;
     border-radius: 8px;
 
+    @include mobile-screen {
+      border-radius: 0px;
+    }
+
+    .contacts-table-wrapper-contacts-card {
+      display: none;
+
+      @include mobile-screen {
+        display: block;
+        margin-top: 1rem;
+      }
+    }
+
     &-search-box {
       width: 17rem;
       padding: 0.5rem;
@@ -17,6 +30,10 @@
       display: flex;
       align-items: center;
       gap: 0.8rem;
+
+      @include mobile-screen {
+        width: 80%;
+      }
 
       input {
         border: none;
@@ -37,6 +54,9 @@
       margin-top: 1rem;
       max-height: 70vh;
       overflow: auto;
+      @include mobile-screen {
+        display: none;
+      }
 
       &::-webkit-scrollbar {
         width: 0.5rem;
@@ -120,12 +140,12 @@
                 cursor: pointer;
 
                 &.employee {
-                  background: #e5faf2;
+                  background: var(--employee-status-background);
                   color: var(--employee-status);
                 }
 
                 &.trainee {
-                  background: #fff0f1;
+                  background: var(--trainee-status-background);
                   color: var(--trainee-status);
                 }
               }
@@ -153,6 +173,37 @@
             &:hover {
               background: var(--table-data-hover-background);
               color: var(--table-scrollbar-thumb);
+            }
+          }
+        }
+
+        .contact-table-actions {
+          display: flex;
+          align-items: center;
+          gap: 1rem;
+          .contact-edit-btn {
+            padding: 0.4rem 1rem;
+            border: none;
+            outline: none;
+            border-radius: 8px;
+            background: var(--scrollbar-background);
+            color: var(--white);
+            cursor: pointer;
+            @include transition-ease;
+
+            &:hover {
+              outline: 1px solid var(--dark-blue);
+            }
+          }
+
+          .contact-delete-btn {
+            color: red;
+            font-size: 1rem;
+            cursor: pointer;
+            @include transition-ease;
+
+            &:hover {
+              color: crimson;
             }
           }
         }

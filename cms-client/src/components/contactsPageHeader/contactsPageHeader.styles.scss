@@ -9,7 +9,7 @@
   padding-top: 1rem;
 
   @include mobile-screen {
-    justify-content: center;
+    justify-content: flex-end;
   }
 
   .button-wrapper {
@@ -52,13 +52,21 @@
       color: var(--white);
 
       @include mobile-screen {
-        display: none;
+        position: fixed;
+        bottom: 1rem;
+        right: 1rem;
+        border-radius: 10px;
+        box-shadow: 12px 13px 42px -8px rgba(0, 0, 0, 0.506);
       }
 
       &:hover {
         color: var(--dark-blue);
         background: var(--white);
         outline: none;
+
+        @include mobile-screen {
+          outline: 2px solid var(--dark-blue);
+        }
       }
     }
   }
@@ -98,7 +106,7 @@
         margin: 0 auto;
         width: 100%;
         max-height: 18rem;
-        border-radius: 8px 8px 0 0;
+        border-radius: 16px 16px 0 0;
         display: block;
         background: var(--dropdown-menu-background);
         @include transition-ease;
@@ -119,6 +127,7 @@
       &-order-item {
         margin: 0.5rem 0;
         cursor: pointer;
+        font-size: 0.8rem;
       }
 
       &-field-item {
@@ -194,7 +203,7 @@
       top: 1.8rem;
       left: -14.8rem;
       width: 22rem;
-      padding: 0.8rem;
+      padding: 1rem 0.8rem;
       z-index: 4;
       box-shadow: var(--elevate-shadow);
       display: none;
@@ -203,30 +212,53 @@
       @include transition-ease;
 
       @include mobile-screen {
-        position: relative;
+        position: fixed;
+        top: 100%;
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+        width: 100%;
+        border-radius: 16px 16px 0 0;
+        display: block;
+        background: var(--dropdown-menu-background);
+        overflow-y: auto;
+        @include transition-ease;
       }
 
       &.dropdown-open {
-        display: block;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
         opacity: 1;
         visibility: visible;
         transform: translateY(10px);
 
         @include mobile-screen {
-          display: none;
+          transform: translateY(-100%);
         }
+      }
+
+      .filter-by-title {
+        display: none;
+
+        @include mobile-screen {
+          display: block;
+          margin-bottom: 0.5rem;
+          text-transform: uppercase;
+          font-weight: bold;
+        }
+      }
+
+      .seperator {
+        width: 100%;
+        margin-top: 0.2rem;
+        border: 0.5px solid var(--light-grey);
       }
 
       &-field {
         .heading {
           font-weight: bold;
           font-size: 1.2rem;
-        }
-
-        .seperator {
-          width: 100%;
-          margin-top: 0.2rem;
-          border: 0.5px solid var(--light-grey);
         }
 
         &-list {

@@ -9,6 +9,7 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 import ContactsTablePagination from "../contactsTablePagination/ContactsTablePagination.component";
+import ContactCard from "../contactCard/ContactCard.component";
 
 const ContactsTable = ({
   tableData,
@@ -21,7 +22,7 @@ const ContactsTable = ({
   companiesList,
 }) => {
   const data = useMemo(() => tableData, [tableData]);
-  const columns = useMemo(() => columnDef, [columnDef]);
+  const columns = useMemo(() => columnDef(onDelete), [columnDef, onDelete]);
   const [contactsData, setContactsData] = useState([]);
   const [sorting, setSorting] = useState([sortFieldsObj]);
   const [statusSelected, setStatusSelected] = useState(statusField);
@@ -116,6 +117,15 @@ const ContactsTable = ({
               </tbody>
             </table>
           )}
+        </div>
+
+        {/* CONTACTS CARD */}
+        <div className="contacts-table-wrapper-contacts-card">
+          <div className="contact-card-wrapper">
+            {data.map((contact, index) => (
+              <ContactCard key={index} contact={contact} />
+            ))}
+          </div>
         </div>
 
         {/* TABLE PAGINATION */}

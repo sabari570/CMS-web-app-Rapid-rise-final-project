@@ -1,5 +1,6 @@
 export const CMS_IMAGE_BASEURL = import.meta.env.VITE_CMS_IMAGE_BASEURL;
-export const selectLabelCustomStyles = {
+
+export const selectLabelCustomStyles = (isMobile) => ({
   control: (provided, state) => ({
     ...provided,
     fontSize: "0.8rem",
@@ -48,6 +49,8 @@ export const selectLabelCustomStyles = {
     ...provided,
     maxHeight: "10rem",
     overflow: "auto",
+    top: isMobile ? "0" : "",
+    position: isMobile ? "relative" : "absolute",
   }),
   // Match the height of the menulist with the menu inorder to prevent breaking in UI
   menuList: (provided) => ({
@@ -55,4 +58,4 @@ export const selectLabelCustomStyles = {
     maxHeight: "10rem",
     overflowY: "auto",
   }),
-};
+});

@@ -1,5 +1,6 @@
 import React from "react";
 import Select from "react-select";
+import useIsMobile from "../../hooks/useIsMobile";
 import { selectLabelCustomStyles } from "../../constants/appConstants";
 
 const FilterByDropdown = ({
@@ -11,6 +12,7 @@ const FilterByDropdown = ({
   applyFilter,
   resetFilter,
 }) => {
+  const isMobile = useIsMobile(650);
   const statusFields = ["Online", "Offline"];
   const companyNames = [
     { label: "Google", value: "google" },
@@ -25,42 +27,44 @@ const FilterByDropdown = ({
         isFilterDropdownOpen && "dropdown-open"
       }`}
     >
-      <div className="filter-dropdown-menu-field">
-        <p className="heading">Status</p>
-        <div className="seperator"></div>
-        <div className="filter-dropdown-menu-field-list">
-          {statusFields.map((status) => (
-            <div
-              key={status}
-              className={`filter-dropdown-menu-field-list-item ${
-                selectedStatus === status && "status-active"
-              }`}
-              onClick={() => setSelectedStatus(status)}
-            >
-              {status}
-            </div>
-          ))}
+      <div>
+        <div className="filter-by-title">Filter by</div>
+        <div className="filter-dropdown-menu-field">
+          <p className="heading">Status</p>
+          <div className="seperator"></div>
+          <div className="filter-dropdown-menu-field-list">
+            {statusFields.map((status) => (
+              <div
+                key={status}
+                className={`filter-dropdown-menu-field-list-item ${
+                  selectedStatus === status && "status-active"
+                }`}
+                onClick={() => setSelectedStatus(status)}
+              >
+                {status}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="filter-dropdown-menu-field">
+          <p className="heading">Company Name</p>
+          <div className="seperator"></div>
+          <div className="filter-dropdown-menu-field-list">
+            <Select
+              isMulti
+              name="companyNames"
+              options={companyNames}
+              className="company-names-multi-select"
+              classNamePrefix="select"
+              styles={selectLabelCustomStyles(isMobile)}
+              value={selectedCompanies}
+              onChange={setSelectedCompanies}
+              placeholder="Select companies"
+            />
+          </div>
         </div>
       </div>
-
-      <div className="filter-dropdown-menu-field">
-        <p className="heading">Company Name</p>
-        <div className="seperator"></div>
-        <div className="filter-dropdown-menu-field-list">
-          <Select
-            isMulti
-            name="companyNames"
-            options={companyNames}
-            className="company-names-multi-select"
-            classNamePrefix="select"
-            styles={selectLabelCustomStyles}
-            value={selectedCompanies}
-            onChange={setSelectedCompanies}
-            placeholder="Select companies"
-          />
-        </div>
-      </div>
-
       <div className="filter-dropdown-footer-btns">
         <button className="filter-apply-btn" onClick={resetFilter}>
           Reset

@@ -1,0 +1,110 @@
+@import "../../styles/main.scss";
+.contact-card {
+  background: var(--dropdown-menu-background);
+  margin: 1rem 0rem;
+  padding: 0.8rem 1rem;
+  border-radius: 8px;
+  display: flex;
+  gap: 1rem;
+  @include transition-ease;
+
+  &:hover {
+    cursor: pointer;
+    box-shadow: var(--elevate-shadow);
+  }
+
+  &-profile-pic {
+    align-self: center;
+    height: 5rem;
+    width: 5rem;
+    overflow: hidden;
+    border-radius: 50%;
+    border: 5px solid var(--white);
+
+    img {
+      height: 100%;
+      width: 100%;
+      object-fit: cover;
+    }
+  }
+
+  &-details {
+    width: 100%;
+
+    .contact-info {
+      display: flex;
+      text-wrap: pretty;
+      align-items: center;
+      justify-content: start;
+      gap: 0.2rem;
+      margin-bottom: 0.2rem;
+
+      &.address-field {
+        align-items: start;
+      }
+
+      &-title {
+        font-size: 0.8rem;
+        font-weight: bold;
+      }
+
+      &-text {
+        font-size: 0.8rem;
+        color: #494949;
+
+        &.contact-status {
+          padding: 0.2rem 1rem;
+          border-radius: 8px;
+          font-size: 0.7rem;
+          font-weight: 600;
+
+          &.employee {
+            background: #e2fff4;
+            color: var(--employee-status);
+          }
+
+          &.trainee {
+            background: var(--trainee-status-background);
+            color: var(--trainee-status);
+          }
+        }
+      }
+    }
+
+    &-footer-btns {
+      display: flex;
+      gap: 2rem;
+      align-items: center;
+      margin-top: 1rem;
+
+      .contact-card-edit-btn,
+      .contact-card-delete-btn {
+        padding: 0.5rem 1rem;
+        width: 5rem;
+        border-radius: 8px;
+        border: none;
+        outline: none;
+        cursor: pointer;
+        @include transition-ease;
+      }
+
+      .contact-card-edit-btn {
+        background: var(--scrollbar-background);
+        color: var(--white);
+
+        &:hover {
+          outline: 1px solid var(--dark-blue);
+        }
+      }
+
+      .contact-card-delete-btn {
+        background: var(--delete-btn-background);
+        color: var(--white);
+
+        &:hover {
+          outline: 1px solid red;
+        }
+      }
+    }
+  }
+}

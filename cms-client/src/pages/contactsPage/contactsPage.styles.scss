@@ -1,4 +1,13 @@
+@import "../../styles/main.scss";
 .contacts-page {
   min-height: calc(100vh - 5rem);
-  padding-bottom: 1rem;
+  padding-bottom: 1.5rem;
+
+  &-wrapper {
+    padding: 0rem 1.5rem;
+
+    @include mobile-screen {
+      padding: 0rem;
+    }
+  }
 }

@@ -139,7 +139,7 @@ const ContactsPageHeader = ({
             className={`mobile-screen-filters-overlay ${
               isSortDropdownOpen && "overlay-active"
             }`}
-          ></div>
+          />
         </ContactPageButton>
       </div>
 
@@ -173,6 +173,11 @@ const ContactsPageHeader = ({
             />
           </div>
         </ContactPageButton>
+        <div
+          className={`mobile-screen-filters-overlay ${
+            isFilterDropdownOpen && "overlay-active"
+          }`}
+        ></div>
       </div>
 
       <ContactPageButton

@@ -37,7 +37,7 @@ const Contactspage = () => {
   };
   return (
     <div className="contacts-page">
-      <div className="contacts-page-wrapper px-2">
+      <div className="contacts-page-wrapper">
         <ContactsPageHeader
           onSortChange={handleSortChange}
           onStatusChange={handleStatusChange}

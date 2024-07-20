@@ -1,6 +1,8 @@
+import { Link } from "react-router-dom";
 import { handleImageUrl } from "../utils/helperFunctions.js";
+import { MdDelete } from "react-icons/md";
 
-export const columns = [
+export const columns = (onDelete) => [
   {
     header: "ID",
     accessorKey: "id",
@@ -44,5 +46,21 @@ export const columns = [
   {
     header: "Phone",
     accessorKey: "phone",
+  },
+  {
+    header: "Actions",
+    cell: ({ row }) => {
+      return (
+        <div className="contact-table-actions">
+          <Link>
+            <button className="contact-edit-btn">Edit</button>
+          </Link>
+          <MdDelete
+            onClick={() => onDelete(row.original.id)}
+            className="contact-delete-btn"
+          />
+        </div>
+      );
+    },
   },
 ];
