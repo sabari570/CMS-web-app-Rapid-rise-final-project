@@ -29,6 +29,11 @@
       color: var(--white);
     }
 
+    &.dropdown-menu-btn-active {
+      background: var(--dark-blue);
+      color: var(--white);
+    }
+
     &-pre-icon,
     &-post-icon {
       display: flex;

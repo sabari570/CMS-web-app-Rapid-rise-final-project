@@ -56,6 +56,7 @@ const FilterByDropdown = ({
             styles={selectLabelCustomStyles}
             value={selectedCompanies}
             onChange={setSelectedCompanies}
+            placeholder="Select companies"
           />
         </div>
       </div>

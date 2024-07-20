@@ -108,7 +108,9 @@ const ContactsPageHeader = ({
     <div className="contacts-page-header-wrapper">
       <div ref={sortButtonRef}>
         <ContactPageButton
-          btnClassName="button-wrapper"
+          btnClassName={`button-wrapper ${
+            isSortDropdownOpen && "dropdown-menu-btn-active"
+          }`}
           preIcon={<BiSortUp className="button-wrapper-pre-icon" />}
           btnText="Sort by"
           postIcon={
@@ -138,7 +140,9 @@ const ContactsPageHeader = ({
 
       <div ref={filterButtonRef}>
         <ContactPageButton
-          btnClassName="button-wrapper"
+          btnClassName={`button-wrapper ${
+            isFilterDropdownOpen && "dropdown-menu-btn-active"
+          }`}
           preIcon={<HiFilter className="button-wrapper-pre-icon" />}
           btnText="Filters"
           postIcon={

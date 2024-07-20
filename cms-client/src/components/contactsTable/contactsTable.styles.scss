@@ -130,6 +130,16 @@
                 }
               }
             }
+
+            @include laptop-screen {
+              &:not(:first-of-type) {
+                min-width: 12.1rem;
+              }
+
+              &:nth-child(3) {
+                min-width: 14rem;
+              }
+            }
           }
 
           tr {

@@ -44,4 +44,15 @@ export const selectLabelCustomStyles = {
     ...base,
     cursor: "pointer",
   }),
+  menu: (provided) => ({
+    ...provided,
+    maxHeight: "10rem",
+    overflow: "auto",
+  }),
+  // Match the height of the menulist with the menu inorder to prevent breaking in UI
+  menuList: (provided) => ({
+    ...provided,
+    maxHeight: "10rem",
+    overflowY: "auto",
+  }),
 };
