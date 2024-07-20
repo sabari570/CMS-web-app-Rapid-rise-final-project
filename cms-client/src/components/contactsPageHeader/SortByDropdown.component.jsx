@@ -32,6 +32,8 @@ const SortByDropdown = ({
     <div
       className={`sort-dropdown-menu ${isSortDropdownOpen && "dropdown-open"}`}
     >
+      <div className="sort-by-title">Sort by</div>
+      <div className="sort-dropdown-menu-seperator"></div>
       {sortFields.map((field) => (
         <div
           key={field.label}

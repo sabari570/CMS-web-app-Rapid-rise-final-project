@@ -8,6 +8,10 @@
   justify-content: flex-end;
   padding-top: 1rem;
 
+  @include mobile-screen {
+    justify-content: center;
+  }
+
   .button-wrapper {
     padding: 0.4rem 1rem;
     border: none;
@@ -47,6 +51,10 @@
       background: var(--dark-blue);
       color: var(--white);
 
+      @include mobile-screen {
+        display: none;
+      }
+
       &:hover {
         color: var(--dark-blue);
         background: var(--white);
@@ -82,11 +90,29 @@
       visibility: hidden;
       @include transition-ease;
 
+      @include mobile-screen {
+        position: fixed;
+        top: 100%;
+        left: 0;
+        right: 0;
+        margin: 0 auto;
+        width: 100%;
+        max-height: 18rem;
+        border-radius: 8px 8px 0 0;
+        display: block;
+        background: var(--dropdown-menu-background);
+        @include transition-ease;
+      }
+
       &.dropdown-open {
         display: block;
         opacity: 1;
         visibility: visible;
         transform: translateY(10px);
+
+        @include mobile-screen {
+          transform: translateY(-100%);
+        }
       }
 
       &-field-item,
@@ -144,6 +170,17 @@
           }
         }
       }
+
+      .sort-by-title {
+        display: none;
+
+        @include mobile-screen {
+          display: block;
+          margin-bottom: 0.5rem;
+          text-transform: uppercase;
+          font-weight: bold;
+        }
+      }
     }
   }
 
@@ -165,11 +202,19 @@
       visibility: hidden;
       @include transition-ease;
 
+      @include mobile-screen {
+        position: relative;
+      }
+
       &.dropdown-open {
         display: block;
         opacity: 1;
         visibility: visible;
         transform: translateY(10px);
+
+        @include mobile-screen {
+          display: none;
+        }
       }
 
       &-field {
@@ -241,6 +286,31 @@
             outline: 2px solid var(--dark-blue);
           }
         }
+      }
+    }
+  }
+
+  .mobile-screen-filters-overlay {
+    display: none;
+    @include mobile-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.7);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 3;
+      pointer-events: none;
+      opacity: 0;
+      visibility: hidden;
+      @include transition-ease;
+
+      &.overlay-active {
+        opacity: 1;
+        visibility: visible;
       }
     }
   }

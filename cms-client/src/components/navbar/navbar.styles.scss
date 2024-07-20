@@ -11,6 +11,10 @@
   border-bottom: 3px solid white;
   @include transition-ease;
 
+  @include mobile-screen {
+    z-index: 3;
+  }
+
   &-wrapper {
     padding: 0.8rem 2rem;
     &-container {

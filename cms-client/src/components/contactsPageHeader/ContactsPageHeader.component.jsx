@@ -135,6 +135,11 @@ const ContactsPageHeader = ({
               resetSorting={resetSorting}
             />
           </div>
+          <div
+            className={`mobile-screen-filters-overlay ${
+              isSortDropdownOpen && "overlay-active"
+            }`}
+          ></div>
         </ContactPageButton>
       </div>
 
