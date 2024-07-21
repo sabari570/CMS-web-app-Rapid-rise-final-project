@@ -79,7 +79,6 @@ const ContactsTable = ({
   useEffect(() => {
     handleFetchTableData();
     setDefaultPage(pagination.pageIndex);
-    console.log("Page index: ", pagination.pageIndex);
   }, [pagination]);
 
   const handleFetchTableData = async () => {
@@ -108,7 +107,6 @@ const ContactsTable = ({
   }, [searchFilter, statusSelected, companiesSelected]);
 
   useEffect(() => {
-    console.log("Child useffect executed");
     handleFetchTableData();
     console.log({
       sorting,
@@ -119,10 +117,6 @@ const ContactsTable = ({
     });
   }, [sorting, statusSelected, companiesSelected, searchFilter]);
 
-  console.log(
-    "Table getstate page: ",
-    table.getState().pagination.pageIndex + 1
-  );
   return (
     <div className="contacts-table">
       <div className="contacts-table-wrapper">

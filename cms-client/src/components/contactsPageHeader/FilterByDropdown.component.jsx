@@ -16,7 +16,7 @@ const FilterByDropdown = ({
   const isMobile = useIsMobile(650);
   const { fetchCompanies } = useFetchCompaniesList();
   const [companiesList, setCompaniesList] = useState([]);
-  const statusFields = ["Employee", "Trainee"];
+  const statusFields = ["All", "Employee", "Trainee"];
 
   const handleFetchCompanies = async () => {
     const companiesResponse = await fetchCompanies();
@@ -30,7 +30,6 @@ const FilterByDropdown = ({
     handleFetchCompanies();
   }, []);
 
-  console.log("Companies List: ", companiesList);
   return (
     <div
       className={`filter-dropdown-menu ${

@@ -52,12 +52,10 @@ const ContactsPageHeader = ({
 
   const applyFilter = () => {
     if (selectedStatus) {
-      onStatusChange(selectedStatus);
+      const status = selectedStatus === "All" ? "" : selectedStatus;
+      onStatusChange(status);
     }
-    if (selectedCompanies.length > 0) {
-      console.log("Reached here");
-      onCompaniesChange(selectedCompanies);
-    }
+    onCompaniesChange(selectedCompanies);
     setIsFilterDropdownOpen(false);
   };
 
