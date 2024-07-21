@@ -1,0 +1,24 @@
+.table-limit-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+
+  .limit-label {
+    font-size: 0.8rem;
+    color: grey;
+  }
+
+  #lines-per-page {
+    background: var(--contact-card-background);
+    border: none;
+    outline: none;
+    padding: 0.3rem 0.5rem;
+    border-radius: 8px;
+    color: var(--dark-blue);
+
+    .limit-option-item {
+      background: var(--white);
+    }
+  }
+}

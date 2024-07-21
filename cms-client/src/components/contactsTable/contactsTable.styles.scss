@@ -3,7 +3,6 @@
   margin-top: 1rem;
 
   &-wrapper {
-    min-height: 80vh;
     background: var(--white);
     padding: 0.8rem;
     border-radius: 8px;
@@ -208,6 +207,12 @@
           }
         }
       }
+    }
+
+    .table-footer-options {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
     }
   }
 }

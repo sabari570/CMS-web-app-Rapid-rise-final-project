@@ -14,6 +14,14 @@ const ContactsSearchField = ({
   useEffect(() => {
     setValue(initialValue);
   }, [initialValue]);
+
+  useEffect(() => {
+    const timeout = setTimeout(() => {
+      onChange(value);
+    }, debounce);
+
+    return () => clearTimeout(timeout);
+  }, [value]);
   return (
     <div className={searchBoxClassName}>
       <IoSearch className={searchIconClassName} />

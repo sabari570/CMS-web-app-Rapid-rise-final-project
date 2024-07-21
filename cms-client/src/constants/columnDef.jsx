@@ -14,6 +14,7 @@ export const columns = (onDelete) => [
       return (
         <div className="contact-profile">
           <img
+            crossOrigin="anonymous"
             src={handleImageUrl(row.original.profilePic)}
             alt="contact-avatar"
           />

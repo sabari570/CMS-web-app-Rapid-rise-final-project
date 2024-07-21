@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Select from "react-select";
 import useIsMobile from "../../hooks/useIsMobile";
 import { selectLabelCustomStyles } from "../../constants/appConstants";
+import useFetchCompaniesList from "../../hooks/useFetchCompaniesList";
 
 const FilterByDropdown = ({
   isFilterDropdownOpen,
@@ -13,14 +14,23 @@ const FilterByDropdown = ({
   resetFilter,
 }) => {
   const isMobile = useIsMobile(650);
-  const statusFields = ["Online", "Offline"];
-  const companyNames = [
-    { label: "Google", value: "google" },
-    { label: "Amazon", value: "Amazon" },
-    { label: "Flipkart", value: "flipkart" },
-    { label: "Zoho", value: "zoho" },
-    { label: "Innovature", value: "innovature" },
-  ];
+  const { fetchCompanies } = useFetchCompaniesList();
+  const [companiesList, setCompaniesList] = useState([]);
+  const statusFields = ["Employee", "Trainee"];
+
+  const handleFetchCompanies = async () => {
+    const companiesResponse = await fetchCompanies();
+    const formattedCompaniesList = companiesResponse.companiesList.map(
+      (company) => ({ label: company, value: company })
+    );
+    setCompaniesList(formattedCompaniesList);
+  };
+
+  useEffect(() => {
+    handleFetchCompanies();
+  }, []);
+
+  console.log("Companies List: ", companiesList);
   return (
     <div
       className={`filter-dropdown-menu ${
@@ -54,7 +64,7 @@ const FilterByDropdown = ({
             <Select
               isMulti
               name="companyNames"
-              options={companyNames}
+              options={companiesList}
               className="company-names-multi-select"
               classNamePrefix="select"
               styles={selectLabelCustomStyles(isMobile)}

@@ -15,9 +15,9 @@ const AuthProfileContainer = ({ type, userAvatar, setUserAvatar }) => {
     <div className="avatar-wrapper">
       <div className="profile-avatar">
         {userAvatar ? (
-          <img src={userAvatarImage} alt="user-profile-pic" />
+          <img crossOrigin="anonymous" src={userAvatarImage} alt="user-profile-pic" />
         ) : (
-          <img src={DefaultProfilePic} />
+          <img crossOrigin="anonymous" src={DefaultProfilePic} />
         )}
       </div>
 

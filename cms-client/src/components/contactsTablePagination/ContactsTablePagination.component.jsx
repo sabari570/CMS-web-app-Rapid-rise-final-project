@@ -2,7 +2,11 @@ import React from "react";
 import "./contactsTablePagination.styles.scss";
 import ReactPaginate from "react-paginate";
 
-const ContactsTablePagination = ({ pageCount, handlePageClick }) => {
+const ContactsTablePagination = ({
+  pageCount,
+  handlePageClick,
+  defaultPageIndex,
+}) => {
   return (
     <div className="pagination-wrapper">
       <ReactPaginate
@@ -11,6 +15,7 @@ const ContactsTablePagination = ({ pageCount, handlePageClick }) => {
         breakLabel={"..."}
         marginPagesDisplayed={2}
         pageRangeDisplayed={5}
+        forcePage={defaultPageIndex}
         pageCount={pageCount}
         onPageChange={handlePageClick}
         containerClassName="pagination-wrapper-container"
@@ -23,6 +28,7 @@ const ContactsTablePagination = ({ pageCount, handlePageClick }) => {
         nextLinkClassName="page-link"
         pageLinkClassName="page-link"
         breakLinkClassName="page-link"
+        disabledClassName="disabled-link"
       />
     </div>
   );

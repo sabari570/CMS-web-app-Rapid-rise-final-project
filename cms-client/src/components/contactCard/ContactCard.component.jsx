@@ -11,11 +11,10 @@ const ContactCard = ({ contact }) => {
     { title: "Status", keyName: "status", divClassName: "contact-status" },
     { title: "Phone", keyName: "phone" },
   ];
-  console.log("Contact: ", contact);
   return (
     <div className="contact-card">
       <div className="contact-card-profile-pic">
-        <img src={handleImageUrl(contact.profilePic)} alt="contact-profile" />
+        <img crossOrigin="anonymous" src={handleImageUrl(contact.profilePic)} alt="contact-profile" />
       </div>
       <div className="contact-card-details">
         {contactDivs.map((contactDiv, index) => (

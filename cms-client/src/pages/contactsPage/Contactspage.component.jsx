@@ -5,14 +5,12 @@ import { useNavigate } from "react-router-dom";
 import { selectCurrentUser } from "../../store/user/user.selector.js";
 import ContactsPageHeader from "../../components/contactsPageHeader/ContactsPageHeader.component.jsx";
 import ContactsTable from "../../components/contactsTable/ContactsTable.component.jsx";
-import { contactsData } from "../../constants/dummyData.js";
 import { columns } from "../../constants/columnDef.jsx";
 
 const Contactspage = () => {
   const currentUser = useSelector(selectCurrentUser);
   const navigate = useNavigate();
-  const [data, setData] = useState(contactsData);
-  const [pageIndex, setPageIndex] = useState(0);
+  const [data, setData] = useState([]);
   const [sortFieldsObj, setSortFieldsObj] = useState();
   const [statusField, setStatusField] = useState();
   const [companiesList, setCompaniesList] = useState([]);
@@ -35,6 +33,7 @@ const Contactspage = () => {
   const handleCompaniesChange = (companiesSelected) => {
     setCompaniesList(companiesSelected);
   };
+
   return (
     <div className="contacts-page">
       <div className="contacts-page-wrapper">
@@ -45,9 +44,8 @@ const Contactspage = () => {
         />
         <ContactsTable
           tableData={data}
+          setTableData={setData}
           columnDef={columns}
-          pageIndex={pageIndex}
-          setPageIndex={setPageIndex}
           onDelete={handleDelete}
           sortFieldsObj={sortFieldsObj}
           statusField={statusField}

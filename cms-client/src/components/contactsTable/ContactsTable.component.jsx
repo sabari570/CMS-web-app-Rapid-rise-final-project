@@ -10,24 +10,28 @@ import {
 } from "@tanstack/react-table";
 import ContactsTablePagination from "../contactsTablePagination/ContactsTablePagination.component";
 import ContactCard from "../contactCard/ContactCard.component";
+import useFetchContacts from "../../hooks/useFetchContacts";
+import NoRecordsImage from "../noRecordsImage/NoRecordsImage.component";
+import RecordsNotFoundImage from "../../assets/no-records.jpg";
+import TableLimitDropdown from "../tableLimitDropdown/TableLimitDropdown.component";
 
 const ContactsTable = ({
   tableData,
+  setTableData,
   columnDef,
-  pageIndex,
-  setPageIndex,
   onDelete,
   sortFieldsObj,
   statusField,
   companiesList,
 }) => {
-  const data = useMemo(() => tableData, [tableData]);
+  const data = useMemo(() => tableData.contacts ?? [], [tableData]);
   const columns = useMemo(() => columnDef(onDelete), [columnDef, onDelete]);
-  const [contactsData, setContactsData] = useState([]);
   const [sorting, setSorting] = useState([sortFieldsObj]);
   const [statusSelected, setStatusSelected] = useState(statusField);
   const [companiesSelected, setCompaniesSelected] = useState(companiesList);
   const [searchFilter, setSearchFilter] = useState("");
+  const { fetchContacts } = useFetchContacts();
+  const [defaultPage, setDefaultPage] = useState(0);
 
   const [pagination, setPagination] = useState({
     pageIndex: 0,
@@ -42,15 +46,23 @@ const ContactsTable = ({
     getSortedRowModel: getSortedRowModel(),
     state: {
       sorting,
-      pagination: {
-        pageIndex,
-        pageSize: 10,
-      },
+      pagination,
+      searchFilter,
     },
     sortDescFirst: false,
     onSortingChange: setSorting,
     manualSorting: true,
+    onPaginationChange: setPagination,
+    manualPagination: true,
+    pageCount: tableData.totalPages ?? 0,
+    manualFiltering: true,
+    onGlobalFilterChange: setSearchFilter,
   });
+
+  const handlePageClick = (event) => {
+    const newPageIndex = event.selected;
+    setPagination((prev) => ({ ...prev, pageIndex: newPageIndex }));
+  };
 
   useEffect(() => {
     setSorting(sortFieldsObj);
@@ -65,22 +77,77 @@ const ContactsTable = ({
   }, [statusField]);
 
   useEffect(() => {
-    console.log({ sorting, statusSelected, companiesSelected });
-  }, [sorting, statusSelected, companiesSelected]);
+    handleFetchTableData();
+    setDefaultPage(pagination.pageIndex);
+    console.log("Page index: ", pagination.pageIndex);
+  }, [pagination]);
+
+  const handleFetchTableData = async () => {
+    const sort = sorting != undefined && `${sorting.id}:${sorting.type}`;
+    const companies = companiesSelected
+      .map((company) => company.value)
+      .join(",");
+    const params = {
+      search: searchFilter,
+      sort,
+      status: statusSelected,
+      companies,
+      page: table.getState().pagination.pageIndex + 1,
+      limit: table.getState().pagination.pageSize,
+    };
+    const tableResponse = await fetchContacts(params);
+    setTableData(tableResponse);
+
+    if (table.getState().pagination.pageIndex >= tableResponse.page) {
+      setPagination((prev) => ({ ...prev, pageIndex: 0 }));
+    }
+  };
+
+  useEffect(() => {
+    setPagination((prev) => ({ ...prev, pageIndex: 0 }));
+  }, [searchFilter, statusSelected, companiesSelected]);
+
+  useEffect(() => {
+    console.log("Child useffect executed");
+    handleFetchTableData();
+    console.log({
+      sorting,
+      statusSelected,
+      companiesSelected,
+      searchFilter,
+      pagination,
+    });
+  }, [sorting, statusSelected, companiesSelected, searchFilter]);
+
+  console.log(
+    "Table getstate page: ",
+    table.getState().pagination.pageIndex + 1
+  );
   return (
     <div className="contacts-table">
       <div className="contacts-table-wrapper">
-        <ContactsSearchField
-          value=""
-          searchBoxClassName="contacts-table-wrapper-search-box"
-          searchIconClassName="search-box-icon"
-          placeholder="Search"
-          type="text"
-        />
+        <div className="table-footer-options">
+          <ContactsSearchField
+            value={searchFilter ?? ""}
+            searchBoxClassName="contacts-table-wrapper-search-box"
+            searchIconClassName="search-box-icon"
+            placeholder="Search all columns..."
+            type="text"
+            onChange={(value) => setSearchFilter(String(value))}
+          />
+
+          {/* <TableLimitDropdown
+            limitLabel="Contacts per page"
+            limitValue={pagination.pageSize}
+            setLimit={(value) =>
+              setPagination((prev) => ({ ...prev, pageSize: value }))
+            }
+          /> */}
+        </div>
 
         {/* CONTACTS TABLE */}
         <div className="contacts-table-wrapper-container">
-          {data.length > 0 && (
+          {data.length > 0 ? (
             <table>
               <thead>
                 {table.getHeaderGroups().map((headerGroup) => (
@@ -116,20 +183,42 @@ const ContactsTable = ({
                 ))}
               </tbody>
             </table>
+          ) : (
+            <div className="empty-table-message">
+              <NoRecordsImage
+                bgImage={RecordsNotFoundImage}
+                message={"No records found"}
+                subMessage={"Adjust your filters and Try again"}
+              />
+            </div>
           )}
         </div>
 
         {/* CONTACTS CARD */}
         <div className="contacts-table-wrapper-contacts-card">
-          <div className="contact-card-wrapper">
-            {data.map((contact, index) => (
-              <ContactCard key={index} contact={contact} />
-            ))}
-          </div>
+          {data.length > 0 ? (
+            <div className="contact-card-wrapper">
+              {data.map((contact, index) => (
+                <ContactCard key={index} contact={contact} />
+              ))}
+            </div>
+          ) : (
+            <div className="empty-table-message">
+              <NoRecordsImage
+                bgImage={RecordsNotFoundImage}
+                message={"No records found"}
+                subMessage={"Adjust your filters and Try again"}
+              />
+            </div>
+          )}
         </div>
 
         {/* TABLE PAGINATION */}
-        <ContactsTablePagination pageCount={table.getPageCount()} />
+        <ContactsTablePagination
+          defaultPageIndex={defaultPage}
+          pageCount={table.getPageCount()}
+          handlePageClick={handlePageClick}
+        />
       </div>
     </div>
   );
