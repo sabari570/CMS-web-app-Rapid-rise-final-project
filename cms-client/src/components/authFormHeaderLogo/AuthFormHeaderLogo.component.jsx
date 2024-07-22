@@ -1,11 +1,10 @@
 import React from "react";
-import Logo from "../../assets/cms-logo.png";
 
 const AuthFormHeaderLogo = () => {
   return (
-    <div className="logo-section">
-      <img src={Logo} alt="CMS-logo" />
-      <span className="web-app-name">CMS</span>
+    <div className="cms-logo">
+      <h2 className="app-name-first">Connect</h2>
+      <h2 className="app-name-second">EZ</h2>
     </div>
   );
 };

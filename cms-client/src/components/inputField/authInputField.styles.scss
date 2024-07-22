@@ -96,6 +96,7 @@
     font-size: 0.7rem;
     position: absolute;
     color: red;
+    text-wrap: nowrap;
 
     &.address-field-error-message {
       top: 115px;

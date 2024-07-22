@@ -97,7 +97,7 @@ const ContactsTable = ({
     const tableResponse = await fetchContacts(params);
     setTableData(tableResponse);
 
-    if (table.getState().pagination.pageIndex >= tableResponse.page) {
+    if (table.getState().pagination.pageIndex > tableResponse.page) {
       setPagination((prev) => ({ ...prev, pageIndex: 0 }));
     }
   };

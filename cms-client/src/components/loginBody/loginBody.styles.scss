@@ -10,6 +10,20 @@
     padding: 0.8rem;
     position: relative;
 
+    .cms-logo {
+      display: flex;
+      .app-name-first {
+        color: var(--dark-blue);
+        font-weight: bolder;
+        font-size: 1rem;
+      }
+      .app-name-second {
+        color: var(--scrollbar-background);
+        font-weight: bolder;
+        font-size: 1rem;
+      }
+    }
+
     .logo-section {
       display: flex;
       align-items: center;
@@ -59,7 +73,7 @@
         }
       }
 
-      .register-name-field{
+      .register-name-field {
         display: flex;
         gap: 1rem;
         width: 100%;

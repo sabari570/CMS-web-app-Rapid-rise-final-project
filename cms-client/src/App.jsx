@@ -11,6 +11,7 @@ import { useSelector } from "react-redux";
 import { selectIsLoading } from "./store/loading/loading.selector.js";
 import Loader from "./components/Loader/Loader.component.jsx";
 import { Toaster } from "react-hot-toast";
+import CreateContactpage from "./pages/createContactPage/CreateContactpage.component.jsx";
 
 const App = () => {
   // const SERVER_URL = "http://localhost:8000/api";
@@ -28,6 +29,7 @@ const App = () => {
           <Route path="login" element={<Loginpage />} />
           <Route path="register" element={<Registerpage />} />
           <Route path="contacts" element={<Contactspage />} />
+          <Route path="create-contact" element={<CreateContactpage />} />
           <Route path="profile" element={<UserprofilePage />} />
           <Route path="*" element={<Errorpage />} />
         </Route>

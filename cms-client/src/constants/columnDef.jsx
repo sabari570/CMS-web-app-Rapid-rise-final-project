@@ -5,7 +5,7 @@ import { MdDelete } from "react-icons/md";
 export const columns = (onDelete) => [
   {
     header: "ID",
-    accessorKey: "id",
+    accessorKey: "_id",
   },
   {
     header: "Name",

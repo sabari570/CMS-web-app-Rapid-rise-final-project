@@ -3,7 +3,15 @@ import "./authProfileContainer.styles.scss";
 import DefaultProfilePic from "../../assets/default-profile-pic.png";
 import { TbEditCircle } from "react-icons/tb";
 
-const AuthProfileContainer = ({ type, userAvatar, setUserAvatar }) => {
+const AuthProfileContainer = ({
+  type,
+  defaultProfilePic = DefaultProfilePic,
+  userAvatar,
+  setUserAvatar,
+  uploadIcon,
+  iconLabelClassName = "",
+  profileAvatarClassName = "",
+}) => {
   const [userAvatarImage, setUserAvatarImage] = useState();
 
   const handleUserAvatarChange = (e) => {
@@ -13,11 +21,15 @@ const AuthProfileContainer = ({ type, userAvatar, setUserAvatar }) => {
   };
   return (
     <div className="avatar-wrapper">
-      <div className="profile-avatar">
+      <div className={`profile-avatar ${profileAvatarClassName}`}>
         {userAvatar ? (
-          <img crossOrigin="anonymous" src={userAvatarImage} alt="user-profile-pic" />
+          <img
+            crossOrigin="anonymous"
+            src={userAvatarImage}
+            alt="user-profile-pic"
+          />
         ) : (
-          <img crossOrigin="anonymous" src={DefaultProfilePic} />
+          <img crossOrigin="anonymous" src={defaultProfilePic} />
         )}
       </div>
 
@@ -27,8 +39,8 @@ const AuthProfileContainer = ({ type, userAvatar, setUserAvatar }) => {
         accept="png, jpg, jpeg"
         onChange={handleUserAvatarChange}
       />
-      <label htmlFor="avatar">
-        <TbEditCircle />
+      <label htmlFor="avatar" className={iconLabelClassName}>
+        {uploadIcon ? uploadIcon : <TbEditCircle />}
       </label>
     </div>
   );

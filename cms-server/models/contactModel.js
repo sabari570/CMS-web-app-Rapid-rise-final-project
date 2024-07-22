@@ -30,8 +30,8 @@ const contactSchema = new mongoose.Schema(
     },
     status: {
       type: String,
-      default: "Offline",
-      enum: ["Online", "Offline"],
+      default: "Trainee",
+      enum: ["Employee", "Trainee"],
     },
     phone: {
       type: String,

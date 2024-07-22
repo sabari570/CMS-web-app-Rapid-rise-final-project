@@ -7,6 +7,7 @@ import { IoIosAdd } from "react-icons/io";
 import ContactPageButton from "../contactPageButton/ContactPageButton.component";
 import SortByDropdown from "./SortByDropdown.component";
 import FilterByDropdown from "./FilterByDropdown.component";
+import { useNavigate } from "react-router-dom";
 
 const ContactsPageHeader = ({
   onSortChange,
@@ -22,6 +23,7 @@ const ContactsPageHeader = ({
   const dropdownRef = useRef(null);
   const sortButtonRef = useRef(null);
   const filterButtonRef = useRef(null);
+  const navigate = useNavigate();
 
   const handleSortDropdown = (e) => {
     e.stopPropagation();
@@ -66,6 +68,8 @@ const ContactsPageHeader = ({
     setSelectedCompanies([]);
     setIsFilterDropdownOpen(false);
   };
+
+  const handleCreateContactPageNavigation = () => navigate("/create-contact");
 
   useEffect(() => {
     const handleClickOutside = (event) => {
@@ -182,6 +186,7 @@ const ContactsPageHeader = ({
         btnClassName="button-wrapper create-btn"
         preIcon={<IoIosAdd className="button-wrapper-pre-icon create-btn" />}
         btnText="New Contact"
+        onClick={handleCreateContactPageNavigation}
       />
     </div>
   );

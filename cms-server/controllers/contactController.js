@@ -266,6 +266,7 @@ module.exports.updateContactById = async (req, res) => {
     });
   } catch (error) {
     console.log("Error while updating a contact by id: ", error);
+    if (!error.statusCode) error = handleContactCatchErrors(error);
     return res
       .status(error.statusCode || 500)
       .json({ errors: { message: error.message || "Something went wrong" } });

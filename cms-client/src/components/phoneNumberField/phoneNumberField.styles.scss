@@ -1,0 +1,90 @@
+@import "../../styles/main.scss";
+.phone-number-field {
+  width: 100%;
+
+  &-wrapper {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-bottom: 1.4rem;
+    position: relative;
+    width: 100%;
+    height: 3rem;
+    border-radius: 10px;
+    display: flex;
+    padding: 0 0.6rem;
+    border: 1.5px solid var(--auth-btn-disabled-color);
+
+    &.highlighted {
+      border: 1.5px solid var(--auth-btn-color);
+    }
+
+    &.phone-number-field-error{
+      border: 1px solid red;
+    }
+
+    .phone-number-label {
+      position: absolute;
+      color: var(--auth-btn-disabled-color);
+      font-size: 0.8rem;
+      font-weight: 500;
+      background: #fff;
+      pointer-events: none;
+      top: 50%;
+      left: 4.1rem;
+      transform: translateY(-50%);
+      @include transition-ease;
+
+      &.highlighted {
+        top: 0px;
+        left: 5px;
+        font-size: 0.6rem;
+        padding: 0 0.5rem;
+        color: var(--auth-btn-color);
+
+        &.label-error-message {
+          color: red;
+        }
+      }
+    }
+
+    .react-tel-input {
+      display: flex;
+      align-items: center;
+      width: 100%;
+
+      .form-control {
+        border: none;
+        background: none;
+        padding: 10px;
+        border-radius: 4px;
+        outline: none;
+        margin-left: 3rem;
+        width: 100%;
+      }
+
+      .flag-dropdown {
+        background: #f8f9fa;
+        border: 1px solid #ccc;
+        border-radius: 4px;
+        padding: 0.2rem 0.3rem;
+        cursor: pointer;
+
+        .country-list {
+          &::-webkit-scrollbar {
+            display: none;
+          }
+        }
+      }
+    }
+
+    .phone-field-error-message {
+      position: absolute;
+      color: red;
+      top: 48px;
+      font-size: 0.7rem;
+      text-wrap: nowrap;
+    }
+  }
+}

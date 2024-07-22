@@ -1,0 +1,83 @@
+@import "../../styles/main.scss";
+.create-contact-page {
+  min-height: calc(100vh - 5rem);
+  padding: 1.5rem 0rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &-wrapper {
+    width: 65%;
+    background: var(--white);
+    box-shadow: var(--fixed-shadow);
+    padding: 1rem;
+    border-radius: 10px;
+
+    @include laptop-screen {
+      width: 90%;
+    }
+
+    @include mobile-screen {
+      width: 90%;
+    }
+
+    .heading {
+      font-weight: bold;
+      font-size: 1.3rem;
+      margin-bottom: 0.7rem;
+
+      @include mobile-screen {
+        display: none;
+      }
+
+      &.mobile {
+        display: none;
+
+        @include mobile-screen {
+          text-align: center;
+          display: block;
+        }
+      }
+    }
+
+    &-body {
+      display: flex;
+      gap: 2rem;
+      margin-top: 1rem;
+      justify-content: space-between;
+
+      @include mobile-screen {
+        flex-direction: column;
+        gap: 0rem;
+      }
+      .create-contact-image-container {
+        display: flex;
+        flex: 1;
+        align-items: start;
+        gap: 2.5rem;
+        padding-left: 2rem;
+
+        @include mobile-screen {
+          padding-left: 0rem;
+        }
+
+        .contact-profile-avatar-border {
+          background: var(--dark-blue);
+          border: 0.8rem solid var(--dark-blue);
+        }
+
+        .add-contact-profile-icon {
+          background: var(--dark-blue);
+
+          svg {
+            transform: translateX(1px);
+          }
+
+          &:hover {
+            background: var(--auth-edit-bg);
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,121 @@
+@import "../../styles/main.scss";
+.cms-custom-dropdown-wrapper {
+  position: relative;
+
+  .cms-dropdown-button {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    justify-content: space-between;
+    background: var(--white);
+    width: 100%;
+    border: 1.5px solid var(--auth-btn-disabled-color);
+    height: 3rem;
+    border-radius: 10px;
+    padding: 1rem;
+    cursor: pointer;
+    color: #aaa;
+    font-weight: 600;
+    font-size: 0.8rem;
+    @include transition-ease;
+
+    &.dropdown-open {
+      border: 1.5px solid var(--auth-btn-color);
+    }
+
+    &.btn-active {
+      border: 1.5px solid var(--auth-btn-color);
+    }
+
+    &.cms-dropdown-error {
+      border: 1px solid red;
+    }
+
+    .cms-dropdown-icon {
+      position: absolute;
+      right: 1rem;
+      display: flex;
+      font-size: 0.8rem;
+      color: var(--auth-btn-disabled-color);
+      align-items: center;
+      justify-content: center;
+      transform: rotate(0deg);
+      @include transition-ease;
+
+      &.dropdown-icon-open {
+        transform: rotate(180deg);
+        color: var(--auth-btn-color);
+      }
+    }
+
+    .dropdown-text-label {
+      position: absolute;
+      @include transition-ease;
+
+      &.raise-up {
+        background: var(--white);
+        transform: translateY(-25px) translateX(-0.8rem);
+        padding: 0 0.5rem;
+        font-size: 0.6rem;
+        color: var(--auth-btn-color);
+
+        &.cms-dropdown-label-error {
+          color: red;
+        }
+      }
+    }
+  }
+
+  .error-message {
+    font-size: 0.7rem;
+    color: red;
+    margin-left: 1rem;
+  }
+
+  .cms-dropdown-content {
+    position: absolute;
+    min-width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: start;
+    padding: 1rem;
+    gap: 0.5rem;
+    margin-top: 0.5rem;
+    background: var(--navbar-background);
+    border-radius: 8px;
+    box-shadow: var(--elevate-shadow);
+    max-height: 40vh;
+    overflow-y: scroll;
+    -ms-overflow-style: none;
+    transform: translateY(-5%);
+    @include transition-ease;
+    opacity: 0;
+    pointer-events: none;
+    z-index: 1;
+
+    &::-webkit-scrollbar {
+      width: 0;
+      height: 0;
+    }
+
+    &.content-open {
+      transform: translateY(0%);
+      opacity: 1;
+      pointer-events: all;
+    }
+  }
+}
+
+.cms-dropdown-item {
+  padding: 0.5rem;
+  font-size: 0.8rem;
+  width: 100%;
+  border-radius: 8px;
+  cursor: pointer;
+  color: var(--dark-blue);
+  @include transition-ease;
+
+  &:hover {
+    background: #bee9ff;
+  }
+}

@@ -1,5 +1,7 @@
 import { z } from "zod";
 
+const phoneNumberRegex = /^\+\d{1,3}\s\d{10}$/;
+
 export const loginSchema = z.object({
   email: z.string().min(1, { message: "Email is required" }).email({
     message: "Please enter a valid email",
@@ -46,3 +48,28 @@ export const registerSchema = z
       });
     }
   });
+
+export const contactSchema = z.object({
+  firstName: z
+    .string()
+    .min(1, { message: "Firstname is required" })
+    .regex(/^[a-zA-Z_]+$/, { message: "Invalid firstname" }),
+  lastName: z
+    .string()
+    .min(1, { message: "Lastname is required" })
+    .regex(/^[a-zA-Z_]+$/, { message: "Invalid lastname" }),
+  companyName: z
+    .string()
+    .min(1, { message: "Company name is required" })
+    .regex(/^[A-Za-z]+(?:\s[A-Za-z]+)*$/, {
+      message: "Company name is invalid",
+    }),
+  status: z.enum(["Employee", "Trainee"], {
+    message: "Invalid status selected",
+  }),
+  phone: z
+    .string()
+    .min(1, { message: "Phone number is required" })
+    .regex(phoneNumberRegex, { message: "Invalid phone number" }),
+  address: z.string().min(1, { message: "Address is requried" }),
+});

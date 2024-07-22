@@ -1,0 +1,49 @@
+.create-contact-form {
+  flex: 2;
+
+  .create-contact-status-dropdown {
+    width: 100%;
+
+    .cms-dropdown-value-text {
+      font-weight: 600;
+      color: var(--black);
+    }
+
+    .create-contact-phone-status {
+      display: flex;
+      gap: 1rem;
+
+      .phone-number-field {
+        width: 50%;
+      }
+
+      .cms-custom-dropdown-wrapper {
+        width: 50%;
+      }
+    }
+  }
+
+  &-name {
+    display: flex;
+    gap: 1rem;
+  }
+
+  .create-contact-form-phone {
+    margin-top: 1rem;
+    display: flex;
+    gap: 0.5rem;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .create-contact-btn {
+    background: var(--dark-blue);
+    color: var(--white);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+
+    &:hover {
+      outline: 1px solid var(--medium-blue);
+      box-shadow: var(--btn-shadow);
+    }
+  }
+}
