@@ -66,15 +66,17 @@ const ViewContactDetail = () => {
             </div>
           </div>
 
-          <AccountDetailItem
-            detailHeading={"Account Details"}
-            detailItems={accountDetailItems}
-          />
+          <div>
+            <AccountDetailItem
+              detailHeading={"Account Details"}
+              detailItems={accountDetailItems}
+            />
 
-          <AccountDetailItem
-            detailHeading={"Contact Details"}
-            detailItems={communicationDetailItems}
-          />
+            <AccountDetailItem
+              detailHeading={"Contact Details"}
+              detailItems={communicationDetailItems}
+            />
+          </div>
         </div>
       </div>
     </div>

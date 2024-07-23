@@ -1,3 +1,4 @@
+@import "../../styles/main.scss";
 .contact-edit-page {
   min-height: calc(100vh - 5rem);
   padding: 1.5rem;
@@ -21,6 +22,10 @@
       display: flex;
       gap: 1rem;
       margin-top: 1rem;
+
+      @include laptop-screen {
+        flex-direction: column;
+      }
     }
   }
 }
