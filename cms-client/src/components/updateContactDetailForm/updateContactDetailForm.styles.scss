@@ -1,0 +1,17 @@
+.update-contact-detail-form {
+  width: 100%;
+
+  .cms-dropdown-value-text {
+    font-weight: 600;
+    color: var(--black);
+  }
+
+  .address-field {
+    margin-top: 1rem;
+    margin-bottom: 0rem;
+  }
+
+  .input-field-error-message.address-field-error-message {
+    top: 113px;
+  }
+}

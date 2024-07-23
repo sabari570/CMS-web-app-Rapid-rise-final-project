@@ -108,7 +108,7 @@ const CreateContactForm = ({ contactAvatar, setContactAvatar }) => {
         trigger={trigger}
         isValid={isValid}
       />
-      <div className="create-contact-status-dropdown" ref={cmsDropdownRef}>
+      <div className="create-contact-status-dropdown">
         <div className="create-contact-phone-status">
           <PhoneNumberField
             fieldType="phone"
@@ -120,29 +120,31 @@ const CreateContactForm = ({ contactAvatar, setContactAvatar }) => {
             isValid={isValid}
             setValue={setValue}
           />
-          <CmsCustomDropdown
-            placeholderText="Status"
-            btnText={selectedStatus}
-            isDropdownOpen={isDropdownOpen}
-            setIsDropdownOpen={setIsDropdownOpen}
-            dropdownTextClassName="cms-dropdown-value-text"
-            errors={errors.status}
-            labelClassName={`cms-dropdown-btn-label ${
-              selectedStatus ? "active" : null
-            }`}
-            content={
-              <>
-                {statusContent.map((item, index) => (
-                  <CmsDropdownItem
-                    key={index}
-                    onClick={() => handleStatusSelect(item)}
-                  >
-                    {item}
-                  </CmsDropdownItem>
-                ))}
-              </>
-            }
-          />
+          <div ref={cmsDropdownRef} className="create-contact-status-container-wrapper">
+            <CmsCustomDropdown
+              placeholderText="Status"
+              btnText={selectedStatus}
+              isDropdownOpen={isDropdownOpen}
+              setIsDropdownOpen={setIsDropdownOpen}
+              dropdownTextClassName="cms-dropdown-value-text"
+              errors={errors.status}
+              labelClassName={`cms-dropdown-btn-label ${
+                selectedStatus ? "active" : null
+              }`}
+              content={
+                <>
+                  {statusContent.map((item, index) => (
+                    <CmsDropdownItem
+                      key={index}
+                      onClick={() => handleStatusSelect(item)}
+                    >
+                      {item}
+                    </CmsDropdownItem>
+                  ))}
+                </>
+              }
+            />
+          </div>
         </div>
       </div>
       <AuthInputField

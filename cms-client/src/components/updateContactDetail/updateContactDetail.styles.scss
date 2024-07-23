@@ -1,0 +1,16 @@
+.update-contact-detail {
+  width: 100%;
+  &-wrapper {
+    height: fit-content;
+    background: var(--white);
+    padding: 0.8rem;
+    padding-bottom: 1.5rem;
+    border-radius: 8px;
+    box-shadow: var(--fixed-shadow);
+
+    .update-contact-detail-container {
+      display: flex;
+      justify-content: space-between;
+    }
+  }
+}

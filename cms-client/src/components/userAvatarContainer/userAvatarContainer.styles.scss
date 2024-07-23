@@ -1,0 +1,103 @@
+@import "../../styles/main.scss";
+
+.user-avatar-image-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  &-wrapper {
+    position: relative;
+    width: 10rem;
+
+    .user-avatar-image-wrapper {
+      height: 10rem;
+      width: 10rem;
+      border-radius: 50%;
+      background: var(--white);
+      border: 0.8rem solid var(--dark-blue);
+      overflow: hidden;
+
+      img {
+        height: 100%;
+        width: 100%;
+        object-fit: cover;
+      }
+
+      #avatar {
+        display: none;
+      }
+    }
+
+    .user-avatar-actions {
+      display: flex;
+      justify-content: space-around;
+      width: 100%;
+      margin-top: 0.5rem;
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-10px);
+      @include transition-ease;
+
+      .profile-avatar-done-icon,
+      .profile-avatar-cancel-icon {
+        height: 2rem;
+        width: 2rem;
+        background: var(--dark-blue);
+        color: var(--white);
+        font-size: 1rem;
+        display: grid;
+        place-items: center;
+        border-radius: 50%;
+        cursor: pointer;
+        @include transition-ease;
+
+        &:hover {
+          background: var(--auth-edit-bg);
+        }
+
+        &.cancel {
+          background: red;
+
+          &:hover {
+            background: darkred;
+          }
+        }
+      }
+
+      &.active {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+      }
+    }
+
+    label {
+      position: absolute;
+      right: 0.3rem;
+      bottom: 3.5rem;
+      background: var(--dark-blue);
+      color: #fff;
+      font-size: 0.9rem;
+      width: 2rem;
+      height: 2rem;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      cursor: pointer;
+      @include transition-ease;
+
+      svg {
+        transform: translateX(2px);
+      }
+
+      &.hidden {
+        opacity: 0;
+        visibility: hidden;
+      }
+
+      &:hover {
+        background: var(--auth-edit-bg);
+      }
+    }
+  }
+}

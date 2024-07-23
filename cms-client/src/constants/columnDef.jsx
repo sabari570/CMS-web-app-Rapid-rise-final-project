@@ -53,7 +53,7 @@ export const columns = (onDelete) => [
     cell: ({ row }) => {
       return (
         <div className="contact-table-actions">
-          <Link>
+          <Link to="/edit-contact">
             <button className="contact-edit-btn">Edit</button>
           </Link>
           <MdDelete

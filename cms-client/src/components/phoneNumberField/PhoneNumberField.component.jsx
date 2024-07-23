@@ -13,6 +13,7 @@ const PhoneNumberField = ({
   trigger,
   isValid,
   setValue,
+  phoneNumberValue,
 }) => {
   const [isHighlighted, setIsHighlighted] = useState(false);
   const isLoading = useSelector(selectIsLoading);
@@ -73,6 +74,10 @@ const PhoneNumberField = ({
     setShowError(!isValid);
   }, [isValid]);
 
+  useEffect(() => {
+    if (phoneNumberValue) setIsHighlighted(true);
+  }, []);
+
   console.log("Selected country: ", selectedCountry);
 
   return (
@@ -96,6 +101,7 @@ const PhoneNumberField = ({
           country={selectedCountry}
           specialLabel=""
           placeholder={isHighlighted ? placeholderText : ""}
+          value={phoneNumberValue}
           onChange={handleChange}
           onBlur={handleBlur}
           onFocus={handleFocus}

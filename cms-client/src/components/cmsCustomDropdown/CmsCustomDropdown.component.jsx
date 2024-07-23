@@ -56,7 +56,7 @@ const CmsCustomDropdown = ({
           <FaChevronDown />
         </span>
       </div>
-      {errors && <p className="error-message">Error message</p>}
+      {errors && <p className="error-message">{errors.message}</p>}
 
       <div
         className={`cms-dropdown-content ${

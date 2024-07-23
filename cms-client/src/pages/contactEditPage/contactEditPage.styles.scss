@@ -1,0 +1,26 @@
+.contact-edit-page {
+  min-height: calc(100vh - 5rem);
+  padding: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &-container {
+    background: var(--white);
+    padding: 0.8rem 1.5rem;
+    padding-bottom: 1.5rem;
+    border-radius: 8px;
+    width: 90%;
+
+    .page-heading {
+      font-size: 1.3rem;
+      font-weight: bold;
+    }
+
+    &-wrapper {
+      display: flex;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+  }
+}

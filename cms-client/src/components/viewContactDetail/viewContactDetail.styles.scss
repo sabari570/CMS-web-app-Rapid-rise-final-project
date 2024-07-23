@@ -1,0 +1,71 @@
+.view-contact-detail {
+  min-width: 20rem;
+
+  &-wrapper {
+    height: 100%;
+    background: var(--white);
+    padding: 0.8rem;
+    border-radius: 8px;
+    box-shadow: var(--fixed-shadow);
+
+    .contact-profile-container {
+      .contact-avatar-detail-container {
+        display: flex;
+        gap: 1rem;
+
+        .contact-avatar-container {
+          height: 52px;
+          width: 52px;
+          overflow: hidden;
+          border-radius: 50%;
+
+          img {
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+          }
+        }
+
+        .contact-profile-start-detail {
+          .contact-name {
+            font-size: 0.9rem;
+            font-weight: bold;
+          }
+
+          .contact-status {
+            font-size: 0.8rem;
+            color: #c0c0c0;
+            font-weight: bold;
+          }
+        }
+      }
+
+      .contact-account-details {
+        margin-top: 1rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.5rem;
+
+        .account-details-heading {
+          font-size: 1rem;
+          font-weight: bold;
+          color: var(--auth-btn-disabled-color);
+        }
+
+        .account-details-item {
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+
+          .contact-detail-icon {
+            font-size: 0.8rem;
+          }
+
+          span {
+            font-size: 0.8rem;
+          }
+        }
+      }
+    }
+  }
+}
