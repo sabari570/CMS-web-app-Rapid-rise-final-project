@@ -8,19 +8,7 @@ import { MdOutlinePhoneIphone } from "react-icons/md";
 import { handleImageUrl } from "../../utils/helperFunctions";
 import AccountDetailItem from "./AccountDetailItem.component";
 
-const ViewContactDetail = () => {
-  const selectedContact = {
-    _id: "669e728ce676261f321fe3a1",
-    firstName: "Tanjiro",
-    lastName: "Kamado",
-    address: "Yelahanka old town, Bangalore - 397465",
-    companyName: "Innovature",
-    status: "Employee",
-    phone: "+98 2343943433",
-    adminId: "668e36d6be3d0c4642ba13d9",
-    profilePic: "1720675640268-avatar2.jpg",
-  };
-
+const ViewContactDetail = ({ selectedContact }) => {
   const accountDetailItems = [
     {
       icon: <FaRegUser className="contact-detail-icon" />,

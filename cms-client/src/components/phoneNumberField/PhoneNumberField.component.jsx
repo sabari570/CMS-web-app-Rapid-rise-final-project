@@ -76,7 +76,7 @@ const PhoneNumberField = ({
 
   useEffect(() => {
     if (phoneNumberValue) setIsHighlighted(true);
-  }, []);
+  }, [phoneNumberValue]);
 
   console.log("Selected country: ", selectedCountry);
 

@@ -20,9 +20,7 @@ const app = express();
 const PORT = process.env.PORT || 3000;
 
 // For securing the headers
-app.use(
-  helmet()
-);
+app.use(helmet());
 // For managing sessions
 app.use(
   session({
@@ -52,7 +50,7 @@ app.use(
         callback(new Error("Not allowed by CORS"));
       }
     },
-    methods: ["POST", "GET", "PUT", "DELETE"],
+    methods: ["POST", "GET", "PUT", "DELETE", "PATCH"],
   })
 );
 app.use(express.urlencoded({ extended: true }));

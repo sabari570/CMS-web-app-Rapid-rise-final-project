@@ -31,7 +31,7 @@ const App = () => {
           <Route path="register" element={<Registerpage />} />
           <Route path="contacts" element={<Contactspage />} />
           <Route path="create-contact" element={<CreateContactpage />} />
-          <Route path="edit-contact" element={<ContactEditPage />} />
+          <Route path="edit-contact/:id" element={<ContactEditPage />} />
           <Route path="profile" element={<UserprofilePage />} />
           <Route path="*" element={<Errorpage />} />
         </Route>

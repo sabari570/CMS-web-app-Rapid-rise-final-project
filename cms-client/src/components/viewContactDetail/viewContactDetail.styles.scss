@@ -18,6 +18,11 @@
         display: flex;
         justify-content: space-between;
       }
+
+      @include mobile-screen {
+        flex-direction: column;
+      }
+
       .contact-avatar-detail-container {
         display: flex;
         gap: 1rem;
@@ -27,6 +32,10 @@
           align-items: center;
           justify-content: center;
           flex-direction: column;
+        }
+
+        @include mobile-screen{
+          width: 100%;
         }
 
         .contact-avatar-container {
@@ -75,6 +84,10 @@
         @include laptop-screen {
           margin-top: 0rem;
           margin-bottom: 1rem;
+        }
+
+        @include mobile-screen {
+          margin-top: 1rem;
         }
 
         .account-details-heading {

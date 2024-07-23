@@ -1,8 +1,10 @@
 import React from "react";
 import "./contactCard.styles.scss";
 import { handleImageUrl } from "../../utils/helperFunctions";
+import { useNavigate } from "react-router-dom";
 
 const ContactCard = ({ contact }) => {
+  const navigate = useNavigate();
   const contactDivs = [
     { title: "Firstname", keyName: "firstName" },
     { title: "Lastname", keyName: "lastName" },
@@ -11,10 +13,19 @@ const ContactCard = ({ contact }) => {
     { title: "Status", keyName: "status", divClassName: "contact-status" },
     { title: "Phone", keyName: "phone" },
   ];
+
+  const handleNavigation = (e, path) => {
+    console.log("Path:", path);
+    navigate(path);
+  };
   return (
     <div className="contact-card">
       <div className="contact-card-profile-pic">
-        <img crossOrigin="anonymous" src={handleImageUrl(contact.profilePic)} alt="contact-profile" />
+        <img
+          crossOrigin="anonymous"
+          src={handleImageUrl(contact.profilePic)}
+          alt="contact-profile"
+        />
       </div>
       <div className="contact-card-details">
         {contactDivs.map((contactDiv, index) => (
@@ -36,7 +47,12 @@ const ContactCard = ({ contact }) => {
         ))}
 
         <div className="contact-card-details-footer-btns">
-          <button className="contact-card-edit-btn">Edit</button>
+          <button
+            className="contact-card-edit-btn"
+            onClick={(e) => handleNavigation(e, `/edit-contact/${contact._id}`)}
+          >
+            Edit
+          </button>
           <button className="contact-card-delete-btn">Delete</button>
         </div>
       </div>

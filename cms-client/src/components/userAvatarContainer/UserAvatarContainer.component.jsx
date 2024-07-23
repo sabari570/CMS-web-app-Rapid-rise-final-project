@@ -38,6 +38,8 @@ const UserAvatarContainer = ({
 
   console.log("User avatar: ", userAvatar);
   console.log("User avatar image: ", userAvatarImage);
+  console.log("Image url: ", imageUrl);
+
   return (
     <div className="user-avatar-image-container">
       <div className="user-avatar-image-container-wrapper">

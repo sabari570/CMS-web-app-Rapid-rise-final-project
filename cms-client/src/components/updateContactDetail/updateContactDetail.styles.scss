@@ -1,3 +1,4 @@
+@import "../../styles/main.scss";
 .update-contact-detail {
   width: 100%;
   &-wrapper {
@@ -11,6 +12,38 @@
     .update-contact-detail-container {
       display: flex;
       justify-content: space-between;
+
+      @include mobile-screen {
+        flex-direction: column;
+        gap: 2rem;
+      }
+
+      .contact-profile-avatar-container-mobile {
+        display: none;
+
+        @include mobile-screen {
+          display: block;
+        }
+      }
+
+      .contact-profile-update-btn-mobile {
+        display: none;
+
+        @include mobile-screen {
+          display: block;
+
+          .contact-profile-update-btn {
+            background: var(--dark-blue);
+            color: var(--white);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+
+            &:hover {
+              outline: 1px solid var(--medium-blue);
+              box-shadow: var(--btn-shadow);
+            }
+          }
+        }
+      }
     }
   }
 }

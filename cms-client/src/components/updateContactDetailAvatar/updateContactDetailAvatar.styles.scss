@@ -1,7 +1,12 @@
+@import "../../styles/main.scss";
 .update-contact-detail-avatar {
   width: 100%;
   display: flex;
   justify-content: end;
+
+  @include mobile-screen {
+    display: none;
+  }
 
   &-wrapper {
     width: 80%;

@@ -15,6 +15,7 @@ const UpdateContactDetailForm = ({
   phoneValue,
   selectedStatus,
   setSelectedStatus,
+  defaultValues,
 }) => {
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const cmsDropdownRef = useRef();
@@ -44,6 +45,8 @@ const UpdateContactDetailForm = ({
     setIsDropdownOpen(false);
     clearErrors("status");
   };
+
+  console.log("Default values obtained: ", defaultValues);
   return (
     <form className="update-contact-detail-form">
       <AuthInputField
@@ -55,6 +58,7 @@ const UpdateContactDetailForm = ({
         errors={errors.firstName}
         trigger={trigger}
         isValid={isValid}
+        defaultValue={defaultValues.firstName}
       />
       <AuthInputField
         fieldType="lastName"
@@ -65,6 +69,7 @@ const UpdateContactDetailForm = ({
         errors={errors.lastName}
         trigger={trigger}
         isValid={isValid}
+        defaultValue={defaultValues.lastName}
       />
       <AuthInputField
         fieldType="companyName"
@@ -75,6 +80,7 @@ const UpdateContactDetailForm = ({
         errors={errors.companyName}
         trigger={trigger}
         isValid={isValid}
+        defaultValue={defaultValues.companyName}
       />
       <PhoneNumberField
         fieldType="phone"
@@ -121,6 +127,7 @@ const UpdateContactDetailForm = ({
         errors={errors.address}
         trigger={trigger}
         isValid={isValid}
+        defaultValue={defaultValues.address}
       />
     </form>
   );

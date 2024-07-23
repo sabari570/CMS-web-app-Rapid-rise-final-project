@@ -13,10 +13,20 @@ const AuthInputField = ({
   trigger,
   isValid,
   fieldType,
+  defaultValue,
 }) => {
   const [isHighlighted, setIsHighlighted] = useState(false);
   const isLoading = useSelector(selectIsLoading);
   const [showError, setShowError] = useState(true);
+
+  // useEffect to remove the highlight after submission
+  useEffect(() => {
+    setIsHighlighted(false);
+  }, [isLoading]);
+
+  useEffect(() => {
+    if (defaultValue) setIsHighlighted(true);
+  }, [defaultValue]);
 
   // inorder to highlight the field
   const handleFocus = (e) => {
@@ -46,11 +56,6 @@ const AuthInputField = ({
       setIsHighlighted(false);
     }
   };
-
-  // useEffect to remove the highlight after submission
-  useEffect(() => {
-    setIsHighlighted(false);
-  }, [isLoading]);
 
   // inorder to handle errors during submission
   useEffect(() => {

@@ -3,11 +3,21 @@ import "./updateContactDetailAvatar.styles.scss";
 import AuthBtn from "../authButton/AuthBtn.component";
 import UserAvatarContainer from "../userAvatarContainer/UserAvatarContainer.component";
 import { handleImageUrl } from "../../utils/helperFunctions";
+import useUpdateContactAvatar from "../../hooks/useUpdateContactAvatar";
 
-const UpdateContactDetailAvatar = ({ handleFormSubmit }) => {
+const UpdateContactDetailAvatar = ({
+  contactId,
+  handleFormSubmit,
+  imageUrl,
+}) => {
   const [userAvatar, setUserAvatar] = useState(null);
-  const handleUpdateImage = (e) => {
+  const { loading, updateContactAvatar } = useUpdateContactAvatar();
+
+  const handleUpdateImage = async (e) => {
     console.log("now call the update api with the image object");
+    const formData = new FormData();
+    formData.append("profilePic", userAvatar);
+    await updateContactAvatar(contactId, formData);
     setUserAvatar(null);
   };
   return (
@@ -17,7 +27,7 @@ const UpdateContactDetailAvatar = ({ handleFormSubmit }) => {
           <UserAvatarContainer
             userAvatar={userAvatar}
             setUserAvatar={setUserAvatar}
-            imageUrl={handleImageUrl("1720675640268-avatar2.jpg")}
+            imageUrl={handleImageUrl(imageUrl)}
             onClick={handleUpdateImage}
           />
         </div>
