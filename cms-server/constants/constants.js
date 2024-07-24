@@ -1,3 +1,4 @@
-const CLIENT_URL = "http://localhost:5173";
+require("dotenv").config();
+const CLIENT_URL = process.env.CLIENT_URL;
 
 module.exports = { CLIENT_URL };

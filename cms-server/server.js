@@ -12,6 +12,7 @@ const contactRoutes = require("./routes/contactRoutes.js");
 const userRoutes = require("./routes/userRoutes.js");
 const { notFound } = require("./utils/errorHandler.js");
 const passport = require("passport");
+const { CLIENT_URL } = require("./constants/constants.js");
 require("dotenv").config();
 
 // Initialising the express app
@@ -44,7 +45,7 @@ app.use(
     credentials: true,
     origin: function (origin, callback) {
       // Check if the request origin is allowed
-      if (!origin || origin === "http://localhost:5173") {
+      if (!origin || origin === CLIENT_URL) {
         callback(null, true);
       } else {
         callback(new Error("Not allowed by CORS"));
