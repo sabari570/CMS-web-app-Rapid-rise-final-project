@@ -9,6 +9,7 @@ import CmsDropdownItem from "../cmsCustomDropdown/cmsDropdownItem.component";
 import PhoneNumberField from "../phoneNumberField/PhoneNumberField.component";
 import AuthBtn from "../authButton/AuthBtn.component";
 import useCreateContact from "../../hooks/useCreateContact";
+import { capitalizeFirstLetter } from "../../utils/helperFunctions";
 
 const CreateContactForm = ({ contactAvatar, setContactAvatar }) => {
   const {
@@ -32,6 +33,9 @@ const CreateContactForm = ({ contactAvatar, setContactAvatar }) => {
   const onSubmit = async (data) => {
     console.log("Contact data: ", data);
     console.log("Contact profile URL: ", contactAvatar);
+
+    if (data.companyName)
+      data.companyName = capitalizeFirstLetter(data.companyName);
 
     const contactFormData = new FormData();
     Object.keys(data).forEach((key) => {
@@ -120,7 +124,10 @@ const CreateContactForm = ({ contactAvatar, setContactAvatar }) => {
             isValid={isValid}
             setValue={setValue}
           />
-          <div ref={cmsDropdownRef} className="create-contact-status-container-wrapper">
+          <div
+            ref={cmsDropdownRef}
+            className="create-contact-status-container-wrapper"
+          >
             <CmsCustomDropdown
               placeholderText="Status"
               btnText={selectedStatus}

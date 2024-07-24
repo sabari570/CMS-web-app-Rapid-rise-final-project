@@ -47,7 +47,7 @@ const ContactEditPage = () => {
         {selectedContact && (
           <div className="contact-edit-page-container-wrapper">
             <ViewContactDetail selectedContact={selectedContact} />
-            <UpdateContactDetail initialValues={selectedContact} />
+            <UpdateContactDetail />
           </div>
         )}
       </div>

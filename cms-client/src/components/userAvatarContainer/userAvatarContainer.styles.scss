@@ -10,12 +10,26 @@
     width: 10rem;
 
     .user-avatar-image-wrapper {
+      position: relative;
       height: 10rem;
       width: 10rem;
       border-radius: 50%;
       background: var(--white);
       border: 0.8rem solid var(--dark-blue);
       overflow: hidden;
+
+      .avatar-loading-overlay {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(255, 255, 255, 0.8);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        z-index: 10;
+      }
 
       img {
         height: 100%;

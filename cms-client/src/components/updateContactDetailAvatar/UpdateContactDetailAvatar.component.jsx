@@ -29,6 +29,7 @@ const UpdateContactDetailAvatar = ({
             setUserAvatar={setUserAvatar}
             imageUrl={handleImageUrl(imageUrl)}
             onClick={handleUpdateImage}
+            isLoading={loading}
           />
         </div>
 

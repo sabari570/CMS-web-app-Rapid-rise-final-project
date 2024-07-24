@@ -23,7 +23,7 @@ function useUpdateContactAvatar() {
         toast.error("Couldn't update contact avatar. Please try again later");
         return;
       }
-      toast.success("Contact updated successfully");
+      toast.success("Contact avatar updated successfully");
       dispatch(setSelectedContact(updatedContact));
     } catch (error) {
       console.log("Error while updating contact avatar: ", error);

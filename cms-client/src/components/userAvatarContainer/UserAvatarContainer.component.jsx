@@ -2,12 +2,14 @@ import React, { useEffect, useRef, useState } from "react";
 import "./userAvatarContainer.styles.scss";
 import { FaPencilAlt } from "react-icons/fa";
 import { IoCheckmarkDoneSharp, IoCloseSharp } from "react-icons/io5";
+import UserAvatarLoader from "../userAvatarLoader/UserAvatarLoader.component";
 
 const UserAvatarContainer = ({
   userAvatar,
   setUserAvatar,
   imageUrl,
   onClick,
+  isLoading,
 }) => {
   const [userAvatarImage, setUserAvatarImage] = useState();
   const [isEditing, setIsEditing] = useState(false);
@@ -44,6 +46,11 @@ const UserAvatarContainer = ({
     <div className="user-avatar-image-container">
       <div className="user-avatar-image-container-wrapper">
         <div className="user-avatar-image-wrapper">
+          {isLoading && (
+            <div className="avatar-loading-overlay">
+              <UserAvatarLoader />
+            </div>
+          )}
           <img
             crossOrigin="anonymous"
             src={userAvatarImage || imageUrl}

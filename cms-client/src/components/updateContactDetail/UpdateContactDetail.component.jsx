@@ -6,12 +6,19 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { contactSchema } from "../../utils/formSchemas";
 import UserAvatarContainer from "../userAvatarContainer/UserAvatarContainer.component";
-import { handleImageUrl } from "../../utils/helperFunctions";
+import {
+  capitalizeFirstLetter,
+  handleImageUrl,
+} from "../../utils/helperFunctions";
 import AuthBtn from "../authButton/AuthBtn.component";
 import useIsMobile from "../../hooks/useIsMobile";
 import useUpdateContactAvatar from "../../hooks/useUpdateContactAvatar";
+import useUpdateContactDetail from "../../hooks/useUpdateContactDetail";
+import { useSelector } from "react-redux";
+import { selectSelectedContact } from "../../store/contact/contact.selector";
 
-const UpdateContactDetail = ({ initialValues }) => {
+const UpdateContactDetail = () => {
+  const selectedContact = useSelector(selectSelectedContact);
   const {
     register,
     handleSubmit,
@@ -22,23 +29,28 @@ const UpdateContactDetail = ({ initialValues }) => {
     clearErrors,
   } = useForm({
     resolver: zodResolver(contactSchema),
-    defaultValues: initialValues,
+    defaultValues: selectedContact,
   });
-  const [phoneValue, setPhoneValue] = useState(initialValues.phone);
-  const [selectedStatus, setSelectedStatus] = useState(initialValues.status);
+  const [phoneValue, setPhoneValue] = useState(selectedContact.phone);
+  const [selectedStatus, setSelectedStatus] = useState(selectedContact.status);
   const [userAvatar, setUserAvatar] = useState(null);
   const { loading, updateContactAvatar } = useUpdateContactAvatar();
+  const { updateContactDetail } = useUpdateContactDetail();
 
   const handleUpdateImage = async (e) => {
     console.log("now call the update api with the image object");
     const formData = new FormData();
     formData.append("profilePic", userAvatar);
-    await updateContactAvatar(initialValues._id, formData);
+    await updateContactAvatar(selectedContact._id, formData);
     setUserAvatar(null);
   };
 
   const onSubmit = async (data) => {
     console.log("Contact data: ", data);
+    if (data.companyName) {
+      data.companyName = capitalizeFirstLetter(data.companyName);
+    }
+    await updateContactDetail(selectedContact._id, data);
     reset();
     setPhoneValue(null);
     setSelectedStatus(null);
@@ -50,11 +62,12 @@ const UpdateContactDetail = ({ initialValues }) => {
   };
 
   useEffect(() => {
-    setPhoneValue(initialValues.phone);
-    setSelectedStatus(initialValues.status);
-  }, [initialValues]);
+    setPhoneValue(selectedContact.phone);
+    setSelectedStatus(selectedContact.status);
+    console.log("After updating initial values:", selectedContact);
+  }, [selectedContact]);
 
-  console.log("Initial values: ", initialValues);
+  console.log("phone and status values: ", phoneValue, selectedStatus);
 
   const isMobile = useIsMobile(650);
   return (
@@ -66,8 +79,9 @@ const UpdateContactDetail = ({ initialValues }) => {
               <UserAvatarContainer
                 userAvatar={userAvatar}
                 setUserAvatar={setUserAvatar}
-                imageUrl={handleImageUrl(initialValues.profilePic)}
+                imageUrl={handleImageUrl(selectedContact.profilePic)}
                 onClick={handleUpdateImage}
+                isLoading={loading}
               />
             </div>
           )}
@@ -82,7 +96,7 @@ const UpdateContactDetail = ({ initialValues }) => {
             setPhoneValue={setPhoneValue}
             selectedStatus={selectedStatus}
             setSelectedStatus={setSelectedStatus}
-            defaultValues={initialValues}
+            defaultValues={selectedContact}
           />
 
           <div className="contact-profile-update-btn-mobile">
@@ -94,9 +108,9 @@ const UpdateContactDetail = ({ initialValues }) => {
           </div>
           {!isMobile && (
             <UpdateContactDetailAvatar
-              contactId={initialValues._id}
+              contactId={selectedContact._id}
               handleFormSubmit={handleFormSubmit}
-              imageUrl={initialValues.profilePic}
+              imageUrl={selectedContact.profilePic}
             />
           )}
         </div>
