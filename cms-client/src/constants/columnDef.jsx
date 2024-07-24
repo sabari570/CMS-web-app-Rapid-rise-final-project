@@ -57,7 +57,7 @@ export const columns = (onDelete) => [
             <button className="contact-edit-btn">Edit</button>
           </Link>
           <MdDelete
-            onClick={() => onDelete(row.original.id)}
+            onClick={() => onDelete(row.original._id)}
             className="contact-delete-btn"
           />
         </div>

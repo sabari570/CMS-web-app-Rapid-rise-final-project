@@ -23,6 +23,7 @@ const ContactsTable = ({
   sortFieldsObj,
   statusField,
   companiesList,
+  reFetch,
 }) => {
   const data = useMemo(() => tableData.contacts ?? [], [tableData]);
   const columns = useMemo(() => columnDef(onDelete), [columnDef, onDelete]);
@@ -115,7 +116,7 @@ const ContactsTable = ({
       searchFilter,
       pagination,
     });
-  }, [sorting, statusSelected, companiesSelected, searchFilter]);
+  }, [sorting, statusSelected, companiesSelected, searchFilter, reFetch]);
 
   return (
     <div className="contacts-table">
@@ -193,7 +194,7 @@ const ContactsTable = ({
           {data.length > 0 ? (
             <div className="contact-card-wrapper">
               {data.map((contact, index) => (
-                <ContactCard key={index} contact={contact} />
+                <ContactCard key={index} contact={contact} onDelete={onDelete} />
               ))}
             </div>
           ) : (

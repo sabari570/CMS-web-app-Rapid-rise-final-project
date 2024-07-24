@@ -3,7 +3,7 @@ import "./contactCard.styles.scss";
 import { handleImageUrl } from "../../utils/helperFunctions";
 import { useNavigate } from "react-router-dom";
 
-const ContactCard = ({ contact }) => {
+const ContactCard = ({ contact, onDelete }) => {
   const navigate = useNavigate();
   const contactDivs = [
     { title: "Firstname", keyName: "firstName" },
@@ -17,6 +17,10 @@ const ContactCard = ({ contact }) => {
   const handleNavigation = (e, path) => {
     console.log("Path:", path);
     navigate(path);
+  };
+
+  const handleContactDelete = (e, contactId) => {
+    onDelete(contactId);
   };
   return (
     <div className="contact-card">
@@ -53,7 +57,12 @@ const ContactCard = ({ contact }) => {
           >
             Edit
           </button>
-          <button className="contact-card-delete-btn">Delete</button>
+          <button
+            className="contact-card-delete-btn"
+            onClick={(e) => handleContactDelete(e, contact._id)}
+          >
+            Delete
+          </button>
         </div>
       </div>
     </div>

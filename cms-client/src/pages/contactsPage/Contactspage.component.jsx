@@ -6,17 +6,24 @@ import { selectCurrentUser } from "../../store/user/user.selector.js";
 import ContactsPageHeader from "../../components/contactsPageHeader/ContactsPageHeader.component.jsx";
 import ContactsTable from "../../components/contactsTable/ContactsTable.component.jsx";
 import { columns } from "../../constants/columnDef.jsx";
+import useDeleteContact from "../../hooks/useDeleteContact.js";
 
 const Contactspage = () => {
   const currentUser = useSelector(selectCurrentUser);
   const navigate = useNavigate();
   const [data, setData] = useState([]);
+  const [reFetch, setReFetch] = useState(false);
   const [sortFieldsObj, setSortFieldsObj] = useState();
   const [statusField, setStatusField] = useState();
   const [companiesList, setCompaniesList] = useState([]);
+  const { deleteContact } = useDeleteContact();
 
   // Function to handle deleting a contact
-  const handleDelete = (contactId) => {};
+  const handleDelete = async (contactId) => {
+    console.log("Call the delete api with id: ", contactId);
+    await deleteContact(contactId);
+    setReFetch((prev) => !prev);
+  };
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -54,6 +61,7 @@ const Contactspage = () => {
           sortFieldsObj={sortFieldsObj}
           statusField={statusField}
           companiesList={companiesList}
+          reFetch={reFetch}
         />
       </div>
     </div>
