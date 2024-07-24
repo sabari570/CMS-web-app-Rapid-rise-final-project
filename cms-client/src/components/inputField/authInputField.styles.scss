@@ -81,6 +81,10 @@
         filter: invert(80%);
       }
     }
+
+    &:disabled {
+      color: var(--auth-btn-disabled-color);
+    }
   }
 
   &.input-field-error {

@@ -25,6 +25,7 @@
       font-weight: bold;
       font-size: 1.3rem;
       margin-bottom: 0.7rem;
+      color: var(--dark-blue);
 
       @include mobile-screen {
         display: none;
@@ -36,6 +37,7 @@
         @include mobile-screen {
           text-align: center;
           display: block;
+          color: var(--dark-blue);
         }
       }
     }

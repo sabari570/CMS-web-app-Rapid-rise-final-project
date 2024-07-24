@@ -14,6 +14,8 @@ const AuthInputField = ({
   isValid,
   fieldType,
   defaultValue,
+  disabled = false,
+  removeHighlightAfterLoading = false,
 }) => {
   const [isHighlighted, setIsHighlighted] = useState(false);
   const isLoading = useSelector(selectIsLoading);
@@ -21,7 +23,7 @@ const AuthInputField = ({
 
   // useEffect to remove the highlight after submission
   useEffect(() => {
-    setIsHighlighted(false);
+    if (removeHighlightAfterLoading) setIsHighlighted(false);
   }, [isLoading]);
 
   useEffect(() => {
@@ -112,6 +114,7 @@ const AuthInputField = ({
           onFocus={handleFocus}
           onCopy={handleCopy}
           onPaste={handlePaste}
+          disabled={disabled}
         />
       )}
       {showError && errors && (

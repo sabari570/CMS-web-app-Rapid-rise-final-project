@@ -13,6 +13,7 @@ import AuthForm from "../authForm/AuthForm.component.jsx";
 import { registerSchema } from "../../utils/formSchemas.js";
 import AuthFooterBottomNavigation from "../authFooterBottomNavigation/AuthFooterBottomNavigation.component.jsx";
 import useSignUp from "../../hooks/useSignUp.js";
+import { formatDateString } from "../../utils/helperFunctions.js";
 
 const RegisterBody = () => {
   const {
@@ -30,11 +31,6 @@ const RegisterBody = () => {
     useState(false);
   const [userAvatar, setUserAvatar] = useState(null);
   const { signUp } = useSignUp();
-
-  const formatDateString = (dateString) => {
-    const [year, month, date] = dateString.split("-");
-    return `${date}/${month}/${year}`;
-  };
 
   const onSubmit = async (data) => {
     data.dob = formatDateString(data.dob);
@@ -85,6 +81,7 @@ const RegisterBody = () => {
               trigger={trigger}
               isValid={isValid}
               icon={<FaRegUser className="form-icon" />}
+              removeHighlightAfterLoading={true}
             />
             <AuthInputField
               fieldType="lastName"
@@ -96,6 +93,7 @@ const RegisterBody = () => {
               trigger={trigger}
               isValid={isValid}
               icon={<FaRegUser className="form-icon" />}
+              removeHighlightAfterLoading={true}
             />
           </div>
           <AuthInputField
@@ -108,6 +106,7 @@ const RegisterBody = () => {
             errors={errors.email}
             trigger={trigger}
             isValid={isValid}
+            removeHighlightAfterLoading={true}
           />
           <AuthInputField
             fieldType="password"
@@ -131,6 +130,7 @@ const RegisterBody = () => {
             errors={errors.password}
             trigger={trigger}
             isValid={isValid}
+            removeHighlightAfterLoading={true}
           />
 
           <AuthInputField
@@ -155,6 +155,7 @@ const RegisterBody = () => {
             errors={errors.password2}
             trigger={trigger}
             isValid={isValid}
+            removeHighlightAfterLoading={true}
           />
           <AuthInputField
             fieldType="dob"
@@ -165,6 +166,7 @@ const RegisterBody = () => {
             errors={errors.dob}
             trigger={trigger}
             isValid={isValid}
+            removeHighlightAfterLoading={true}
           />
 
           <GenderRadioField
@@ -182,6 +184,7 @@ const RegisterBody = () => {
             errors={errors.address}
             trigger={trigger}
             isValid={isValid}
+            removeHighlightAfterLoading={true}
           />
         </AuthForm>
         <AuthFooterBottomNavigation

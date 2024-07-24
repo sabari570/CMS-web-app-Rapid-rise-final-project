@@ -10,6 +10,8 @@ const UserAvatarContainer = ({
   imageUrl,
   onClick,
   isLoading,
+  imageContainerClassName = "",
+  imageEditWrapperClassName = "",
 }) => {
   const [userAvatarImage, setUserAvatarImage] = useState();
   const [isEditing, setIsEditing] = useState(false);
@@ -45,7 +47,7 @@ const UserAvatarContainer = ({
   return (
     <div className="user-avatar-image-container">
       <div className="user-avatar-image-container-wrapper">
-        <div className="user-avatar-image-wrapper">
+        <div className={`user-avatar-image-wrapper ${imageContainerClassName}`}>
           {isLoading && (
             <div className="avatar-loading-overlay">
               <UserAvatarLoader />
@@ -64,7 +66,12 @@ const UserAvatarContainer = ({
             onChange={handleUserAvatarChange}
           />
         </div>
-        <label htmlFor="avatar" className={isEditing ? "hidden" : ""}>
+        <label
+          htmlFor="avatar"
+          className={`${
+            isEditing ? "hidden" : ""
+          } ${imageEditWrapperClassName}`}
+        >
           <FaPencilAlt className="profile-avatar-edit-icon" />
         </label>
         <div className={`user-avatar-actions ${isEditing ? "active" : ""}`}>

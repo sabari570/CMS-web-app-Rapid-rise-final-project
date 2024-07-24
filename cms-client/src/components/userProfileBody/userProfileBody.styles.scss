@@ -1,0 +1,50 @@
+.user-profile-body {
+  &-wrapper {
+    display: flex;
+    flex-direction: column;
+
+    .user-profile-avatar-container {
+      margin-bottom: 0.8rem;
+
+      .user-profile-image-container {
+        border: 0.8rem solid #d1d1d189;
+      }
+
+      .edit-wrapper {
+        background: var(--light-grey);
+
+        &:hover {
+          background: var(--dark-blue);
+        }
+      }
+    }
+
+    .user-profile-form {
+      &-name-field {
+        display: flex;
+        gap: 1rem;
+      }
+    }
+
+    .user-profile-footer-btn {
+      .user-profile-update-btn {
+        background: var(--dark-blue);
+        color: var(--white);
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+
+        &:hover {
+          outline: 1px solid var(--medium-blue);
+          box-shadow: var(--btn-shadow);
+        }
+      }
+    }
+
+    .profile-page-highlight-input {
+      border: 1.5px solid var(--dark-blue);
+    }
+
+    .profile-page-highlight-label {
+      color: var(--dark-blue);
+    }
+  }
+}

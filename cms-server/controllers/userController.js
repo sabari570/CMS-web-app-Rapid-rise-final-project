@@ -54,7 +54,7 @@ module.exports.updateUserDetail = async (req, res) => {
         message: `User with id: ${req.userId} not found`,
       };
 
-    const updatedContact = await User.findOneAndUpdate(
+    const updatedUser = await User.findOneAndUpdate(
       { _id: req.userId },
       {
         $set: updatedData,
@@ -68,7 +68,7 @@ module.exports.updateUserDetail = async (req, res) => {
     });
     return res.status(200).json({
       message: "User updated successfully",
-      contact: updatedContact,
+      user: updatedUser,
     });
   } catch (error) {
     console.log("Error while updating user profile: ", error);
@@ -130,7 +130,7 @@ module.exports.changeUserAvatar = async (req, res) => {
 
     return res.status(200).json({
       messgae: "User avatar changed successfully",
-      contact: updatedUser,
+      user: updatedUser,
     });
   } catch (error) {
     console.log("Error while changing the profile pic of user: ", error);

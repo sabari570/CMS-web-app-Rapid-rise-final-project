@@ -57,6 +57,7 @@ const LoginBody = () => {
             errors={errors.email}
             trigger={trigger}
             isValid={isValid}
+            removeHighlightAfterLoading={true}
           />
           <AuthInputField
             fieldType="password"
@@ -80,6 +81,7 @@ const LoginBody = () => {
             errors={errors.password}
             trigger={trigger}
             isValid={isValid}
+            removeHighlightAfterLoading={true}
           />
         </AuthForm>
 

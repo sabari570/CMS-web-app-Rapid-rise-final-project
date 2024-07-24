@@ -13,3 +13,19 @@ export const handleImageUrl = (profilePicUrl) => {
 export const capitalizeFirstLetter = (value) => {
   return value.charAt(0).toUpperCase() + value.slice(1);
 };
+
+// Helper function to format the date string
+// if targetted length is met then 0 will not be added in the begining
+// else it gets added thats the functionality of padStart
+// Eg: If month is "9", month.padStart(2, "0") will result in "09".
+// If month is "10", it will remain "10" because it already meets the target length.
+export const formatDateForInputField = (dateString) => {
+  const [day, month, year] = dateString.split("/");
+  return `${year}-${month.padStart(2, "0")}-${day.padStart(2, "0")}`;
+};
+
+// Helper function to format date when sent to backend
+export const formatDateString = (dateString) => {
+  const [year, month, date] = dateString.split("-");
+  return `${date}/${month}/${year}`;
+};
