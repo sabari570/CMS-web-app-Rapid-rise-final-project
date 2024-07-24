@@ -8,12 +8,14 @@ import { TbLogout } from "react-icons/tb";
 import { MdClose } from "react-icons/md";
 import { GiHamburgerMenu } from "react-icons/gi";
 import { handleImageUrl } from "../../utils/helperFunctions";
+import useLogout from "../../hooks/useLogout";
 
 const Navbar = () => {
   const currentUser = useSelector(selectCurrentUser);
   const [isToggleDropdown, setToggleDropdown] = useState(false);
   const [navState, setNavState] = useState(false);
   const profileContainerRef = useRef(null);
+  const { logout } = useLogout();
 
   const handleToggleDropdown = (e) => {
     setToggleDropdown((prev) => !prev);
@@ -47,6 +49,11 @@ const Navbar = () => {
       document.removeEventListener("mousedown", handleClickOutside);
     };
   }, []);
+
+  const handleLogout = async (e) => {
+    console.log("Logout clciked");
+    await logout();
+  };
   return (
     <nav className="navbar" role="navigation" aria-label="main navigation">
       <div className="navbar-wrapper">
@@ -92,7 +99,7 @@ const Navbar = () => {
                 navState && "open"
               }`}
             >
-              <Link>Logout</Link>
+              <Link onClick={handleLogout}>Logout</Link>
             </li>
 
             <li className="nav-link-item" ref={profileContainerRef}>
@@ -116,7 +123,7 @@ const Navbar = () => {
                 </li>
                 <div className="seperator" />
                 <li className="dropdown-menu-item">
-                  <Link>
+                  <Link onClick={handleLogout}>
                     Logout
                     <TbLogout className="nav-icon" />
                   </Link>
