@@ -12,6 +12,14 @@
       color: var(--dark-blue);
       font-size: 1.4rem;
       font-weight: 600;
+      display: flex;
+      gap: 0.5rem;
+
+      @include mobile-screen {
+        font-size: 1.2rem;
+        flex-direction: column;
+        gap: 0rem;
+      }
     }
 
     .dashboard-footer-data {
