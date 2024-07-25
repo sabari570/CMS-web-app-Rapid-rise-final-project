@@ -1,0 +1,29 @@
+.dashboard-contacts-pie-chart {
+  width: 100%;
+
+  &-wrapper {
+    background: var(--white);
+    padding: 0.8rem 1rem;
+    border-radius: 10px;
+    box-shadow: var(--fixed-shadow);
+
+    .pie-chart-heading {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--dark-blue);
+    }
+
+    .pie-chart-wrapper {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 100%;
+        height: 400px;
+      }
+  
+      .pie-chart-container {
+        width: 100%;
+        height: 100%;
+      }
+  }
+}

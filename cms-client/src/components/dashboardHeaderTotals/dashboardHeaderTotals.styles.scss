@@ -1,0 +1,117 @@
+@import "../../styles/main.scss";
+.dashboard-header-totals {
+  width: 100%;
+
+  &-wrapper {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(15rem, 2fr));
+    width: 100%;
+    gap: 1rem;
+
+    .header-total-card {
+      background: var(--white);
+      padding: 0.8rem 1rem;
+      border-radius: 8px;
+      box-shadow: var(--fixed-shadow);
+      display: flex;
+      flex-direction: column;
+      gap: 0.3rem;
+      cursor: pointer;
+      @include transition-ease;
+
+      &:hover {
+        background: var(--dark-blue);
+        transform: translateY(-5px) scale(1.02);
+        box-shadow: var(--elevate-shadow);
+
+        .header-icons-wrapper {
+          .header-icons {
+            color: var(--white);
+          }
+        }
+
+        .card-title {
+          color: var(--white);
+        }
+
+        .card-statistics {
+          color: var(--white);
+
+          .percentage-div {
+            background: var(--dashboard-header-icons-bg);
+            padding: 0.1rem 0.3rem;
+            border-radius: 8px;
+            span {
+              color: var(--white);
+            }
+          }
+        }
+
+        .card-footer {
+          color: var(--white);
+        }
+      }
+
+      .header-icons-wrapper {
+        width: 2rem;
+        height: 2rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0.5rem;
+        border-radius: 10px;
+        background: var(--dashboard-header-icons-bg);
+        .header-icons {
+          font-size: 1rem;
+          color: var(--dark-blue);
+        }
+      }
+
+      .card-title {
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: var(--dark-blue);
+      }
+
+      .card-statistics {
+        display: flex;
+        align-items: center;
+        gap: 2rem;
+
+        p {
+          font-size: 1.2rem;
+          font-weight: bold;
+        }
+
+        .percentage-div {
+          display: flex;
+          align-items: center;
+          span {
+            font-size: 0.8rem;
+            color: var(--dark-blue);
+            padding: 0.2rem 0.8rem;
+            border-radius: 8px;
+          }
+
+          svg {
+            margin-left: -0.3rem;
+            font-size: 0.8rem;
+          }
+
+          .positive {
+            color: lightgreen;
+          }
+
+          .negative {
+            color: crimson;
+          }
+        }
+      }
+
+      .card-footer {
+        font-size: 0.8rem;
+        color: var(--light-grey);
+      }
+    }
+  }
+}

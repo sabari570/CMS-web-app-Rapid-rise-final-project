@@ -1,0 +1,110 @@
+@import "../../styles/main.scss";
+.dashboard-recent-contacts {
+  width: 60%;
+
+  @include laptop-screen {
+    width: 100%;
+  }
+
+  @include mobile-screen {
+    min-width: 90%;
+  }
+
+  &-wrapper {
+    height: 100%;
+    background: var(--white);
+    padding: 0.8rem 1rem;
+    border-radius: 10px;
+    box-shadow: var(--fixed-shadow);
+
+    .recent-contacts-heading {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--dark-blue);
+      margin-bottom: 1rem;
+    }
+
+    .contacts-list {
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+
+      .recent-contact-card {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        .contact-image-container {
+          height: 3rem;
+          width: 4rem;
+          overflow: hidden;
+          img {
+            height: 100%;
+            width: 100%;
+            border-radius: 50%;
+            object-fit: cover;
+          }
+        }
+
+        .detail-btn-group {
+          width: 100%;
+          display: flex;
+          align-items: center;
+          justify-content: space-between;
+        }
+
+        .contact-details-col {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          width: 100%;
+
+          .contact-name {
+            font-size: 0.9rem;
+            font-weight: 600;
+
+            @include mobile-screen {
+              font-size: 0.7rem;
+            }
+          }
+
+          .contact-status {
+            font-size: 0.8rem;
+            color: var(--light-grey);
+
+            @include mobile-screen {
+              font-size: 0.6rem;
+            }
+          }
+        }
+
+        .contact-display-btn {
+          button {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.8rem 1rem;
+            background: #eeeef7;
+            border-radius: 8px;
+            cursor: pointer;
+            color: var(--dark-blue);
+            @include transition-ease;
+            border: none;
+            outline: none;
+            cursor: pointer;
+            color: var(--dark-blue);
+
+            &:hover {
+              background: #c7c7fa;
+            }
+
+            @include mobile-screen {
+              font-size: 0.7rem;
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,23 @@
+.dashboard-contacts-graph {
+  width: 100%;
+
+  &-wrapper {
+    background: var(--white);
+    padding: 0.8rem 1rem;
+    border-radius: 10px;
+    box-shadow: var(--fixed-shadow);
+
+    .graph-title {
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: var(--dark-blue);
+      margin-bottom: 0.8rem;
+    }
+
+    .recharts-responsive-container {
+      svg {
+        cursor: pointer;
+      }
+    }
+  }
+}

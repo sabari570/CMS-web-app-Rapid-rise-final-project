@@ -59,3 +59,28 @@ export const selectLabelCustomStyles = (isMobile) => ({
     overflowY: "auto",
   }),
 });
+
+export const MONTH_NAMES = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
+
+export const PIE_CHART_COLORS = [
+  "#4423A5",
+  "#54D4E4",
+  "#8A2BE2",
+  "#6495ED",
+  "#00CED1",
+  "#FF69B4",
+  "#32CD32",
+];

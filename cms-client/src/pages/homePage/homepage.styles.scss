@@ -1,4 +1,26 @@
-.homepage{
-    width: 100%;
-    height: 100vh;
+@import "../../styles/main.scss";
+.homepage {
+  min-height: calc(100vh - 5rem);
+
+  &-wrapper {
+    padding: 0.8rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+
+    .dashboard-heading {
+      color: var(--dark-blue);
+      font-size: 1.4rem;
+      font-weight: 600;
+    }
+
+    .dashboard-footer-data {
+      display: flex;
+      gap: 1rem;
+
+      @include laptop-screen {
+        flex-direction: column;
+      }
+    }
+  }
 }

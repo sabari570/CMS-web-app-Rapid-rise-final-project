@@ -1,4 +1,4 @@
-import { CMS_IMAGE_BASEURL } from "../constants/appConstants";
+import { CMS_IMAGE_BASEURL, MONTH_NAMES } from "../constants/appConstants";
 
 // Helper function to handle the image url from backend
 export const handleImageUrl = (profilePicUrl) => {
@@ -28,4 +28,21 @@ export const formatDateForInputField = (dateString) => {
 export const formatDateString = (dateString) => {
   const [year, month, date] = dateString.split("-");
   return `${date}/${month}/${year}`;
+};
+
+// Helper function to modify the graph data and display it
+export const formatContactsGraphData = (data) => {
+  const allMonths = MONTH_NAMES.map((month) => ({
+    month: month,
+    count: 0,
+  }));
+
+  data.forEach(({ count, month }) => {
+    const monthIndex = month - 1;
+    if (monthIndex >= 0 && monthIndex < 12) {
+      allMonths[monthIndex].count = count;
+    }
+  });
+
+  return allMonths;
 };

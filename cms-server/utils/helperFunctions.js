@@ -1,3 +1,6 @@
+const moment = require("moment");
+const Contact = require("../models/contactModel");
+
 // Helper function for search filtering
 module.exports.filter = (query, search, status, companies) => {
   const regex = RegExp(search, "i");
@@ -49,34 +52,141 @@ module.exports.paginate = (query, { page, limit }) => {
   return query.skip(offset).limit(limit);
 };
 
-// Helper function for extracting the totals for dashboard
-module.exports.dashboardTotalsData = async (Contact, userId) => {
-  // Total contacts
-  const totalContacts = await Contact.countDocuments({ adminId: userId });
+// Helper function to get count for a specific status and time period
+const getCountByStatus = async (status, matchQuery) => {
+  let result;
+  if (status) {
+    result = await Contact.aggregate([
+      { $match: { ...matchQuery, status: status } },
+      { $group: { _id: null, count: { $sum: 1 } } },
+    ]);
+  } else {
+    result = await Contact.aggregate([
+      { $match: { ...matchQuery } },
+      { $group: { _id: null, count: { $sum: 1 } } },
+    ]);
+  }
+  return result[0]?.count || 0;
+};
 
+// Helper function to calculate the percentage change
+const calculatePercentageChange = (currentCount, previousCount, totalCount) => {
+  if (previousCount === 0) {
+    return null;
+  } else {
+    return ((currentCount - previousCount) / totalCount) * 100;
+  }
+};
+
+// Helper function to calculate the percentage change
+const getPercentageChange = async (
+  status,
+  currentMonthQuery,
+  previousMonthQuery,
+  totalCount
+) => {
+  const currentMonthCount = await getCountByStatus(status, currentMonthQuery);
+  const previousMonthCount = await getCountByStatus(status, previousMonthQuery);
+  console.log({ currentMonthCount, previousMonthCount });
+  return calculatePercentageChange(
+    currentMonthCount,
+    previousMonthCount,
+    totalCount
+  );
+};
+
+// Helper function for extracting the totals for dashboard
+module.exports.dashboardTotalsData = async (Contact, adminId) => {
+  const firstDayOfCurrentMonth = moment().startOf("month").toDate();
+  const firstDayOfPreviousMonth = moment()
+    .subtract(1, "months")
+    .startOf("month")
+    .toDate();
+  const lastDayOfPreviousMonth = moment()
+    .subtract(1, "months")
+    .endOf("month")
+    .toDate();
+  // Total contacts
+  const totalContacts = await Contact.countDocuments({ adminId: adminId });
+
+  const contactsPercentageChange = await getPercentageChange(
+    null,
+    { adminId, createdAt: { $gte: firstDayOfCurrentMonth } },
+    {
+      adminId,
+      createdAt: {
+        $gte: firstDayOfPreviousMonth,
+        $lte: lastDayOfPreviousMonth,
+      },
+    },
+    totalContacts
+  );
+  console.log(
+    "contacts percentage change: ",
+    Math.ceil(contactsPercentageChange)
+  );
   // Total companies
   const companiesList = await Contact.distinct("companyName", {
-    adminId: userId,
+    adminId: adminId,
   });
   const totalCompanies = companiesList.length;
 
   // Total employees
   const totalEmployees = await Contact.countDocuments({
     status: "Employee",
-    adminId: userId,
+    adminId: adminId,
   });
+
+  const employeesPercentageChange = await getPercentageChange(
+    "Employee",
+    { adminId, createdAt: { $gte: firstDayOfCurrentMonth } },
+    {
+      adminId,
+      createdAt: {
+        $gte: firstDayOfPreviousMonth,
+        $lte: lastDayOfPreviousMonth,
+      },
+    },
+    totalEmployees
+  );
+
+  console.log(
+    "employees percentage change: ",
+    Math.ceil(employeesPercentageChange)
+  );
 
   // Total trainees
   const totalTrainees = await Contact.countDocuments({
     status: "Trainee",
-    adminId: userId,
+    adminId: adminId,
   });
+
+  const traineesPercentageChange = await getPercentageChange(
+    "Trainee",
+    { adminId, createdAt: { $gte: firstDayOfCurrentMonth } },
+    {
+      adminId,
+      createdAt: {
+        $gte: firstDayOfPreviousMonth,
+        $lte: lastDayOfPreviousMonth,
+      },
+    },
+    totalTrainees
+  );
+
+  console.log(
+    "trainees percentage change: ",
+    Math.ceil(traineesPercentageChange)
+  );
 
   return (totalsData = {
     totalContacts,
+    percentangeChangeInContacts: Math.floor(contactsPercentageChange),
     totalCompanies,
     totalEmployees,
+    percentageChangeInEmployees: Math.floor(employeesPercentageChange),
     totalTrainees,
+    percentageChangeInTrainees: Math.floor(traineesPercentageChange),
   });
 };
 

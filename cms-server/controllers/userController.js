@@ -177,7 +177,8 @@ module.exports.dashboardData = async (req, res) => {
     // recently created contacts
     const recentContacts = await Contact.find({ adminId })
       .sort({ createdAt: -1 })
-      .limit(5);
+      .limit(5)
+      .select({ __v: 0, password: 0, createdAt: 0, updatedAt: 0 });
 
     // Contacts by company
     const contactsByCompany = await dashboardContactsByCompany(
