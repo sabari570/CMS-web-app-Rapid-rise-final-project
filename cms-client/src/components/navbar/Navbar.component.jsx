@@ -54,6 +54,15 @@ const Navbar = () => {
     console.log("Logout clciked");
     await logout();
   };
+
+  const handleProfileDropdownAfterClick = (e) => {
+    setToggleDropdown(false);
+  };
+
+  const handleSideDrawerAfterClick = (e) => {
+    console.log("Side drawer navstate: ", navState);
+    if (navState) setNavState(false);
+  };
   return (
     <nav className="navbar" role="navigation" aria-label="main navigation">
       <div className="navbar-wrapper">
@@ -80,11 +89,15 @@ const Navbar = () => {
 
           <ul className={`nav-link ${navState && "active-hidden"}`}>
             <li className={`nav-link-item ${navState && "open"}`}>
-              <NavLink to="/">Dashboard</NavLink>
+              <NavLink to="/" onClick={handleSideDrawerAfterClick}>
+                Dashboard
+              </NavLink>
             </li>
 
             <li className={`nav-link-item ${navState && "open"}`}>
-              <NavLink to="contacts">Contacts</NavLink>
+              <NavLink to="contacts" onClick={handleSideDrawerAfterClick}>
+                Contacts
+              </NavLink>
             </li>
 
             <li
@@ -92,7 +105,9 @@ const Navbar = () => {
                 navState && "open"
               }`}
             >
-              <NavLink to="profile">Profile</NavLink>
+              <NavLink to="profile" onClick={handleSideDrawerAfterClick}>
+                Profile
+              </NavLink>
             </li>
             <li
               className={`nav-link-item mobile-screen-routes ${
@@ -116,7 +131,10 @@ const Navbar = () => {
 
               <ul className={`dropdown-menu ${isToggleDropdown && "active"}`}>
                 <li className="dropdown-menu-item">
-                  <NavLink to="profile">
+                  <NavLink
+                    to="profile"
+                    onClick={handleProfileDropdownAfterClick}
+                  >
                     <span>Profile</span>
                     <FaUserCog className="nav-icon" />
                   </NavLink>
