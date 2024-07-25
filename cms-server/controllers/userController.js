@@ -1,6 +1,13 @@
 const fs = require("fs");
 const path = require("path");
 const User = require("../models/userModel");
+const Contact = require("../models/contactModel");
+const {
+  dashboardTotalsData,
+  dashboardContactPerMonth,
+  dashboardContactsByCompany,
+} = require("../utils/helperFunctions");
+const { default: mongoose } = require("mongoose");
 
 // controller for fetching user profile detail
 // ==================== FETCH USER PROFILE DETAIL
@@ -149,6 +156,45 @@ module.exports.changeUserAvatar = async (req, res) => {
         }
       });
     }
+    return res
+      .status(error.statusCode || 500)
+      .json({ errors: { message: error.message || "Something went wrong" } });
+  }
+};
+
+// controller for fetching dashboard data
+// ==================== FETCHING DATA FOR DASHBOARD PAGE
+// GET: api/users/dashboard-data
+// PROTECTED
+module.exports.dashboardData = async (req, res) => {
+  try {
+    const adminId = new mongoose.Types.ObjectId(req.userId);
+    const totals = await dashboardTotalsData(Contact, adminId);
+
+    // Contacts created each month
+    const contactsPerMonth = await dashboardContactPerMonth(Contact, adminId);
+
+    // recently created contacts
+    const recentContacts = await Contact.find({ adminId })
+      .sort({ createdAt: -1 })
+      .limit(5);
+
+    // Contacts by company
+    const contactsByCompany = await dashboardContactsByCompany(
+      Contact,
+      adminId
+    );
+
+    return res.status(200).json({
+      dashboardData: {
+        totals,
+        contactsPerMonth,
+        recentContacts,
+        contactsByCompany,
+      },
+    });
+  } catch (error) {
+    console.log("Error while fetching dashboard data: ", error);
     return res
       .status(error.statusCode || 500)
       .json({ errors: { message: error.message || "Something went wrong" } });

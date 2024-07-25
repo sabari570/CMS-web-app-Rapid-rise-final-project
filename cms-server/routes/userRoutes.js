@@ -4,6 +4,7 @@ const {
   fetchUserDetail,
   updateUserDetail,
   changeUserAvatar,
+  dashboardData,
 } = require("../controllers/userController");
 const {
   handleFileUpload,
@@ -26,5 +27,8 @@ router.patch(
   multerErrorHandler,
   changeUserAvatar
 );
+
+// route for fetching totals section
+router.get("/dashboard-data", authMiddleware, dashboardData);
 
 module.exports = router;

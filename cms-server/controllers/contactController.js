@@ -6,57 +6,7 @@ const {
 } = require("../utils/errorHandler");
 const path = require("path");
 const fs = require("fs");
-
-// Helper function for search filtering
-const filter = (query, search, status, companies) => {
-  const regex = RegExp(search, "i");
-
-  let conditions = [];
-
-  if (status) {
-    conditions.push({ status });
-  }
-
-  if (companies && companies.length > 0) {
-    companies = companies.split(",");
-    conditions.push({ companyName: { $in: companies } });
-  }
-
-  if (search) {
-    conditions.push({
-      $or: [
-        { firstName: { $regex: regex } },
-        { lastName: { $regex: regex } },
-        { email: { $regex: regex } },
-        { address: { $regex: regex } },
-        { companyName: { $regex: regex } },
-        { phone: { $regex: regex } },
-      ],
-    });
-  }
-
-  if (conditions.length > 0) {
-    query = query.find({ $and: conditions });
-  }
-
-  return query;
-};
-
-// Helper function for sorting
-const sort = (query, sortFields) => {
-  const sortObj = {};
-  sortFields.map((field) => {
-    const [key, order] = field.split(":");
-    sortObj[key] = order === "desc" ? -1 : 1;
-  });
-  return query.sort(sortObj);
-};
-
-// Helper function for pagination
-const paginate = (query, { page, limit }) => {
-  const offset = (page - 1) * limit;
-  return query.skip(offset).limit(limit);
-};
+const { filter, sort, paginate } = require("../utils/helperFunctions");
 
 // controller for getting all contact details
 // ==================== FETCH CONTACTS
