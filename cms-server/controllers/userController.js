@@ -42,8 +42,16 @@ module.exports.fetchUserDetail = async (req, res) => {
 // PROTECTED
 module.exports.updateUserDetail = async (req, res) => {
   try {
-    const { firstName, lastName, dob, gender, address } = req.body;
-    const updatedData = { firstName, lastName, dob, gender, address };
+    const { firstName, lastName, dob, gender, phoneNumbers, address } =
+      req.body;
+    const updatedData = {
+      firstName,
+      lastName,
+      dob,
+      gender,
+      phoneNumbers,
+      address,
+    };
 
     console.log("Before: ", updatedData);
 

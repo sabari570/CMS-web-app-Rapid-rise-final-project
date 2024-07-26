@@ -94,5 +94,8 @@ export const userProfileSchema = z.object({
   gender: z.enum(["male", "female"], {
     message: "Gender is required",
   }),
+  phoneNumbers: z
+    .array(phoneSchema)
+    .nonempty({ message: "At least one phone number is required" }),
   address: z.string().optional(),
 });

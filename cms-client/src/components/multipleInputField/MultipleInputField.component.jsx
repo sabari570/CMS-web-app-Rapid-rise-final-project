@@ -28,12 +28,19 @@ const MultipleInputField = ({
   }, [isLoading]);
 
   useEffect(() => {
-    if (defaultValue) setIsHighlighted(true);
+    if (defaultValue && defaultValue.length > 0) {
+      setIsHighlighted(true);
+      setPhoneNumbers(defaultValue);
+    }
   }, [defaultValue]);
 
   useEffect(() => {
     if (phoneNumbers.length === 0) setIsHighlighted(false);
-    if (phoneNumbers.length > 0) setError("");
+    if (phoneNumbers.length > 0) {
+      setIsHighlighted(true);
+      setError("");
+      setValue(fieldValue, phoneNumbers);
+    }
   }, [phoneNumbers]);
 
   useEffect(() => {
@@ -59,6 +66,7 @@ const MultipleInputField = ({
     }
     await trigger(fieldValue);
     if (e.target.value) {
+      setIsHighlighted(true);
       try {
         phoneSchema.parse(e.target.value);
       } catch (error) {
@@ -111,6 +119,8 @@ const MultipleInputField = ({
     });
   };
 
+  console.log("Default value obtained: ", defaultValue);
+  console.log("Phone numbers: ", phoneNumbers);
   console.log("Phone numbers errors: ", errors);
 
   return (

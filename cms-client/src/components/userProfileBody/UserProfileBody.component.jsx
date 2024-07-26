@@ -4,6 +4,7 @@ import UserAvatarContainer from "../userAvatarContainer/UserAvatarContainer.comp
 import {
   formatDateForInputField,
   formatDateString,
+  formattedPhoneNumbersField,
   handleImageUrl,
 } from "../../utils/helperFunctions.js";
 import AuthBtn from "../authButton/AuthBtn.component.jsx";
@@ -16,6 +17,7 @@ import { IoMailOutline } from "react-icons/io5";
 import GenderRadioField from "../genderRadioField/GenderRadioField.component.jsx";
 import useUpdateUserAvatar from "../../hooks/useUpdateUserAvatar.js";
 import useUpdateUserDetail from "../../hooks/useUpdateUserDetail.js";
+import MultipleInputField from "../multipleInputField/MultipleInputField.component.jsx";
 
 const UserProfileBody = ({ userData, setUserData }) => {
   const [userAvatar, setUserAvatar] = useState();
@@ -25,6 +27,7 @@ const UserProfileBody = ({ userData, setUserData }) => {
   const formattedUserData = {
     ...userData,
     dob: formatDateForInputField(userData.dob),
+    phoneNumbers: formattedPhoneNumbersField(userData.phoneNumbers),
   };
   const {
     register,
@@ -33,6 +36,7 @@ const UserProfileBody = ({ userData, setUserData }) => {
     formState: { isValid, errors },
     reset,
     clearErrors,
+    setValue,
   } = useForm({
     resolver: zodResolver(userProfileSchema),
     defaultValues: formattedUserData,
@@ -51,8 +55,8 @@ const UserProfileBody = ({ userData, setUserData }) => {
   };
 
   const onSubmit = async (data) => {
-    console.log("User data: ", data);
     data.dob = formatDateString(data.dob);
+    console.log("User data: ", data);
     const userResponse = await updateUserDetail(data);
     setUserData(userResponse);
     reset();
@@ -133,6 +137,17 @@ const UserProfileBody = ({ userData, setUserData }) => {
             errors={errors}
             fieldType="gender"
             defaultValue={userData.gender}
+          />
+
+          <MultipleInputField
+            register={register}
+            trigger={trigger}
+            fieldValue={"phoneNumbers"}
+            errors={errors.phoneNumbers}
+            setValue={setValue}
+            labelText="Phone numbers"
+            placeholderText="Enter a phone number"
+            defaultValue={formattedPhoneNumbersField(userData?.phoneNumbers)}
           />
 
           <AuthInputField

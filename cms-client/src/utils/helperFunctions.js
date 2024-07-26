@@ -46,3 +46,9 @@ export const formatContactsGraphData = (data) => {
 
   return allMonths;
 };
+
+// Helper function to format phone numbers in frontend
+export const formattedPhoneNumbersField = (data) => {
+  if (!data || data.length === 0) return [];
+  return data;
+};

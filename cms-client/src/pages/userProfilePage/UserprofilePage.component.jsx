@@ -28,9 +28,6 @@ const UserprofilePage = () => {
     handleFetchUserData();
   }, []);
 
-  useEffect(() => {
-    if (userData) dispatch(setIsLoading(false));
-  }, [userData]);
 
   return (
     currentUser && (
