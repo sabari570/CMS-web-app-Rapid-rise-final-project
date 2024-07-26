@@ -187,7 +187,9 @@ module.exports.regenerateToken = (req, res) => {
 // controller for handling successfull login using passport
 module.exports.loginSuccessController = (req, res) => {
   try {
-    const { accessToken, refreshToken } = createToken(req.user);
+    console.log("google user id: ", req.userId);
+    const { accessToken, refreshToken } = createToken(req.userId);
+    console.log("Access tooken: ", accessToken);
     res.cookie("accessToken", accessToken, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
@@ -198,9 +200,7 @@ module.exports.loginSuccessController = (req, res) => {
     res.redirect(`${CLIENT_URL}/`);
   } catch (error) {
     console.log("Error in login success controller: ", error);
-    return res
-      .status(500)
-      .json({ errors: { message: "Something went wrong" } });
+    return res.redirect(`${CLIENT_URL}/login`);
   }
 };
 

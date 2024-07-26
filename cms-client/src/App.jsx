@@ -15,11 +15,6 @@ import CreateContactpage from "./pages/createContactPage/CreateContactpage.compo
 import ContactEditPage from "./pages/contactEditPage/ContactEditPage.component.jsx";
 
 const App = () => {
-  // const SERVER_URL = "http://localhost:8000/api";
-  // const signInWithGoogleHandler = (e) => {
-  //   window.open(`${SERVER_URL}/auth/google`, "_self");
-  // };
-
   const loading = useSelector(selectIsLoading);
 
   return (

@@ -3,7 +3,6 @@ import { setIsLoading } from "../store/loading/loading.reducer";
 import axiosInstance from "../services/interceptors";
 import { handleErrors } from "../utils/handleErrors";
 import { setCurrentUser } from "../store/user/user.reducer.js";
-import toast from "react-hot-toast";
 
 function useFetchContacts() {
   const dispatch = useDispatch();

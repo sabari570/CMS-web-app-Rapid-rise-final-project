@@ -41,17 +41,19 @@ const ContactEditPage = () => {
   console.log("Selected contact: ", selectedContact);
 
   return (
-    <div className="contact-edit-page">
-      <div className="contact-edit-page-container">
-        <div className="page-heading">Edit Contact</div>
-        {selectedContact && (
-          <div className="contact-edit-page-container-wrapper">
-            <ViewContactDetail selectedContact={selectedContact} />
-            <UpdateContactDetail />
-          </div>
-        )}
+    currentUser && (
+      <div className="contact-edit-page">
+        <div className="contact-edit-page-container">
+          <div className="page-heading">Edit Contact</div>
+          {selectedContact && (
+            <div className="contact-edit-page-container-wrapper">
+              <ViewContactDetail selectedContact={selectedContact} />
+              <UpdateContactDetail />
+            </div>
+          )}
+        </div>
       </div>
-    </div>
+    )
   );
 };
 

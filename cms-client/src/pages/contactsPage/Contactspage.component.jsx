@@ -46,25 +46,27 @@ const Contactspage = () => {
   };
 
   return (
-    <div className="contacts-page">
-      <div className="contacts-page-wrapper">
-        <ContactsPageHeader
-          onSortChange={handleSortChange}
-          onStatusChange={handleStatusChange}
-          onCompaniesChange={handleCompaniesChange}
-        />
-        <ContactsTable
-          tableData={data}
-          setTableData={setData}
-          columnDef={columns}
-          onDelete={handleDelete}
-          sortFieldsObj={sortFieldsObj}
-          statusField={statusField}
-          companiesList={companiesList}
-          reFetch={reFetch}
-        />
+    currentUser && (
+      <div className="contacts-page">
+        <div className="contacts-page-wrapper">
+          <ContactsPageHeader
+            onSortChange={handleSortChange}
+            onStatusChange={handleStatusChange}
+            onCompaniesChange={handleCompaniesChange}
+          />
+          <ContactsTable
+            tableData={data}
+            setTableData={setData}
+            columnDef={columns}
+            onDelete={handleDelete}
+            sortFieldsObj={sortFieldsObj}
+            statusField={statusField}
+            companiesList={companiesList}
+            reFetch={reFetch}
+          />
+        </div>
       </div>
-    </div>
+    )
   );
 };
 

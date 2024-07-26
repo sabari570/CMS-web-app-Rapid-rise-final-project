@@ -26,6 +26,8 @@ function useFetchUserDetail() {
       if (error.response.status === 403 || error.response.status === 401) {
         dispatch(setCurrentUser(null));
       }
+    } finally {
+      dispatch(setIsLoading(false));
     }
   };
 

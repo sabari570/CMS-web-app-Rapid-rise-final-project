@@ -11,13 +11,15 @@ const Registerpage = () => {
 
   useEffect(() => {
     if (currentUser) navigate("/");
-  }, []);
+  }, [currentUser]);
   return (
-    <div className="registerpage">
-      <div className="register-wrapper">
-        <RegisterBody />
+    !currentUser && (
+      <div className="registerpage">
+        <div className="register-wrapper">
+          <RegisterBody />
+        </div>
       </div>
-    </div>
+    )
   );
 };
 

@@ -1,6 +1,6 @@
 const passport = require("passport");
 const crypto = require("crypto");
-const GoogleStrategy = require("passport-google-oauth20");
+var GoogleStrategy = require("passport-google-oauth20").Strategy;
 const User = require("../models/userModel");
 const { default: mongoose } = require("mongoose");
 require("dotenv").config();
@@ -42,7 +42,6 @@ passport.use(
             profilePic,
           });
         }
-
         return done(null, user);
       } catch (error) {
         console.log("Error while signing in with google: ", error);
@@ -56,7 +55,7 @@ passport.use(
 // we use this to pass our sessions
 passport.serializeUser((user, done) => {
   console.log("Serialize user:", user);
-  done(null, user.id);
+  done(null, user._id);
 });
 
 passport.deserializeUser((user, done) => {

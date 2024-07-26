@@ -46,7 +46,7 @@ router.get("/google/callback", (req, res, next) => {
       req.session.message = `Error while signing in using google: ${err}`;
       return res.redirect(`${CLIENT_URL}/login`); // Redirect to login if user is not found
     }
-
+    req.userId = user._id;
     loginSuccessController(req, res);
   })(req, res, next);
 });

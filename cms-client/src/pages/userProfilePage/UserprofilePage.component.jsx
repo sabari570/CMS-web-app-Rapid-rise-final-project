@@ -33,14 +33,16 @@ const UserprofilePage = () => {
   }, [userData]);
 
   return (
-    <div className="user-profile">
-      <div className="user-profile-wrapper">
-        <div className="user-profile-heading">User profile</div>
-        {userData && (
-          <UserProfileBody userData={userData} setUserData={setUserData} />
-        )}
+    currentUser && (
+      <div className="user-profile">
+        <div className="user-profile-wrapper">
+          <div className="user-profile-heading">User profile</div>
+          {userData && (
+            <UserProfileBody userData={userData} setUserData={setUserData} />
+          )}
+        </div>
       </div>
-    </div>
+    )
   );
 };
 

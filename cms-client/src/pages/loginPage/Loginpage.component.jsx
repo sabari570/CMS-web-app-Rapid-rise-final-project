@@ -11,13 +11,15 @@ const Loginpage = () => {
 
   useEffect(() => {
     if (currentUser) navigate("/");
-  }, []);
+  }, [currentUser]);
   return (
-    <div className="loginpage">
-      <div className="login-wrapper">
-        <LoginBody />
+    !currentUser && (
+      <div className="loginpage">
+        <div className="login-wrapper">
+          <LoginBody />
+        </div>
       </div>
-    </div>
+    )
   );
 };
 

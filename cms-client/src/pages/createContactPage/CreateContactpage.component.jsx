@@ -17,29 +17,31 @@ const CreateContactpage = () => {
     if (!currentUser) navigate("/login");
   }, [currentUser]);
   return (
-    <div className="create-contact-page">
-      <div className="create-contact-page-wrapper">
-        <div className="heading mobile">Create new contact</div>
-        <div className="create-contact-page-wrapper-body">
-          <div className="create-contact-image-container">
-            <AuthProfileContainer
-              type="file"
-              defaultProfilePic={ContactDefaultProfilePic}
-              userAvatar={contactAvatar}
-              setUserAvatar={setContactAvatar}
-              uploadIcon={<TbCameraPlus />}
-              iconLabelClassName="add-contact-profile-icon"
-              profileAvatarClassName="contact-profile-avatar-border"
+    currentUser && (
+      <div className="create-contact-page">
+        <div className="create-contact-page-wrapper">
+          <div className="heading mobile">Create new contact</div>
+          <div className="create-contact-page-wrapper-body">
+            <div className="create-contact-image-container">
+              <AuthProfileContainer
+                type="file"
+                defaultProfilePic={ContactDefaultProfilePic}
+                userAvatar={contactAvatar}
+                setUserAvatar={setContactAvatar}
+                uploadIcon={<TbCameraPlus />}
+                iconLabelClassName="add-contact-profile-icon"
+                profileAvatarClassName="contact-profile-avatar-border"
+              />
+            </div>
+
+            <CreateContactForm
+              contactAvatar={contactAvatar}
+              setContactAvatar={setContactAvatar}
             />
           </div>
-
-          <CreateContactForm
-            contactAvatar={contactAvatar}
-            setContactAvatar={setContactAvatar}
-          />
         </div>
       </div>
-    </div>
+    )
   );
 };
 

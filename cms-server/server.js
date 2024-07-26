@@ -14,6 +14,7 @@ const { notFound } = require("./utils/errorHandler.js");
 const passport = require("passport");
 const { CLIENT_URL } = require("./constants/constants.js");
 require("dotenv").config();
+require("./middlewares/passportMiddleware.js");
 
 // Initialising the express app
 const app = express();
@@ -28,7 +29,9 @@ app.use(
     secret: process.env.SESSION_SECRET,
     resave: false,
     saveUninitialized: true,
-    cookie: { secure: process.env.NODE_ENV === "production" },
+    cookie: {
+      secure: process.env.NODE_ENV === "production",
+    },
   })
 );
 // For accessing json requests
@@ -76,7 +79,6 @@ mongoose
     app.listen(PORT, () => console.log(`SERVER LISTENING TO PORT:${PORT}`));
   })
   .catch((err) => console.log("Mongoose connection errro: ", err));
-
 // authentication routes
 app.use("/api/auth", authRoutes);
 

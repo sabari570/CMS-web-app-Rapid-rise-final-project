@@ -1,10 +1,12 @@
 import React from "react";
 import "./googleBtn.styles.scss";
 import GoogleLogo from "../../assets/google-logo.png";
+import { CMS_BACKEND_BASEURL } from "../../constants/appConstants";
 
 const GoogleBtn = () => {
   const handleSignUpWithGoogle = (e) => {
     e.preventDefault();
+    window.open(`${CMS_BACKEND_BASEURL}/auth/google`, "_self");
   };
   return (
     <button onClick={handleSignUpWithGoogle} className="auth-google-btn">

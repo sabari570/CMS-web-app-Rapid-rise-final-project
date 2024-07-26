@@ -26,7 +26,7 @@ module.exports.fetchUserDetail = async (req, res) => {
         statusCode: 404,
         message: `User detail not found`,
       };
-
+    console.log("User detasil after fetch: ", userDetail);
     return res.status(200).json({ userDetail });
   } catch (error) {
     console.log("Error while fetching user profile detail: ", error);

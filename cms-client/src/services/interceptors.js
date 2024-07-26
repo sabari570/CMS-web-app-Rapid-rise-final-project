@@ -1,8 +1,9 @@
 import axios from "axios";
+import { CMS_BACKEND_BASEURL } from "../constants/appConstants";
 
 // Creating an axios instance
 const axiosInstance = axios.create({
-  baseURL: import.meta.env.VITE_CMS_APP_BACKEND_URL,
+  baseURL: CMS_BACKEND_BASEURL,
   withCredentials: true,
 });
 

@@ -28,6 +28,7 @@ const userSchema = new mongoose.Schema(
     },
     dob: {
       type: String,
+      default: "00/00/0000",
     },
     gender: {
       type: String,
@@ -37,7 +38,8 @@ const userSchema = new mongoose.Schema(
       type: [String],
       validate: {
         validator: function (value) {
-          console.log("value: ", value[0].split(","));
+          console.log("value: ", value);
+          if (!value || value.length === 0) return true;
           let phoneNumbers;
           try {
             phoneNumbers =

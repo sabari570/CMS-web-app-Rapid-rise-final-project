@@ -1,3 +1,4 @@
+export const CMS_BACKEND_BASEURL = import.meta.env.VITE_CMS_APP_BACKEND_URL;
 export const CMS_IMAGE_BASEURL = import.meta.env.VITE_CMS_IMAGE_BASEURL;
 
 export const selectLabelCustomStyles = (isMobile) => ({
