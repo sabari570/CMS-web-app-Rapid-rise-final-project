@@ -3,3 +3,26 @@ cms-server/node_modules/
 cms-server/uploaded_files/
 cms-server/.env
 cms-client/.env
+# Logs
+cms-client/logs
+cms-client/*.log
+cms-client/npm-debug.log*
+cms-client/yarn-debug.log*
+cms-client/yarn-error.log*
+cms-client/pnpm-debug.log*
+cms-client/lerna-debug.log*
+
+cms-client/dist
+cms-client/dist-ssr
+cms-client/*.local
+
+# Editor directories and files
+cms-client/.vscode/*
+cms-client/!.vscode/extensions.json
+cms-client/.idea
+cms-client/.DS_Store
+cms-client/*.suo
+cms-client/*.ntvs*
+cms-client/*.njsproj
+cms-client/*.sln
+cms-client/*.sw?
