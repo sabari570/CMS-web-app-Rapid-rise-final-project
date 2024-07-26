@@ -2,6 +2,8 @@ const mongoose = require("mongoose");
 const bcrypt = require("bcrypt");
 const { isEmail } = require("validator");
 
+const phoneNumberRegex = /^\+\d{1,3}\s\d{10}$/;
+
 const userSchema = new mongoose.Schema(
   {
     firstName: {
@@ -30,6 +32,32 @@ const userSchema = new mongoose.Schema(
     gender: {
       type: String,
       enum: ["male", "female", "others"],
+    },
+    phoneNumbers: {
+      type: [String],
+      validate: {
+        validator: function (value) {
+          console.log("value: ", value[0].split(","));
+          let phoneNumbers;
+          try {
+            phoneNumbers =
+              typeof value[0] === "string" ? value[0].split(",") : value[0];
+          } catch (error) {
+            return false;
+          }
+          console.log("Obtained phone numbers: ", phoneNumbers);
+          const response = phoneNumbers.every(
+            (number) =>
+              typeof number === "string" && phoneNumberRegex.test(number.trim())
+          );
+          console.log("Response: ", response);
+          return phoneNumbers.every(
+            (number) =>
+              typeof number === "string" && phoneNumberRegex.test(number.trim())
+          );
+        },
+        message: `Invalid phone number`,
+      },
     },
     address: {
       type: String,

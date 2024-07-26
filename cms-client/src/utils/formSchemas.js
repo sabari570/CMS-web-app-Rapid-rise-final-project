@@ -1,6 +1,10 @@
 import { z } from "zod";
 
 const phoneNumberRegex = /^\+\d{1,3}\s\d{10}$/;
+export const phoneSchema = z
+  .string()
+  .min(1, { message: "Phone number is required" })
+  .regex(phoneNumberRegex, { message: "Invalid phone number" });
 
 export const loginSchema = z.object({
   email: z.string().min(1, { message: "Email is required" }).email({
@@ -37,6 +41,9 @@ export const registerSchema = z
     gender: z.enum(["male", "female"], {
       message: "Gender is required",
     }),
+    phoneNumbers: z
+      .array(phoneSchema)
+      .nonempty({ message: "At least one phone number is required" }),
     address: z.string().optional(),
   })
   .superRefine((data, ctx) => {
@@ -67,10 +74,7 @@ export const contactSchema = z.object({
   status: z.enum(["Employee", "Trainee"], {
     message: "Invalid status selected",
   }),
-  phone: z
-    .string()
-    .min(1, { message: "Phone number is required" })
-    .regex(phoneNumberRegex, { message: "Invalid phone number" }),
+  phone: phoneSchema,
   address: z.string().min(1, { message: "Address is requried" }),
 });
 

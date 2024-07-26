@@ -1,0 +1,125 @@
+@import "../../styles/main.scss";
+.multiple-input-field {
+  width: 100%;
+
+  &-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-bottom: 1.4rem;
+    width: 100%;
+
+    .multi-input-message {
+      font-size: 0.7rem;
+      color: var(--auth-btn-disabled-color);
+      text-wrap: pretty;
+      margin-bottom: 0.7rem;
+
+      &::before {
+        content: "*";
+        margin-right: 0.2rem;
+        color: red;
+      }
+    }
+
+    .phone-numbers-input-field {
+      position: relative;
+      border-radius: 10px;
+      min-height: 3rem;
+      padding: 0.6rem;
+      border: 1.5px solid var(--auth-btn-disabled-color);
+
+      .multi-input-label {
+        position: absolute;
+        color: var(--auth-btn-disabled-color);
+        margin-bottom: 0.2rem;
+        font-size: 0.8rem;
+        font-weight: 500;
+        background: transparent;
+        pointer-events: none;
+        transform: translateY(5px);
+        @include transition-ease;
+
+        &.highlighted {
+          background: var(--white);
+          transform: translateY(-20px) translateX(-6px);
+          font-size: 0.6rem;
+          padding: 0 0.5rem;
+          color: var(--auth-btn-color);
+
+          &.label-error-message {
+            color: red;
+          }
+        }
+
+        &.label-error-message {
+          color: red;
+        }
+      }
+
+      &.highlighted {
+        border: 1.5px solid var(--auth-btn-color);
+      }
+
+      .number-container {
+        display: flex;
+        align-items: center;
+        gap: 0.8rem;
+        flex-wrap: wrap;
+
+        .number-tag {
+          background: #2fa9ff;
+          color: var(--white);
+          padding: 5px 8px;
+          border-radius: 15px;
+          display: flex;
+          align-items: center;
+          gap: 0.5rem;
+
+          .number {
+            font-size: 0.8rem;
+            font-weight: 500;
+            text-overflow: ellipsis;
+          }
+
+          .icon {
+            cursor: pointer;
+            @include transition-ease;
+
+            &:hover {
+              color: crimson;
+            }
+          }
+        }
+      }
+
+      input {
+        width: 60%;
+        outline: none;
+        border: none;
+        height: 30px;
+        font-weight: 600;
+        color: #484747;
+
+        &::placeholder {
+          color: #aaa;
+        }
+      }
+
+      &.number-field-error {
+        border: 1px solid red;
+
+        .form-icon {
+          color: red;
+        }
+      }
+    }
+
+    .number-field-error-message {
+      font-size: 0.7rem;
+      color: red;
+      margin-top: 0.2rem;
+      margin-left: 0.6rem;
+    }
+  }
+}

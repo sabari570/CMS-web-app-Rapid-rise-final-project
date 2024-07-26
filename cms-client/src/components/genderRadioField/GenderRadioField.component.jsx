@@ -5,14 +5,20 @@ import { selectIsLoading } from "../../store/loading/loading.selector";
 
 const GenderRadioField = ({ register, errors, fieldType, defaultValue }) => {
   const [selectedGender, setSelectedGender] = useState(defaultValue);
+  const [showError, setShowError] = useState(false);
   const loading = useSelector(selectIsLoading);
 
   useEffect(() => {
     if (!defaultValue) setSelectedGender(null);
   }, [loading]);
 
+  useEffect(() => {
+    if (errors) setShowError(true);
+  }, [errors]);
+
   const handleGenderChange = (e) => {
     setSelectedGender(e.target.value);
+    setShowError(false);
   };
   return (
     <div className="auth-radio-input-field">
@@ -20,7 +26,7 @@ const GenderRadioField = ({ register, errors, fieldType, defaultValue }) => {
       <div className="gender-radio-group">
         <label
           className={`gender-radio-group-box ${
-            errors.gender && "radio-box-error"
+            errors.gender && showError && "radio-box-error"
           } ${selectedGender === "male" ? "radio-selected" : ""}`}
         >
           Male
@@ -34,7 +40,7 @@ const GenderRadioField = ({ register, errors, fieldType, defaultValue }) => {
 
         <label
           className={`gender-radio-group-box ${
-            errors.gender && "radio-box-error"
+            errors.gender && showError && "radio-box-error"
           } ${selectedGender === "female" ? "radio-selected" : ""}`}
         >
           Female
@@ -46,7 +52,7 @@ const GenderRadioField = ({ register, errors, fieldType, defaultValue }) => {
           />
         </label>
       </div>
-      {errors.gender && (
+      {errors.gender && showError && (
         <span className="gender-error-message">{errors.gender.message}</span>
       )}
     </div>

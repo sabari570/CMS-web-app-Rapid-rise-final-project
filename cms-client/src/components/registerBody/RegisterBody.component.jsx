@@ -14,6 +14,7 @@ import { registerSchema } from "../../utils/formSchemas.js";
 import AuthFooterBottomNavigation from "../authFooterBottomNavigation/AuthFooterBottomNavigation.component.jsx";
 import useSignUp from "../../hooks/useSignUp.js";
 import { formatDateString } from "../../utils/helperFunctions.js";
+import MultipleInputField from "../multipleInputField/MultipleInputField.component.jsx";
 
 const RegisterBody = () => {
   const {
@@ -23,6 +24,7 @@ const RegisterBody = () => {
     formState: { isValid, errors },
     reset,
     clearErrors,
+    setValue,
   } = useForm({
     resolver: zodResolver(registerSchema),
   });
@@ -30,6 +32,7 @@ const RegisterBody = () => {
   const [isConfirmPasswordVisible, setIsConfirmPasswordVisible] =
     useState(false);
   const [userAvatar, setUserAvatar] = useState(null);
+  const [clearField, setClearField] = useState(false);
   const { signUp } = useSignUp();
 
   const onSubmit = async (data) => {
@@ -45,6 +48,8 @@ const RegisterBody = () => {
     reset();
     setUserAvatar(null);
     clearErrors();
+    setClearField(true);
+    setTimeout(() => setClearField(false), 0);
   };
 
   const handlePasswordVisibility = () => {
@@ -173,6 +178,17 @@ const RegisterBody = () => {
             register={register}
             errors={errors}
             fieldType="gender"
+          />
+
+          <MultipleInputField
+            register={register}
+            trigger={trigger}
+            fieldValue={"phoneNumbers"}
+            errors={errors.phoneNumbers}
+            setValue={setValue}
+            labelText="Phone numbers"
+            placeholderText="Enter a phone number"
+            clearField={clearField}
           />
 
           <AuthInputField

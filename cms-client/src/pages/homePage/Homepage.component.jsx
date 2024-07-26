@@ -39,7 +39,7 @@ const Homepage = () => {
       <div className="homepage-wrapper">
         <div className="dashboard-heading">
           <p>Welcome Back,</p>
-          <p>{`${currentUser.firstName} ${currentUser.lastName}`}</p>
+          <p>{`${currentUser?.firstName} ${currentUser?.lastName}`}</p>
         </div>
         {totalsData && <DashboardHeaderTotals totalsData={totalsData} />}
         {contactsPerMonth.length > 0 && (

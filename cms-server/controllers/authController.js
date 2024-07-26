@@ -30,8 +30,18 @@ const createToken = (id) => {
 // controller for registering users
 module.exports.register = async (req, res) => {
   try {
-    const { firstName, lastName, email, password, dob, gender, address } =
-      req.body;
+    const {
+      firstName,
+      lastName,
+      email,
+      password,
+      dob,
+      gender,
+      address,
+      phoneNumbers,
+    } = req.body;
+
+    console.log("Request body:", req.body);
 
     const errors = handleErrors(req.body);
 
@@ -42,11 +52,12 @@ module.exports.register = async (req, res) => {
     let userBody = {
       firstName,
       lastName,
-      email,
+      email: email.toLowerCase(),
       password,
       dob,
       gender,
       address,
+      phoneNumbers,
     };
 
     if (req.file) {
