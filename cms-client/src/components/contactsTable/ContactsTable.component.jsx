@@ -131,13 +131,13 @@ const ContactsTable = ({
             onChange={(value) => setSearchFilter(String(value))}
           />
 
-          {/* <TableLimitDropdown
+          <TableLimitDropdown
             limitLabel="Contacts per page"
             limitValue={pagination.pageSize}
             setLimit={(value) =>
               setPagination((prev) => ({ ...prev, pageSize: value }))
             }
-          /> */}
+          />
         </div>
 
         {/* CONTACTS TABLE */}
@@ -194,7 +194,11 @@ const ContactsTable = ({
           {data.length > 0 ? (
             <div className="contact-card-wrapper">
               {data.map((contact, index) => (
-                <ContactCard key={index} contact={contact} onDelete={onDelete} />
+                <ContactCard
+                  key={index}
+                  contact={contact}
+                  onDelete={onDelete}
+                />
               ))}
             </div>
           ) : (

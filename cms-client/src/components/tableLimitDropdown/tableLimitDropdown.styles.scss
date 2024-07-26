@@ -1,12 +1,22 @@
+@import "../../styles/main.scss";
 .table-limit-wrapper {
   display: flex;
   align-items: center;
   justify-content: center;
   gap: 0.8rem;
 
+  @include mobile-screen {
+    width: 50%;
+    gap: 0rem;
+  }
+
   .limit-label {
     font-size: 0.8rem;
     color: grey;
+
+    @include mobile-screen {
+      display: none;
+    }
   }
 
   #lines-per-page {
@@ -19,6 +29,42 @@
 
     .limit-option-item {
       background: var(--white);
+    }
+  }
+
+  .page-limit-dropdown-wrapper {
+    width: 7rem;
+
+    @include mobile-screen {
+      width: 5rem;
+    }
+
+    .cms-custom-dropdown-wrapper {
+      .cms-dropdown-button {
+        height: 1rem;
+        font-size: 0.6rem;
+
+        &.dropdown-open {
+          border: 1.5px solid var(--dark-blue);
+        }
+
+        &.btn-active {
+          border: 1.5px solid var(--dark-blue);
+        }
+
+        .cms-dropdown-icon {
+          &.dropdown-icon-open {
+            color: var(--dark-blue);
+          }
+        }
+
+        .dropdown-text-label {
+          &.raise-up {
+            color: var(--dark-blue);
+            transform: translateY(-15px) translateX(-0.8rem);
+          }
+        }
+      }
     }
   }
 }
