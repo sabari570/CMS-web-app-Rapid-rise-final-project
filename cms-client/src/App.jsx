@@ -13,9 +13,16 @@ import Loader from "./components/Loader/Loader.component.jsx";
 import { Toaster } from "react-hot-toast";
 import CreateContactpage from "./pages/createContactPage/CreateContactpage.component.jsx";
 import ContactEditPage from "./pages/contactEditPage/ContactEditPage.component.jsx";
+import useOnlineStatus from "./hooks/useOnlineStatus.js";
+import NetworkConnectionErrorPage from "./pages/networkConnectionErrorPage/NetworkConnectionErrorPage.component.jsx";
 
 const App = () => {
   const loading = useSelector(selectIsLoading);
+  const isOnline = useOnlineStatus();
+
+  if (!isOnline) {
+    return <NetworkConnectionErrorPage />;
+  }
 
   return (
     <>

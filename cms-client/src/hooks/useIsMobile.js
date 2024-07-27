@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 
-const useIsMobile = (breakPoint) => {
+function useIsMobile(breakPoint) {
   const [isMobile, setIsMobile] = useState(window.innerWidth < breakPoint);
 
   useEffect(() => {
@@ -17,6 +17,6 @@ const useIsMobile = (breakPoint) => {
   }, [breakPoint]);
 
   return isMobile;
-};
+}
 
 export default useIsMobile;

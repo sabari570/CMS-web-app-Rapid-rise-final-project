@@ -1,0 +1,49 @@
+@import "../../styles/main.scss";
+.network-connection-error {
+  height: 100vh;
+  background: var(--white);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &-wrapper {
+    padding: 0rem 0.3rem;
+    .no-network-content {
+      margin-top: 1rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-align: center;
+
+      .no-network-title {
+        color: var(--dark-blue);
+      }
+
+      .no-network-subtitle {
+        color: var(--light-grey);
+
+        @include mobile-screen {
+          font-size: 0.8rem;
+        }
+      }
+
+      .no-network-reload-btn {
+        margin-top: 1rem;
+        padding: 0.5rem 1.5rem;
+        border: none;
+        outline: none;
+        border-radius: 8px;
+        background: var(--dark-blue);
+        color: var(--white);
+        font-weight: 500;
+        text-transform: uppercase;
+        cursor: pointer;
+        @include transition-ease;
+
+        &:hover {
+          background: #2500c3;
+        }
+      }
+    }
+  }
+}
