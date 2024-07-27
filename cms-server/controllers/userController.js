@@ -111,10 +111,12 @@ module.exports.changeUserAvatar = async (req, res) => {
 
     const oldFileName = user.profilePic;
     const newFileName = req.file.filename;
+    const isGoogleProfile = oldFileName.startsWith("http");
     console.log("Old filename: ", oldFileName);
     console.log("New filename: ", newFileName);
+    console.log("Is google profile: ", isGoogleProfile);
 
-    if (!oldFileName.startsWith("default")) {
+    if (!isGoogleProfile && !oldFileName.startsWith("default")) {
       // Remove the old file from uploads folder
       const filePath = path.join(__dirname, "../uploaded_files", oldFileName);
       fs.unlink(filePath, (err) => {

@@ -1,15 +1,13 @@
 import React, { useEffect, useState } from "react";
 import "./userProfilePage.styles.scss";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { selectCurrentUser } from "../../store/user/user.selector";
 import UserProfileBody from "../../components/userProfileBody/UserProfileBody.component";
 import useFetchUserDetail from "../../hooks/useFetchUserDetail";
-import { setIsLoading } from "../../store/loading/loading.reducer";
 
 const UserprofilePage = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
   const currentUser = useSelector(selectCurrentUser);
   const [userData, setUserData] = useState();
   const { fetchUserDetail } = useFetchUserDetail();

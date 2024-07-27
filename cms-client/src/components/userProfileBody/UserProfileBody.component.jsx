@@ -18,11 +18,14 @@ import GenderRadioField from "../genderRadioField/GenderRadioField.component.jsx
 import useUpdateUserAvatar from "../../hooks/useUpdateUserAvatar.js";
 import useUpdateUserDetail from "../../hooks/useUpdateUserDetail.js";
 import MultipleInputField from "../multipleInputField/MultipleInputField.component.jsx";
+import { useSelector } from "react-redux";
+import { selectCurrentUser } from "../../store/user/user.selector.js";
 
 const UserProfileBody = ({ userData, setUserData }) => {
   const [userAvatar, setUserAvatar] = useState();
   const { loading, updateUserAvatar } = useUpdateUserAvatar();
   const { updateUserDetail } = useUpdateUserDetail();
+  const currentUser = useSelector(selectCurrentUser);
 
   const formattedUserData = {
     ...userData,
@@ -74,7 +77,7 @@ const UserProfileBody = ({ userData, setUserData }) => {
           <UserAvatarContainer
             userAvatar={userAvatar}
             setUserAvatar={setUserAvatar}
-            imageUrl={handleImageUrl(userData.profilePic)}
+            imageUrl={handleImageUrl(currentUser?.profilePic)}
             onClick={handleUpdateImage}
             isLoading={loading}
           />
