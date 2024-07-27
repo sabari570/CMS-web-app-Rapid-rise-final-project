@@ -7,6 +7,7 @@ import DashboardHeaderTotals from "../../components/dashboardHeaderTotals/Dashbo
 import DashboardContactsGraph from "../../components/dashboardContactsGraph/DashboardContactsGraph.component";
 import DashboardRecentContacts from "../../components/dashboardRecentContacts/DashboardRecentContacts.component";
 import DashboardContactsPieChart from "../../components/dashboardContactsPieChart/DashboardContactsPieChart.component";
+import NewUserGreet from "../../components/newUserGreet/NewUserGreet.component.jsx";
 import useFetchDashboardData from "../../hooks/useFetchDashboardData";
 import useFetchUserDetail from "../../hooks/useFetchUserDetail.js";
 import { setCurrentUser } from "../../store/user/user.reducer.js";
@@ -45,6 +46,11 @@ const Homepage = () => {
     handleDashboardFetch();
   }, []);
 
+  const isEmptyDashboard =
+    contactsPerMonth.length === 0 &&
+    recentContacts.length === 0 &&
+    contactsByCompanyData.length === 0;
+
   return (
     currentUser && (
       <div className="homepage">
@@ -56,6 +62,7 @@ const Homepage = () => {
             }`}</p>
           </div>
           {totalsData && <DashboardHeaderTotals totalsData={totalsData} />}
+          {isEmptyDashboard && <NewUserGreet />}
           {contactsPerMonth.length > 0 && (
             <DashboardContactsGraph contactsPerMonth={contactsPerMonth} grid />
           )}

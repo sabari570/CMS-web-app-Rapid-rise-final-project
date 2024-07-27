@@ -1,0 +1,64 @@
+@import "../../styles/main.scss";
+.new-user-greet {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+
+  &-wrapper {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    align-items: center;
+    margin-top: 1.5rem;
+
+    @include laptop-screen {
+      width: 70%;
+    }
+
+    @include mobile-screen {
+      width: 100%;
+    }
+
+    .new-user-greet-title {
+      text-align: center;
+      color: var(--dark-blue);
+      font-size: 2rem;
+
+      @include mobile-screen {
+        text-wrap: nowrap;
+        font-size: 1.5rem;
+      }
+    }
+
+    .new-user-greet-subtitle {
+      color: #8a8989;
+      text-align: center;
+      font-size: 0.9rem;
+
+      @include mobile-screen {
+        font-size: 0.8rem;
+      }
+    }
+
+    .new-user-greet-btn {
+      border: none;
+      outline: none;
+      margin-top: 0.5rem;
+      background: var(--dark-blue);
+      color: var(--white);
+      padding: 0.8rem 1rem;
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.8rem;
+      font-weight: 600;
+      @include transition-ease;
+
+      &:hover {
+        background: var(--white);
+        color: var(--dark-blue);
+      }
+    }
+  }
+}
