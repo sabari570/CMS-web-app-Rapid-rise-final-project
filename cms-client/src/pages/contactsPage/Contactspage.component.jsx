@@ -7,6 +7,7 @@ import ContactsPageHeader from "../../components/contactsPageHeader/ContactsPage
 import ContactsTable from "../../components/contactsTable/ContactsTable.component.jsx";
 import { columns } from "../../constants/columnDef.jsx";
 import useDeleteContact from "../../hooks/useDeleteContact.js";
+import CmsCustomModal from "../../components/cmsCustomModal/CmsCustomModal.component.jsx";
 
 const Contactspage = () => {
   const currentUser = useSelector(selectCurrentUser);
@@ -17,12 +18,28 @@ const Contactspage = () => {
   const [statusField, setStatusField] = useState();
   const [companiesList, setCompaniesList] = useState([]);
   const { deleteContact } = useDeleteContact();
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [contactToDelete, setContactToDelete] = useState(null);
 
   // Function to handle deleting a contact
-  const handleDelete = async (contactId) => {
-    console.log("Call the delete api with id: ", contactId);
-    await deleteContact(contactId);
-    setReFetch((prev) => !prev);
+  const handleDelete = (contactId) => {
+    setContactToDelete(contactId);
+    setIsModalOpen(true);
+  };
+
+  const handleConfirmDelete = async (e) => {
+    if (contactToDelete) {
+      console.log("calling api to delete contact: ", contactToDelete);
+      await deleteContact(contactToDelete);
+      setIsModalOpen(false);
+      setContactToDelete(null);
+      setReFetch((prev) => !prev);
+    }
+  };
+
+  const handleCancelDelete = (e) => {
+    setIsModalOpen(false);
+    setContactToDelete(null);
   };
 
   useEffect(() => {
@@ -63,6 +80,12 @@ const Contactspage = () => {
             statusField={statusField}
             companiesList={companiesList}
             reFetch={reFetch}
+          />
+
+          <CmsCustomModal
+            isModalOpen={isModalOpen}
+            confirmDelete={handleConfirmDelete}
+            cancelDelete={handleCancelDelete}
           />
         </div>
       </div>

@@ -8,14 +8,14 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  z-index: 1000;
+  z-index: 1002;
 }
 
 .modal-content {
-  background: #282c34; // Darker background for the modal content
-  padding: 2rem 4rem; // Adjusted padding for better spacing
-  border-radius: 12px; // Slightly increased border-radius
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3); // More pronounced shadow for a floating effect
+  background: #282c34;
+  padding: 2rem 4rem;
+  border-radius: 12px;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
   display: flex;
   flex-direction: column;
   justify-content: center;

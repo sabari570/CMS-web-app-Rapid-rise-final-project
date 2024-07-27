@@ -9,7 +9,6 @@ function useDeleteContact() {
   const dispatch = useDispatch();
 
   const deleteContact = async (contactId) => {
-    dispatch(setIsLoading(true));
     try {
       const response = await axiosInstance.delete(
         `/contacts/delete-contact/${contactId}`
@@ -20,9 +19,7 @@ function useDeleteContact() {
       console.log("Error while deleting a contact: ", error);
       const errorMessage = handleErrors(error.response.data.errors.message);
       toast.error(errorMessage);
-    } finally {
-      dispatch(setIsLoading(false));
-    }
+    } 
   };
 
   return { deleteContact };

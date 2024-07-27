@@ -23,13 +23,14 @@ function useCreateContact() {
         return;
       }
       toast.success("Contact created successfully");
-      navigate("/contacts");
+      return;
     } catch (error) {
       console.log("Error while creating a contact: ", error);
       const errorMessage = handleErrors(error.response.data.errors.message);
       toast.error(errorMessage);
     } finally {
       dispatch(setIsLoading(false));
+      navigate("/contacts");
     }
   };
 

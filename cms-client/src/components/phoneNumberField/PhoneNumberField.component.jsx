@@ -69,10 +69,6 @@ const PhoneNumberField = ({
     setIsHighlighted(false);
   }, [isLoading]);
 
-  useEffect(() => {
-    if (phoneNumberValue) setIsHighlighted(true);
-  }, [phoneNumberValue]);
-
   // inorder to handle errors during submission
   useEffect(() => {
     setShowError(!isValid);

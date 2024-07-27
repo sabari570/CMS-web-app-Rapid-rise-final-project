@@ -1,0 +1,138 @@
+@import "../../styles/main.scss";
+.cms-custom-modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1001;
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+  transition: all 0.3s ease-in-out;
+
+  @include mobile-screen {
+    z-index: 1003;
+  }
+
+  &.modal-open {
+    opacity: 1;
+    visibility: visible;
+    pointer-events: all;
+  }
+
+  .cms-custom-modal-wrapper {
+    width: 28rem;
+    background: var(--white);
+    padding: 2rem;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px #0000004d;
+    display: flex;
+    flex-direction: column;
+    transform: translateY(3rem);
+    @include transition-ease;
+
+    @include mobile-screen {
+      padding: 2rem 1rem;
+      width: 80%;
+    }
+
+    &.modal-wrapper-open {
+      transform: translate(0px);
+    }
+
+    .modal-close-icon {
+      position: absolute;
+      top: 0.5rem;
+      right: 1rem;
+      align-self: flex-end;
+      margin-bottom: 1rem;
+      font-size: 1.2rem;
+      font-weight: 600;
+      cursor: pointer;
+      color: var(--dark-blue);
+      @include transition-ease;
+      height: 2rem;
+      width: 2rem;
+      text-align: center;
+      border-radius: 50%;
+
+      &:hover {
+        background: rgb(234, 234, 234);
+      }
+    }
+
+    .modal-header {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      margin-top: 1rem;
+
+      &-heading {
+        text-align: center;
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: var(--dark-blue);
+
+        @include mobile-screen {
+          font-size: 0.9rem;
+        }
+      }
+
+      &-content {
+        text-align: center;
+        font-size: 0.8rem;
+        font-weight: 500;
+        color: var(--auth-btn-disabled-color);
+        margin-bottom: 1rem;
+
+        @include mobile-screen {
+          font-size: 0.7rem;
+        }
+      }
+    }
+
+    .modal-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin: 0rem 1rem;
+
+      button {
+        border: none;
+        outline: none;
+        padding: 0.5rem 1rem;
+        border-radius: 8px;
+        cursor: pointer;
+        @include transition-ease;
+      }
+
+      .cancel-btn {
+        background: var(--white);
+        font-size: 0.8rem;
+        outline: 1px solid var(--auth-btn-disabled-color);
+
+        &:hover {
+          background: var(--auth-btn-disabled-color);
+          color: var(--white);
+        }
+      }
+
+      .confirm-btn {
+        background: #fa5072;
+        color: var(--white);
+        font-size: 0.8rem;
+
+        &:hover {
+          background: crimson;
+        }
+      }
+    }
+  }
+}

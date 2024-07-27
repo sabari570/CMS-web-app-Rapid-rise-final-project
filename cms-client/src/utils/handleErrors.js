@@ -5,6 +5,8 @@ export const handleErrors = (error) => {
     return error.password;
   } else if (error?.phoneNumbers != undefined && error?.phoneNumbers != "") {
     return error.phoneNumbers;
+  } else if (error?.phone != undefined && error?.phone != "") {
+    return error.phone;
   }
   return error;
 };
