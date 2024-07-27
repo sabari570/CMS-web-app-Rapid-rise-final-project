@@ -1,0 +1,70 @@
+@import "../../styles/main.scss";
+.error-page {
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &-wrapper {
+    background: var(--white);
+    padding: 1rem 1.5rem;
+    padding-bottom: 1.5rem;
+    border-radius: 8px;
+    width: 70%;
+    box-shadow: var(--fixed-shadow);
+    display: flex;
+    flex-direction: column;
+
+    @include laptop-screen {
+      width: 90%;
+    }
+
+    .error-page-header-container {
+      display: flex;
+      gap: 0.5rem;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+
+      .error-title {
+        color: var(--error-title-color);
+        font-size: 2.5rem;
+
+        @include mobile-screen {
+          text-align: center;
+          text-wrap: stable;
+          font-size: 1.8rem;
+        }
+      }
+
+      .subtitle-wrapper {
+        text-align: center;
+        color: var(--light-grey);
+
+        @include mobile-screen {
+          font-size: 0.8rem;
+        }
+      }
+
+      .error-footer-btn {
+        background: var(--error-page-btn-color);
+        border: none;
+        outline: none;
+        color: var(--white);
+        font-size: 0.9rem;
+        padding: 0.8rem 1rem;
+        border-radius: 8px;
+        cursor: pointer;
+        @include transition-ease;
+
+        @include mobile-screen {
+          font-size: 0.7rem;
+        }
+
+        &:hover {
+          background: var(--error-title-color);
+        }
+      }
+    }
+  }
+}

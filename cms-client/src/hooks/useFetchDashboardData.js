@@ -16,7 +16,6 @@ function useFetchDashboardData() {
     } catch (error) {
       console.log("Error while fetching dashboard data: ", error.response.data);
       const errorMessage = handleErrors(error.response.data.errors.message);
-      toast.error(errorMessage);
       if (error.response.status === 404) return;
 
       // If the token is invalid log the users out
