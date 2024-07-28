@@ -10,7 +10,7 @@ const Registerpage = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (currentUser) navigate("/");
+    if (currentUser) navigate("/dashboard");
   }, [currentUser]);
   return (
     !currentUser && (

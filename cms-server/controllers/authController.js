@@ -197,7 +197,7 @@ module.exports.loginSuccessController = (req, res) => {
     });
     req.session.message = "Successfully logged user in";
     console.log("Session message in success: ", req.session.message);
-    res.redirect(`${CLIENT_URL}/`);
+    res.redirect(`${CLIENT_URL}/dashboard`);
   } catch (error) {
     console.log("Error in login success controller: ", error);
     return res.redirect(`${CLIENT_URL}/login`);

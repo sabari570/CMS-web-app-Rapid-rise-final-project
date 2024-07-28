@@ -24,7 +24,7 @@ function useLogin() {
 
       dispatch(setCurrentUser(user));
       toast.success("User logged in successfully");
-      navigate("/");
+      navigate("/dashboard");
     } catch (error) {
       console.log("Error while logging in: ", error.response.data);
       const errorMessage = handleErrors(error.response.data.errors.message);

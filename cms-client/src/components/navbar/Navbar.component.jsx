@@ -68,7 +68,7 @@ const Navbar = () => {
       <div className="navbar-wrapper">
         <div className="navbar-wrapper-container">
           <div className="cms-logo">
-            <NavLink to="/">
+            <NavLink to="/dashboard">
               <h2 className="app-name-first">Connect</h2>
               <h2 className="app-name-second">EZ</h2>
             </NavLink>
@@ -89,7 +89,7 @@ const Navbar = () => {
 
           <ul className={`nav-link ${navState && "active-hidden"}`}>
             <li className={`nav-link-item ${navState && "open"}`}>
-              <NavLink to="/" onClick={handleSideDrawerAfterClick}>
+              <NavLink to="/dashboard" onClick={handleSideDrawerAfterClick}>
                 Dashboard
               </NavLink>
             </li>

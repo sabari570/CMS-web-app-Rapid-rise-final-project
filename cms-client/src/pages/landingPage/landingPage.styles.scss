@@ -1,0 +1,164 @@
+@import "../../styles/main.scss";
+.landing-page {
+  margin-top: -5rem;
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 2rem 0rem;
+
+  &-wrapper {
+    padding: 1rem;
+    width: 80%;
+    border-radius: 8px;
+    overflow: hidden;
+    background: var(--white);
+    box-shadow: var(--fixed-shadow);
+    display: flex;
+    flex-direction: column;
+
+    @include laptop-screen {
+      width: 70%;
+    }
+
+    @include mobile-screen {
+      width: 90%;
+    }
+
+    .landing-page-header {
+      .cms-logo {
+        display: flex;
+        .app-name-first {
+          color: var(--dark-blue);
+          font-weight: bolder;
+          font-size: 1.5rem;
+        }
+        .app-name-second {
+          color: var(--scrollbar-background);
+          font-weight: bolder;
+          font-size: 1.5rem;
+        }
+      }
+    }
+
+    .landing-page-content {
+      display: flex;
+      gap: 1rem;
+      align-items: center;
+
+      @include laptop-screen {
+        flex-direction: column;
+      }
+
+      .left-side {
+        max-width: 60%;
+        margin-top: 4rem;
+        margin-left: 1rem;
+        opacity: 0;
+        transform: translateY(100%);
+        transition: all 0.9s ease-in-out;
+
+        @include laptop-screen {
+          transform: translateX(-100%);
+        }
+
+        &.slide-up {
+          opacity: 1;
+          transform: translateY(0px);
+
+          @include laptop-screen {
+            transform: translateX(0px);
+          }
+        }
+
+        @include laptop-screen {
+          max-width: 100%;
+        }
+
+        .landing-page-title {
+          font-size: 2.2rem;
+          color: var(--dark-blue);
+
+          @include laptop-screen {
+            font-size: 1.8rem;
+          }
+
+          span {
+            color: var(--scrollbar-background);
+          }
+        }
+
+        .landing-page-description {
+          width: 90%;
+          text-align: justify;
+          color: var(--light-dark-blue);
+          font-size: 0.9rem;
+
+          @include laptop-screen {
+            font-size: 0.7rem;
+          }
+        }
+
+        .landing-page-buttons {
+          margin-top: 2rem;
+          display: flex;
+          gap: 1.5rem;
+
+          .signup-btn,
+          .login-btn {
+            font-size: 0.8rem;
+            font-weight: 600;
+            background: var(--dark-blue);
+            color: var(--white);
+            padding: 0.6rem;
+            text-align: center;
+            width: 7rem;
+            border-radius: 25px;
+            outline: none;
+            border: none;
+            cursor: pointer;
+            @include transition-ease;
+
+            @include laptop-screen {
+              font-size: 0.7rem;
+            }
+
+            &:hover {
+              background: var(--white);
+              outline: 1px solid var(--dark-blue);
+              color: var(--dark-blue);
+            }
+          }
+        }
+      }
+
+      .right-side-hero {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transform: translateX(100%);
+        opacity: 0;
+        transition: all 0.7s ease-in-out;
+
+        &.slide-in {
+          opacity: 1;
+          transform: translateX(0);
+        }
+
+        .landing-hero-img-container {
+          height: 400px;
+          width: 400px;
+          overflow: hidden;
+
+          img {
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+          }
+        }
+      }
+    }
+  }
+}

@@ -15,6 +15,7 @@ import CreateContactpage from "./pages/createContactPage/CreateContactpage.compo
 import ContactEditPage from "./pages/contactEditPage/ContactEditPage.component.jsx";
 import useOnlineStatus from "./hooks/useOnlineStatus.js";
 import NetworkConnectionErrorPage from "./pages/networkConnectionErrorPage/NetworkConnectionErrorPage.component.jsx";
+import LandingPage from "./pages/landingPage/LandingPage.component.jsx";
 
 const App = () => {
   const loading = useSelector(selectIsLoading);
@@ -28,7 +29,8 @@ const App = () => {
     <>
       <Routes>
         <Route path="/" element={<Layout />}>
-          <Route index element={<Homepage />} />
+          <Route index element={<LandingPage />} />
+          <Route path="dashboard" element={<Homepage />} />
           <Route path="login" element={<Loginpage />} />
           <Route path="register" element={<Registerpage />} />
           <Route path="contacts" element={<Contactspage />} />
