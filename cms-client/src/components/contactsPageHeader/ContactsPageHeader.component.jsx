@@ -8,11 +8,13 @@ import ContactPageButton from "../contactPageButton/ContactPageButton.component"
 import SortByDropdown from "./SortByDropdown.component";
 import FilterByDropdown from "./FilterByDropdown.component";
 import { useNavigate } from "react-router-dom";
+import ExportToCsvBtn from "../exportToCsvBtn/ExportToCsvBtn.component";
 
 const ContactsPageHeader = ({
   onSortChange,
   onStatusChange,
   onCompaniesChange,
+  tabledata,
 }) => {
   const [isSortDropdownOpen, setIsSortDropdownOpen] = useState(false);
   const [isFilterDropdownOpen, setIsFilterDropdownOpen] = useState(false);
@@ -108,86 +110,89 @@ const ContactsPageHeader = ({
 
   return (
     <div className="contacts-page-header-wrapper">
-      <div ref={sortButtonRef}>
-        <ContactPageButton
-          btnClassName={`button-wrapper ${
-            isSortDropdownOpen && "dropdown-menu-btn-active"
-          }`}
-          preIcon={<BiSortUp className="button-wrapper-pre-icon" />}
-          btnText="Sort by"
-          postIcon={
-            <IoChevronDown
-              className={`button-wrapper-post-icon ${
-                isSortDropdownOpen && "dropdown-menu-open"
+      <ExportToCsvBtn data={tabledata} />
+      <div className="contacts-page-end-btns">
+        <div ref={sortButtonRef}>
+          <ContactPageButton
+            btnClassName={`button-wrapper ${
+              isSortDropdownOpen && "dropdown-menu-btn-active"
+            }`}
+            preIcon={<BiSortUp className="button-wrapper-pre-icon" />}
+            btnText="Sort by"
+            postIcon={
+              <IoChevronDown
+                className={`button-wrapper-post-icon ${
+                  isSortDropdownOpen && "dropdown-menu-open"
+                }`}
+              />
+            }
+            onClick={handleSortDropdown}
+            buttonWrapperParentClassName="sort-by-dropdown-parent"
+          >
+            {/* SORT BY DROPDOWN */}
+            <div ref={dropdownRef}>
+              <SortByDropdown
+                isSortDropdownOpen={isSortDropdownOpen}
+                selectedSortField={selectedSortField}
+                setSelectedSortField={setSelectedSortField}
+                selectedSortType={sortType}
+                setSortType={setSortType}
+                applySorting={applySorting}
+                resetSorting={resetSorting}
+              />
+            </div>
+            <div
+              className={`mobile-screen-filters-overlay ${
+                isSortDropdownOpen && "overlay-active"
               }`}
             />
-          }
-          onClick={handleSortDropdown}
-          buttonWrapperParentClassName="sort-by-dropdown-parent"
-        >
-          {/* SORT BY DROPDOWN */}
-          <div ref={dropdownRef}>
-            <SortByDropdown
-              isSortDropdownOpen={isSortDropdownOpen}
-              selectedSortField={selectedSortField}
-              setSelectedSortField={setSelectedSortField}
-              selectedSortType={sortType}
-              setSortType={setSortType}
-              applySorting={applySorting}
-              resetSorting={resetSorting}
-            />
-          </div>
+          </ContactPageButton>
+        </div>
+
+        <div ref={filterButtonRef}>
+          <ContactPageButton
+            btnClassName={`button-wrapper ${
+              isFilterDropdownOpen && "dropdown-menu-btn-active"
+            }`}
+            preIcon={<HiFilter className="button-wrapper-pre-icon" />}
+            btnText="Filters"
+            postIcon={
+              <IoChevronDown
+                className={`button-wrapper-post-icon ${
+                  isFilterDropdownOpen && "dropdown-menu-open"
+                }`}
+              />
+            }
+            onClick={handleFilterDropdown}
+            buttonWrapperParentClassName="filter-by-dropdown-parent"
+          >
+            {/* FILTER DROPDOWN */}
+            <div ref={dropdownRef}>
+              <FilterByDropdown
+                isFilterDropdownOpen={isFilterDropdownOpen}
+                selectedStatus={selectedStatus}
+                setSelectedStatus={setSelectedStatus}
+                selectedCompanies={selectedCompanies}
+                setSelectedCompanies={setSelectedCompanies}
+                applyFilter={applyFilter}
+                resetFilter={resetFilter}
+              />
+            </div>
+          </ContactPageButton>
           <div
             className={`mobile-screen-filters-overlay ${
-              isSortDropdownOpen && "overlay-active"
+              isFilterDropdownOpen && "overlay-active"
             }`}
-          />
-        </ContactPageButton>
-      </div>
+          ></div>
+        </div>
 
-      <div ref={filterButtonRef}>
         <ContactPageButton
-          btnClassName={`button-wrapper ${
-            isFilterDropdownOpen && "dropdown-menu-btn-active"
-          }`}
-          preIcon={<HiFilter className="button-wrapper-pre-icon" />}
-          btnText="Filters"
-          postIcon={
-            <IoChevronDown
-              className={`button-wrapper-post-icon ${
-                isFilterDropdownOpen && "dropdown-menu-open"
-              }`}
-            />
-          }
-          onClick={handleFilterDropdown}
-          buttonWrapperParentClassName="filter-by-dropdown-parent"
-        >
-          {/* FILTER DROPDOWN */}
-          <div ref={dropdownRef}>
-            <FilterByDropdown
-              isFilterDropdownOpen={isFilterDropdownOpen}
-              selectedStatus={selectedStatus}
-              setSelectedStatus={setSelectedStatus}
-              selectedCompanies={selectedCompanies}
-              setSelectedCompanies={setSelectedCompanies}
-              applyFilter={applyFilter}
-              resetFilter={resetFilter}
-            />
-          </div>
-        </ContactPageButton>
-        <div
-          className={`mobile-screen-filters-overlay ${
-            isFilterDropdownOpen && "overlay-active"
-          }`}
-        ></div>
+          btnClassName="button-wrapper create-btn"
+          preIcon={<IoIosAdd className="button-wrapper-pre-icon create-btn" />}
+          btnText="New Contact"
+          onClick={handleCreateContactPageNavigation}
+        />
       </div>
-
-      <ContactPageButton
-        btnClassName="button-wrapper create-btn"
-        preIcon={<IoIosAdd className="button-wrapper-pre-icon create-btn" />}
-        btnText="New Contact"
-        onClick={handleCreateContactPageNavigation}
-      />
     </div>
   );
 };

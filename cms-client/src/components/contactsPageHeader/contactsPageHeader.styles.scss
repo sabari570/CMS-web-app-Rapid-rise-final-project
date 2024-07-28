@@ -5,70 +5,75 @@
   width: 100%;
   gap: 1rem;
   align-items: center;
-  justify-content: flex-end;
+  justify-content: space-between;
   padding-top: 1rem;
 
-  @include mobile-screen {
-    justify-content: flex-end;
-  }
-
-  .button-wrapper {
-    padding: 0.4rem 1rem;
-    border: none;
-    outline: 2px solid var(--dark-blue);
-    border-radius: 8px;
+  .contacts-page-end-btns {
     display: flex;
-    gap: 0.5rem;
-    align-items: center;
-    justify-content: center;
-    background: transparent;
-    cursor: pointer;
-    font-weight: 600;
-    font-size: 0.8rem;
-    color: var(--dark-blue);
-    @include transition-ease;
+    gap: 1rem;
 
-    &:hover {
-      background: var(--dark-blue);
-      color: var(--white);
-    }
-
-    &.dropdown-menu-btn-active {
-      background: var(--dark-blue);
-      color: var(--white);
-    }
-
-    &-pre-icon,
-    &-post-icon {
+    .button-wrapper {
+      padding: 0.4rem 1rem;
+      border: none;
+      outline: 2px solid var(--dark-blue);
+      border-radius: 8px;
       display: flex;
-
-      &.create-btn {
-        font-size: 1rem;
-      }
-    }
-
-    &.create-btn {
-      background: var(--dark-blue);
-      color: var(--white);
-
-      @include mobile-screen {
-        position: fixed;
-        bottom: 1rem;
-        right: 1rem;
-        border-radius: 10px;
-        box-shadow: 12px 13px 42px -8px rgba(0, 0, 0, 0.506);
-      }
+      gap: 0.5rem;
+      align-items: center;
+      justify-content: center;
+      background: transparent;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.8rem;
+      color: var(--dark-blue);
+      @include transition-ease;
 
       &:hover {
-        color: var(--dark-blue);
-        background: var(--white);
-        outline: none;
+        background: var(--dark-blue);
+        color: var(--white);
+      }
+
+      &.dropdown-menu-btn-active {
+        background: var(--dark-blue);
+        color: var(--white);
+      }
+
+      &-pre-icon,
+      &-post-icon {
+        display: flex;
+
+        &.create-btn {
+          font-size: 1rem;
+        }
+      }
+
+      &.create-btn {
+        background: var(--dark-blue);
+        color: var(--white);
 
         @include mobile-screen {
-          outline: 2px solid var(--dark-blue);
+          position: fixed;
+          bottom: 1rem;
+          right: 1rem;
+          border-radius: 10px;
+          box-shadow: 12px 13px 42px -8px rgba(0, 0, 0, 0.506);
+        }
+
+        &:hover {
+          color: var(--dark-blue);
+          background: var(--white);
+          outline: none;
+
+          @include mobile-screen {
+            outline: 2px solid var(--dark-blue);
+          }
         }
       }
     }
+  }
+
+  @include mobile-screen {
+    justify-content: flex-end;
   }
 
   .button-wrapper-post-icon {

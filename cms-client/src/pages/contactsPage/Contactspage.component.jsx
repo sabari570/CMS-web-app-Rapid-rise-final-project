@@ -67,6 +67,7 @@ const Contactspage = () => {
       <div className="contacts-page">
         <div className="contacts-page-wrapper">
           <ContactsPageHeader
+            tabledata={data?.contacts}
             onSortChange={handleSortChange}
             onStatusChange={handleStatusChange}
             onCompaniesChange={handleCompaniesChange}

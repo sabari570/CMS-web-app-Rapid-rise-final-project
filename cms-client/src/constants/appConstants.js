@@ -85,3 +85,14 @@ export const PIE_CHART_COLORS = [
   "#FF69B4",
   "#32CD32",
 ];
+
+// fields to export to CSV
+export const FIELDS_TO_EXPORT = [
+  { label: "ID", value: "_id" },
+  { label: "First Name", value: "firstName" },
+  { label: "Last Name", value: "lastName" },
+  { label: "Address", value: "address" },
+  { label: "Company Name", value: "companyName" },
+  { label: "Status", value: "status" },
+  { label: "Phone number", value: "phone" },
+];

@@ -1,0 +1,44 @@
+@import "../../styles/main.scss";
+.export-to-csv-btn {
+  @include mobile-screen {
+    position: fixed;
+    bottom: 1rem;
+    left: 1rem;
+  }
+  button {
+    padding: 0.7rem 1rem;
+    border-radius: 8px;
+    border: none;
+    outline: none;
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    background: #6fd969;
+    cursor: pointer;
+    @include transition-ease;
+
+    @include mobile-screen {
+      padding: 1rem;
+      border-radius: 50%;
+    }
+
+    &:hover {
+      background: #29b829;
+      box-shadow: var(--fixed-shadow);
+    }
+
+    .btn-text {
+      color: var(--white);
+      font-size: 0.8rem;
+      font-weight: 600;
+
+      @include mobile-screen {
+        display: none;
+      }
+    }
+
+    .export-icon {
+      color: var(--white);
+    }
+  }
+}
