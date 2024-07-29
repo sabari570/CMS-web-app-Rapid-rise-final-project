@@ -13,7 +13,10 @@ import AuthForm from "../authForm/AuthForm.component.jsx";
 import { registerSchema } from "../../utils/formSchemas.js";
 import AuthFooterBottomNavigation from "../authFooterBottomNavigation/AuthFooterBottomNavigation.component.jsx";
 import useSignUp from "../../hooks/useSignUp.js";
-import { formatDateString } from "../../utils/helperFunctions.js";
+import {
+  formatDateString,
+  formattedPhoneNumbersField,
+} from "../../utils/helperFunctions.js";
 import MultipleInputField from "../multipleInputField/MultipleInputField.component.jsx";
 
 const RegisterBody = () => {
@@ -37,11 +40,18 @@ const RegisterBody = () => {
 
   const onSubmit = async (data) => {
     data.dob = formatDateString(data.dob);
+    data.phoneNumbers = formattedPhoneNumbersField(data.phoneNumbers);
     console.log("Register data: ", data);
 
     const formData = new FormData();
     Object.keys(data).forEach((key) => {
-      formData.append(key, data[key]);
+      if (Array.isArray(data[key])) {
+        data[key].forEach((value) => {
+          formData.append(key, value);
+        });
+      } else {
+        formData.append(key, data[key]);
+      }
     });
     formData.append("profilePic", userAvatar);
     await signUp(formData);

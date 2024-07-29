@@ -65,6 +65,8 @@ module.exports.register = async (req, res) => {
       userBody.profilePic = req.file.filename;
     }
 
+    console.log("User body: ", userBody);
+
     const user = await User.create(userBody);
     const { accessToken, refreshToken } = createToken(user._id);
     const formattedUserObject = {
