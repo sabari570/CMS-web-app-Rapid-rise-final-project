@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 const INITIAL_SPLASH_STATE = {
-  showSplash: true,
+  showSplash: false,
 };
 
 const splashSlice = createSlice({

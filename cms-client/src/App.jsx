@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Route, Routes } from "react-router-dom";
 import Layout from "./components/layout/Layout.component.jsx";
 import Loginpage from "./pages/loginPage/Loginpage.component";
@@ -7,7 +7,7 @@ import Homepage from "./pages/homePage/Homepage.component";
 import Contactspage from "./pages/contactsPage/Contactspage.component.jsx";
 import UserprofilePage from "./pages/userProfilePage/UserprofilePage.component.jsx";
 import Errorpage from "./pages/errorPage/Errorpage.component.jsx";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { selectIsLoading } from "./store/loading/loading.selector.js";
 import { selectShowSplash } from "./store/splash/splash.selector";
 import Loader from "./components/Loader/Loader.component.jsx";
@@ -18,16 +18,29 @@ import useOnlineStatus from "./hooks/useOnlineStatus.js";
 import NetworkConnectionErrorPage from "./pages/networkConnectionErrorPage/NetworkConnectionErrorPage.component.jsx";
 import LandingPage from "./pages/landingPage/LandingPage.component.jsx";
 import SplashScreen from "./components/splashScreen/SplashScreen.component.jsx";
+import { setShowSplash } from "./store/splash/splash.reducer.js";
 
 const App = () => {
   const loading = useSelector(selectIsLoading);
   const isOnline = useOnlineStatus();
   const showSplash = useSelector(selectShowSplash);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    const hasVisited = sessionStorage.getItem("hasVisited");
+
+    if (!hasVisited) {
+      console.log("User has opened the app for the first time in this session");
+      sessionStorage.setItem("hasVisited", "true");
+      dispatch(setShowSplash(true));
+    } else {
+      console.log("User has reloaded the app");
+    }
+  }, [dispatch]);
 
   if (!isOnline) {
     return <NetworkConnectionErrorPage />;
   }
-
   return (
     <>
       {showSplash && <SplashScreen />}
