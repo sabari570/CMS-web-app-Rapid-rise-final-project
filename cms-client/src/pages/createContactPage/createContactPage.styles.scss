@@ -17,6 +17,10 @@
       width: 90%;
     }
 
+    @include larger-screen {
+      width: 80rem;
+    }
+
     @include mobile-screen {
       width: 90%;
     }

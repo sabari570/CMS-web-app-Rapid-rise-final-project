@@ -51,6 +51,20 @@ const GenderRadioField = ({ register, errors, fieldType, defaultValue }) => {
             onChange={handleGenderChange}
           />
         </label>
+
+        <label
+          className={`gender-radio-group-box ${
+            errors.gender && showError && "radio-box-error"
+          } ${selectedGender === "others" ? "radio-selected" : ""}`}
+        >
+          Others
+          <input
+            type="radio"
+            value="others"
+            {...register(fieldType)}
+            onChange={handleGenderChange}
+          />
+        </label>
       </div>
       {errors.gender && showError && (
         <span className="gender-error-message">{errors.gender.message}</span>

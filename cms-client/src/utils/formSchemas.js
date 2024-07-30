@@ -38,7 +38,7 @@ export const registerSchema = z
       .min(1, { message: "Password is required" })
       .min(6, { message: "Password must be atleast 6 characters" }),
     dob: z.string().min(1, { message: "Date of birth is required" }),
-    gender: z.enum(["male", "female"], {
+    gender: z.enum(["male", "female", "others"], {
       message: "Gender is required",
     }),
     phoneNumbers: z
@@ -91,7 +91,7 @@ export const userProfileSchema = z.object({
     message: "Please enter a valid email",
   }),
   dob: z.string().min(1, { message: "Date of birth is required" }),
-  gender: z.enum(["male", "female"], {
+  gender: z.enum(["male", "female", "others"], {
     message: "Gender is required",
   }),
   phoneNumbers: z

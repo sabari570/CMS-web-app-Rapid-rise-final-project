@@ -1,3 +1,4 @@
+@import "../../styles/main.scss";
 .auth-radio-input-field {
   margin-bottom: 1rem;
 
@@ -11,6 +12,10 @@
     align-items: center;
     gap: 2rem;
 
+    @include mobile-screen {
+      gap: 0.8rem;
+    }
+
     &-box {
       padding: 0.5rem 0.8rem;
       border: 1px solid var(--auth-btn-disabled-color);
@@ -19,6 +24,11 @@
       align-items: center;
       gap: 0.8rem;
       cursor: pointer;
+
+      @include mobile-screen {
+        padding: 0.5rem;
+        font-size: 0.8rem;
+      }
 
       &.radio-box-error {
         border-color: red;

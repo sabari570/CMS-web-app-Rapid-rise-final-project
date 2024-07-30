@@ -19,6 +19,10 @@
       width: 90%;
     }
 
+    @include larger-screen {
+      width: 80rem;
+    }
+
     .error-page-header-container {
       display: flex;
       gap: 0.5rem;

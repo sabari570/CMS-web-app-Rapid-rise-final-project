@@ -99,3 +99,11 @@ li {
     @content;
   }
 }
+
+
+// MAKING IT RESPONSIVE FOR LARGER SCREENS
+@mixin larger-screen {
+  @media screen and (min-width: 1700px) {
+    @content;
+  }
+}

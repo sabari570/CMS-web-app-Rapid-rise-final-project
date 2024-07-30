@@ -21,6 +21,10 @@
       width: 100%;
     }
 
+    @include larger-screen {
+      width: 80rem;
+    }
+
     .page-heading {
       font-size: 1.3rem;
       font-weight: bold;

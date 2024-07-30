@@ -26,6 +26,10 @@
       width: 90%;
     }
 
+    @include larger-screen {
+      width: 80rem;
+    }
+
     .landing-page-header {
       .cms-logo {
         display: flex;
