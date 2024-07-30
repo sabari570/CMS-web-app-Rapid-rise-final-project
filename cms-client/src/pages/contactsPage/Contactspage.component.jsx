@@ -44,7 +44,7 @@ const Contactspage = () => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
-  }, []);
+  }, [data]);
 
   useEffect(() => {
     if (!currentUser) navigate("/login");
