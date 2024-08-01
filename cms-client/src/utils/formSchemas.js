@@ -99,3 +99,30 @@ export const userProfileSchema = z.object({
     .nonempty({ message: "At least one phone number is required" }),
   address: z.string().optional(),
 });
+
+export const forgotPasswordSchema = z.object({
+  email: z.string().min(1, { message: "Email is required" }).email({
+    message: "Please enter a valid email",
+  }),
+});
+
+export const passwordResetSchema = z
+  .object({
+    password: z
+      .string()
+      .min(1, { message: "Password is required" })
+      .min(6, { message: "Password must be atleast 6 characters" }),
+    password2: z
+      .string()
+      .min(1, { message: "Password is required" })
+      .min(6, { message: "Password must be atleast 6 characters" }),
+  })
+  .superRefine((data, ctx) => {
+    if (data.password !== data.password2) {
+      ctx.addIssue({
+        code: z.ZodIssueCode.custom,
+        message: "Passwords do not match",
+        path: ["password2"],
+      });
+    }
+  });

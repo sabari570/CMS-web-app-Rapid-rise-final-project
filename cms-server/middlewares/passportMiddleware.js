@@ -31,6 +31,7 @@ passport.use(
         const firstName = profile.displayName;
         const email = profile.emails[0]?.value;
         const profilePic = profile.photos[0]?.value;
+        const provider = profile.provider;
 
         let user = await User.findOne({ email });
 
@@ -40,6 +41,7 @@ passport.use(
             firstName,
             email,
             profilePic,
+            provider,
           });
         }
         return done(null, user);

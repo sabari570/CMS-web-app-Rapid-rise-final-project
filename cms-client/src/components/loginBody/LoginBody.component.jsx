@@ -13,6 +13,7 @@ import AuthFooterBottomNavigation from "../authFooterBottomNavigation/AuthFooter
 import AuthForm from "../authForm/AuthForm.component.jsx";
 import AuthFormHeaderLogo from "../authFormHeaderLogo/AuthFormHeaderLogo.component.jsx";
 import useLogin from "../../hooks/useLogin.js";
+import { Link } from "react-router-dom";
 
 const LoginBody = () => {
   const {
@@ -83,6 +84,9 @@ const LoginBody = () => {
             isValid={isValid}
             removeHighlightAfterLoading={true}
           />
+          <Link className="forgot-password-link" to="/forgot-password">
+            Forgot password?
+          </Link>
         </AuthForm>
 
         <AuthFooterBottomNavigation

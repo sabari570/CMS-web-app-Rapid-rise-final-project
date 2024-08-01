@@ -68,6 +68,10 @@ const userSchema = new mongoose.Schema(
       type: String,
       default: "default-profile-pic.png",
     },
+    provider: {
+      type: String,
+      default: "email",
+    },
   },
   {
     timestamps: true,

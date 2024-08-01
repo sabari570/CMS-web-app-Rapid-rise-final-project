@@ -1,5 +1,7 @@
 const fs = require("fs");
 const jwt = require("jsonwebtoken");
+const nodemailer = require("nodemailer");
+const bcrypt = require("bcrypt");
 const User = require("../models/userModel.js");
 const TokenBlackList = require("../models/tokenBlacklistModel.js");
 const { handleErrors, handleCatchErrors } = require("../utils/errorHandler.js");
@@ -244,5 +246,127 @@ module.exports.logout = async (req, res) => {
     return res
       .status(500)
       .json({ errors: { message: "Something went wrong" } });
+  }
+};
+
+// controller for forgot password
+module.exports.forgotPassword = async (req, res) => {
+  try {
+    const { email } = req.body;
+    if (!email) throw { statusCode: 400, message: "Email is required" };
+
+    const user = await User.findOne({ email });
+    if (!user)
+      throw {
+        statusCode: 404,
+        message: "User with this email is not registered",
+      };
+
+    if (user.provider === "google")
+      throw {
+        statusCode: 400,
+        message: "Password reset is not allowed for Google sign-in users",
+      };
+
+    const token = jwt.sign(
+      { userId: user._id },
+      process.env.JWT_ACCESS_TOKEN_SECRET_KEY,
+      { expiresIn: "2m" }
+    );
+
+    const resetUrl = `${CLIENT_URL}/reset-password/${user._id}/${token}`;
+
+    // sending the mail
+    var transporter = nodemailer.createTransport({
+      service: "gmail",
+      host: "smtp.gmail.com",
+      port: 465,
+      secure: true,
+      auth: {
+        user: process.env.EMAIL_USER,
+        pass: process.env.EMAIL_APP_PASS,
+      },
+    });
+
+    var mailOptions = {
+      from: process.env.EMAIL_USER,
+      to: "rsabarisai2000@gmail.com", // temporary email
+      subject: "Reset your password",
+      text: `You are receiving this email because you (or someone else) have requested a password reset. Please click on the following link, or paste it into your browser to complete the process(This link is valid only for 2 minutes):\n ${resetUrl}\n\nIf you did not request this, please ignore this email and your password will remain unchanged.`,
+    };
+
+    transporter.sendMail(mailOptions, function (error, info) {
+      if (error) {
+        console.log("Error while sending reset link: ", error.message);
+        throw { statusCode: 400, message: error.message };
+      } else {
+        console.log("Email sent: " + info.response);
+        return res
+          .status(200)
+          .json({ message: "Password reset link sent to your email" });
+      }
+    });
+  } catch (error) {
+    console.log("Error in forgot password: ", error);
+    return res
+      .status(error.statusCode || 500)
+      .json({ errors: { message: error.message || "Something went wrong" } });
+  }
+};
+
+// controller for resetting password
+module.exports.resetPassword = async (req, res) => {
+  try {
+    const { id: userId, token } = req.params;
+    const { password, password2 } = req.body;
+
+    if (!password || !password2)
+      throw { statusCode: 400, message: "Password fields are required" };
+
+    if (password !== password2)
+      throw { statusCode: 400, message: "Passwords do not match" };
+
+    if (password.length < 6)
+      throw {
+        statusCode: 400,
+        message: "Password length must be atleast 6 characters",
+      };
+
+    let decodedToken;
+    try {
+      decodedToken = jwt.verify(token, process.env.JWT_ACCESS_TOKEN_SECRET_KEY);
+    } catch (error) {
+      console.log("Error while decoding token: ", error);
+      return res
+        .status(400)
+        .json({ errors: { message: "Invalid or expired token" } });
+    }
+
+    const user = await User.findById(userId);
+    if (!user) throw { statusCode: 404, message: "User not found" };
+
+    if (user.provider === "google")
+      throw {
+        statusCode: 400,
+        message: "Password reset is not allowed for Google sign-in users",
+      };
+
+    const salt = await bcrypt.genSalt();
+    const hashedPassword = await bcrypt.hash(password, salt);
+
+    // Update the user's password
+    await User.findByIdAndUpdate(
+      { _id: userId },
+      { password: hashedPassword },
+      { new: true, runValidators: true }
+    );
+    return res
+      .status(200)
+      .json({ message: "Password has been successfully reset" });
+  } catch (error) {
+    console.log("Error while resetting password: ", error);
+    return res
+      .status(error.statusCode || 500)
+      .json({ errors: { message: error.message || "Something went wrong" } });
   }
 };

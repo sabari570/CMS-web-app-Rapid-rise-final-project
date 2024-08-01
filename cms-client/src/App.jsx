@@ -19,6 +19,8 @@ import NetworkConnectionErrorPage from "./pages/networkConnectionErrorPage/Netwo
 import LandingPage from "./pages/landingPage/LandingPage.component.jsx";
 import SplashScreen from "./components/splashScreen/SplashScreen.component.jsx";
 import { setShowSplash } from "./store/splash/splash.reducer.js";
+import ForgotPassword from "./pages/forgotPasswordPage/ForgotPassword.component.jsx";
+import ResetPassword from "./pages/resetPasswordPage/ResetPassword.component.jsx";
 
 const App = () => {
   const loading = useSelector(selectIsLoading);
@@ -51,6 +53,11 @@ const App = () => {
             <Route path="dashboard" element={<Homepage />} />
             <Route path="login" element={<Loginpage />} />
             <Route path="register" element={<Registerpage />} />
+            <Route path="forgot-password" element={<ForgotPassword />} />
+            <Route
+              path="reset-password/:id/:token"
+              element={<ResetPassword />}
+            />
             <Route path="contacts" element={<Contactspage />} />
             <Route path="create-contact" element={<CreateContactpage />} />
             <Route path="edit-contact/:id" element={<ContactEditPage />} />

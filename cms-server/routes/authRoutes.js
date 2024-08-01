@@ -6,6 +6,8 @@ const {
   logout,
   loginSuccessController,
   fetchSessionMessage,
+  forgotPassword,
+  resetPassword,
 } = require("../controllers/authController.js");
 const {
   handleFileUpload,
@@ -59,5 +61,11 @@ router.get("/fetch-session", fetchSessionMessage);
 
 // route for logging users out
 router.get("/logout", authMiddleware, logout);
+
+// route for forgot password
+router.post("/forgot-password", forgotPassword);
+
+// route for resetting password
+router.post("/reset-password/:id/:token", resetPassword);
 
 module.exports = router;

@@ -108,6 +108,16 @@
           }
         }
       }
+
+      .forgot-password-link {
+        display: block;
+        text-align: end;
+        margin-top: -1rem;
+        font-size: 0.7rem;
+        font-weight: 500;
+        color: var(--auth-btn-color);
+        text-decoration: underline;
+      }
     }
 
     .auth-bottom-navigation-footer {
