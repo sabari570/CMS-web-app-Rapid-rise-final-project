@@ -68,6 +68,7 @@ app.use(
 const limiter = rateLimit({
   windowMs: 15 * 60 * 1000, // 15 minutes
   max: 100, // limit each IP to 100 requests per windowMs
+  message: "Too many requests from this IP, please try again later.",
 });
 
 // Connecting to MongoDB and starting the server
@@ -80,7 +81,7 @@ mongoose
   })
   .catch((err) => console.log("Mongoose connection errro: ", err));
 // authentication routes
-app.use("/api/auth", authRoutes);
+app.use("/api/auth", limiter, authRoutes);
 
 // routes for managing contacts
 app.use("/api/contacts", contactRoutes);
