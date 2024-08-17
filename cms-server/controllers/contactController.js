@@ -38,7 +38,6 @@ module.exports.fetchContacts = async (req, res) => {
 
     let query = Contact.find({ adminId: req.userId }).select({
       __v: 0,
-      createdAt: 0,
       updatedAt: 0,
     });
 
@@ -47,7 +46,8 @@ module.exports.fetchContacts = async (req, res) => {
       query = filter(query, search, status, companies);
 
     // Applying multi sorting
-    if (sortFields) query = sort(query, sortFields.split(","));
+    if (sortFields && sortFields != "undefined:undefined")
+      query = sort(query, sortFields.split(","));
 
     // Applying pagination
     query = paginate(query, { page: currentPage, limit: limitPerPage });

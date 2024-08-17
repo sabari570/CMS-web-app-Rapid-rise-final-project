@@ -42,6 +42,7 @@ module.exports.sort = (query, sortFields) => {
   sortFields.map((field) => {
     const [key, order] = field.split(":");
     sortObj[key] = order === "desc" ? -1 : 1;
+    sortObj["createdAt"] = 1;
   });
   return query.sort(sortObj);
 };

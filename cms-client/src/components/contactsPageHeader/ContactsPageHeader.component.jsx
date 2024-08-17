@@ -48,7 +48,7 @@ const ContactsPageHeader = ({
   };
 
   const resetSorting = () => {
-    onSortChange({});
+    onSortChange(null);
     setSelectedSortField(null);
     setSortType(null);
     setIsSortDropdownOpen(false);

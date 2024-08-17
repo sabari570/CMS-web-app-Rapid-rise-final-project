@@ -83,7 +83,7 @@ const ContactsTable = ({
   }, [pagination]);
 
   const handleFetchTableData = async () => {
-    const sort = sorting != undefined && `${sorting.id}:${sorting.type}`;
+    const sort = sorting != undefined ? `${sorting.id}:${sorting.type}` : "";
     const companies = companiesSelected
       .map((company) => company.value)
       .join(",");
